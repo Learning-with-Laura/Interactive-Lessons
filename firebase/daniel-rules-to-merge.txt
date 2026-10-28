@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function teacher() {
+      return request.auth != null
+        && request.auth.token.email == 'laurademe6@gmail.com'
+        && request.auth.token.email_verified == true
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+    function student(uid) {
+      return request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    function enrolled(uid, lesson) {
+      return exists(/databases/$(database)/documents/studentAccess/$(uid))
+        && get(/databases/$(database)/documents/studentAccess/$(uid)).data.lessonId == lesson
+        && get(/databases/$(database)/documents/studentAccess/$(uid)).data.active == true;
+    }
+    match /studentAccess/{uid} {
+      allow get: if teacher() || student(uid);
+      allow list, create, update, delete: if teacher();
+    }
+    match /lessonContent/{lesson} {
+      allow read: if teacher() || (request.auth != null && enrolled(request.auth.uid, lesson));
+      allow create, update, delete: if teacher()
+        && request.resource.data.keys().hasOnly(['overrides', 'updatedAt'])
+        && request.resource.data.overrides is map;
+    }
+    match /studentAnswers/{key} {
+      allow read: if teacher() || (
+        request.auth != null
+        && key == request.auth.uid + '__daniel_halloween_20261028'
+        && enrolled(request.auth.uid, 'daniel_halloween_20261028')
+      );
+      allow create, update: if request.auth != null
+        && key == request.auth.uid + '__daniel_halloween_20261028'
+        && enrolled(request.auth.uid, 'daniel_halloween_20261028')
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
+      allow delete: if teacher();
+    }
+
+    // Keep the existing Everett, Paul and demonstration rules below this line
+    // when merging into the Firebase console. Do not replace the whole file
+    // without preserving those existing matches.
+  }
+}
