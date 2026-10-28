@@ -8,7 +8,7 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
 import {getAuth,GoogleAuthProvider,signInWithPopup,signInAnonymously,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
 import {getFirestore,doc,getDoc,setDoc,onSnapshot,serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
-const firebaseConfig={"apiKey":"AIzaSyC7y-jx-LM0JyjtbLHuChc3yEGZXLQrtZ8","authDomain":"live-learning-with-laura.firebaseapp.com","projectId":"live-learning-with-laura","storageBucket":"live-learning-with-laura.firebasestorage.app","messagingSenderId":"846701984036","appId":"1:846701984036:web:0447c64aef753c1c1e1bb1"};
+const firebaseConfig={"apiKey":"AIzaSyC7y-jx-LMOJyjtbLHuChc3yEGZXlQrtZ8","authDomain":"live-learning-with-laura.firebaseapp.com","projectId":"live-learning-with-laura","storageBucket":"live-learning-with-laura.firebasestorage.app","messagingSenderId":"846701984036","appId":"1:846701984036:web:0447c64aef753c1c1e1bb1","measurementId":"G-V0JJP187YZ"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
 const demoId="practice_20261028_93f08c2a4b7e";
 const questionRef=doc(db,"demoQuestions",demoId),answerRef=doc(db,"demoAnswers",demoId);
