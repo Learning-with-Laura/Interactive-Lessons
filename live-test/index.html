@@ -21,5 +21,6 @@ el("teacherButton").onclick=()=>start("teacher");el("studentButton").onclick=()=
 el("saveQuestion").onclick=async()=>{try{await setDoc(questionRef,{prompt:el("questionEditor").value.slice(0,500),updatedAt:serverTimestamp()},{merge:true});setStatus("✓ Question published")}catch(e){fail(e)}};
 document.querySelectorAll("[data-choice]").forEach(b=>b.onclick=()=>{currentChoice=b.dataset.choice;document.querySelectorAll("[data-choice]").forEach(x=>x.classList.toggle("selected",x===b));sendResponse()});
 el("studentText").oninput=()=>{clearTimeout(timer);timer=setTimeout(sendResponse,350)};
-if(role)start(role);
+if(role){el("role").textContent=role==="teacher"?"Teacher":"Student";el("intro").textContent=role==="teacher"?"Click Teacher view to sign in securely.":"Tap Student view to start the practice lesson.";}
+
 </script></body></html>
