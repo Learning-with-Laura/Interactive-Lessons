@@ -1,0 +1,559 @@
+[
+  {
+    "title": "📚 School Survival Dashboard: Four-Course Check-In",
+    "desc": "Check what's happening in each Grade 11 course. Use actual dates and marks if you know them; otherwise write 'not sure' and make a plan to check.",
+    "courses": [
+      "Physics",
+      "English",
+      "Communications Technology",
+      "Chemistry"
+    ],
+    "write": [
+      [
+        "Which course needs your attention first, and why?",
+        "Use your upcoming deadlines, understanding and workload to decide."
+      ],
+      [
+        "What is one school success from this week?",
+        "It can be a completed task, a question you asked or a strong start."
+      ]
+    ]
+  },
+  {
+    "title": "🎃 The Five-Minute Mystery",
+    "desc": "Investigate what really happened when you tried starting homework before Roblox or YouTube.",
+    "pick": [
+      [
+        "Over the last five school days, on how many days did you try the five-minute homework start?",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      [
+        "What happened once you started?",
+        "I kept going",
+        "I stopped after five minutes",
+        "I got distracted",
+        "I didn't begin"
+      ]
+    ],
+    "write": [
+      [
+        "Think back over the last five school days. What happened when you got home?",
+        "Describe when you started homework, when you used Roblox or YouTube, and what helped or got in the way."
+      ],
+      [
+        "Why is getting started easier at school than at home?",
+        "Think about your environment, routines and distractions."
+      ],
+      [
+        "Looking back at those five school days, what would you change next week?",
+        "Explain one practical adjustment."
+      ]
+    ]
+  },
+  {
+    "title": "👻 Procrastination Detective",
+    "desc": "Identify the thought, feeling and action behind avoidance.",
+    "pick": [
+      [
+        "Which thought is most familiar?",
+        "I'll start later",
+        "This will take too long",
+        "I don't know where to begin",
+        "I need a break first"
+      ],
+      [
+        "What is a useful response to that thought?",
+        "Choose one tiny action",
+        "Wait until motivation appears",
+        "Ignore the assignment",
+        "Start gaming without a stopping point"
+      ]
+    ],
+    "write": [
+      [
+        "Describe a recent time you delayed starting.",
+        "What were you thinking? What did you do instead?"
+      ],
+      [
+        "Rewrite that thought as a helpful instruction to yourself.",
+        "Example: I only need to open the assignment and read the first question."
+      ]
+    ]
+  },
+  {
+    "title": "🧟 Escape the Distraction Zone",
+    "desc": "Put the after-school routine in an order you could realistically follow.",
+    "sort": {
+      "id": "routine",
+      "items": [
+        "Arrive home and put away school things",
+        "Have a snack and take a planned short break",
+        "Open the chosen assignment and set up materials",
+        "Work on the first five-minute action",
+        "Decide whether to continue or schedule another block",
+        "Enjoy gaming or YouTube during planned free time"
+      ]
+    },
+    "write": [
+      [
+        "Why did you choose this order?",
+        "Explain how it balances rest, schoolwork and gaming."
+      ],
+      [
+        "What might interrupt this routine?",
+        "Give one realistic obstacle and a solution."
+      ]
+    ]
+  },
+  {
+    "title": "🧪 The Assignment Breakdown Lab",
+    "desc": "A major assignment feels overwhelming. Put the steps in a workable order, then apply the strategy to your own work.",
+    "sort": {
+      "id": "assignment",
+      "items": [
+        "Read the assignment instructions and rubric",
+        "Identify what must be submitted and when",
+        "List the smaller pieces of work",
+        "Choose the first five-minute action",
+        "Complete a first work block",
+        "Review progress and plan the next block"
+      ]
+    },
+    "write": [
+      [
+        "Choose a real school assignment.",
+        "Include the subject and what you need to produce."
+      ],
+      [
+        "Write the first three small steps you will take.",
+        "Make each step specific enough to start without guessing."
+      ],
+      [
+        "What would count as a successful five-minute start?",
+        "Finishing the whole assignment is not required."
+      ]
+    ]
+  },
+  {
+    "title": "🕸️ The Time-Estimation Lab",
+    "desc": "Plan realistically rather than assuming everything will be quick.",
+    "pick": [
+      [
+        "Three tasks take 10, 15 and 20 minutes. How long altogether?",
+        "35 minutes",
+        "45 minutes",
+        "55 minutes"
+      ],
+      [
+        "You predicted 20 minutes but needed 35. What is the difference?",
+        "10 minutes",
+        "15 minutes",
+        "25 minutes"
+      ],
+      [
+        "Which plan is more realistic?",
+        "Allow time for steps and interruptions",
+        "Ignore breaks and transitions",
+        "Estimate everything at five minutes"
+      ]
+    ],
+    "write": [
+      [
+        "Estimate how long a real assignment will take.",
+        "Break it into at least three steps with estimated minutes."
+      ],
+      [
+        "What could make it take longer?",
+        "Explain how you would adjust your plan."
+      ]
+    ]
+  },
+  {
+    "title": "🔮 Priority Sorting: The Haunted Deadline Board",
+    "desc": "Move each fictional task into the most useful priority group. Tap a category or drag the task to a box.",
+    "bucket": {
+      "id": "priorities",
+      "groups": [
+        "Do first",
+        "Schedule soon",
+        "Can wait"
+      ],
+      "items": [
+        "Math practice due tomorrow",
+        "Science project due next week",
+        "Optional club poster with no deadline",
+        "English paragraph due tonight",
+        "Review notes for a quiz in four days"
+      ]
+    },
+    "write": [
+      [
+        "Explain one of your priority decisions.",
+        "Why does that task belong in that group?"
+      ],
+      [
+        "Which real assignment should you prioritize this week?",
+        "Explain your choice."
+      ]
+    ]
+  },
+  {
+    "title": "🧙 Build Your Homework Escape Plan",
+    "desc": "Create a routine that works for your actual school week.",
+    "pick": [
+      [
+        "Where is your best homework starting spot?",
+        "Desk",
+        "Kitchen table",
+        "School library",
+        "Another quiet place"
+      ],
+      [
+        "What will you do when you miss your planned start?",
+        "Restart with a five-minute attempt",
+        "Give up for the day",
+        "Stay up all night"
+      ]
+    ],
+    "write": [
+      [
+        "What exact assignment will you start?",
+        "Course, task and first action."
+      ],
+      [
+        "When and where will you start?",
+        "Choose a realistic school day, time and place."
+      ],
+      [
+        "How will you keep Roblox or YouTube from interrupting?",
+        "Choose a strategy you are willing to use."
+      ],
+      [
+        "What is your backup plan if you get stuck?",
+        "Explain what you will do rather than abandoning the task."
+      ]
+    ]
+  },
+  {
+    "title": "🕹️ After-School Decision Simulator",
+    "desc": "Choose how to respond to a real-life distraction.",
+    "pick": [
+      [
+        "Friends invite you to game before homework. What is your best move?",
+        "Start gaming immediately",
+        "Plan a short break, then start five minutes",
+        "Ignore the assignment"
+      ],
+      [
+        "You are stuck on question one. What next?",
+        "Identify what is confusing and ask for help",
+        "Give up",
+        "Keep guessing"
+      ]
+    ],
+    "write": [
+      [
+        "Explain the consequences of your first choice.",
+        "Consider tonight and tomorrow."
+      ],
+      [
+        "Write an if-then plan for the next time gaming interrupts homework.",
+        "If ___, then I will ___."
+      ],
+      [
+        "What would make your plan realistic?",
+        "Think about your usual routine."
+      ]
+    ]
+  },
+  {
+    "title": "🧠 Instruction Decoder",
+    "desc": "Turn a complex assignment into clear steps.",
+    "write": [
+      [
+        "Read this fictional assignment: Compare two energy sources in 400–500 words, use three credible sources, add a graph and submit a cited PDF by Friday. List every requirement.",
+        "Write a checklist."
+      ],
+      [
+        "Which requirement should you confirm first, and why?",
+        "Explain your decision."
+      ],
+      [
+        "Write a specific clarification question for the teacher.",
+        "Ask about something that affects your work."
+      ],
+      [
+        "How will you track your checklist?",
+        "Choose a practical system."
+      ]
+    ]
+  },
+  {
+    "title": "🧩 Project Breakdown Challenge",
+    "desc": "Break a large project into smaller actions.",
+    "write": [
+      [
+        "Choose a real assignment and identify its final product.",
+        "What must be submitted?"
+      ],
+      [
+        "List at least eight steps needed to complete it.",
+        "Number your steps."
+      ],
+      [
+        "Which steps depend on earlier steps?",
+        "Explain two dependencies."
+      ],
+      [
+        "Which two steps could you complete in a 25-minute work block?",
+        "Make a realistic estimate."
+      ],
+      [
+        "What is the first five-minute action?",
+        "Be precise."
+      ]
+    ]
+  },
+  {
+    "title": "⏳ Time Budget Challenge",
+    "desc": "Calculate time, then design a realistic schedule.",
+    "pick": [
+      [
+        "You have 90 minutes. Three tasks take 25, 30 and 20 minutes. How much time is left?",
+        "5 minutes",
+        "15 minutes",
+        "25 minutes"
+      ],
+      [
+        "A 10-minute break and 5-minute setup leave how much of 90 minutes?",
+        "65 minutes",
+        "75 minutes",
+        "85 minutes"
+      ]
+    ],
+    "write": [
+      [
+        "Write a 90-minute schedule with actual start and end times.",
+        "Include setup, work, break and buffer."
+      ],
+      [
+        "What happens if your first task takes 15 extra minutes?",
+        "Explain how you would adjust."
+      ],
+      [
+        "How could you compare predicted and actual work times?",
+        "Design a simple tracking method."
+      ]
+    ]
+  },
+  {
+    "title": "🦇 Distraction Defence Experiment",
+    "desc": "Evaluate strategies instead of guessing what works.",
+    "pick": [
+      [
+        "Which distraction is hardest to manage?",
+        "Gaming",
+        "YouTube",
+        "Phone notifications",
+        "Other"
+      ]
+    ],
+    "write": [
+      [
+        "List three possible ways to reduce your main distraction.",
+        "Make them realistic."
+      ],
+      [
+        "Choose one strategy to test for three school days.",
+        "Describe the test."
+      ],
+      [
+        "How will you measure whether it helped?",
+        "What evidence will you collect?"
+      ],
+      [
+        "What could cause the experiment to fail?",
+        "Create a backup plan."
+      ]
+    ]
+  },
+  {
+    "title": "📨 Ask-for-Help Communication Quest",
+    "desc": "Practise communicating clearly before a deadline.",
+    "pick": [
+      [
+        "Which question would help a teacher respond?",
+        "I don't get it.",
+        "I understand the outline, but how should I cite the graph?",
+        "This is too hard."
+      ]
+    ],
+    "write": [
+      [
+        "Draft a respectful message about a confusing assignment.",
+        "Include what you tried, the problem and a question."
+      ],
+      [
+        "What useful work could you do while waiting for a reply?",
+        "Identify a different step."
+      ],
+      [
+        "What is one real question you might need to ask this week?",
+        "Name the course and question."
+      ]
+    ]
+  },
+  {
+    "title": "🎯 Four-Course Action Board",
+    "desc": "Turn your school check-in into a workable plan.",
+    "write": [
+      [
+        "Physics: what is the next action, deadline and estimated duration?",
+        "Be specific."
+      ],
+      [
+        "English: what is the next action, deadline and estimated duration?",
+        "Be specific."
+      ],
+      [
+        "Communications Technology: what is the next action, deadline and estimated duration?",
+        "Be specific."
+      ],
+      [
+        "Chemistry: what is the next action, deadline and estimated duration?",
+        "Be specific."
+      ],
+      [
+        "Which two actions matter most? Explain why.",
+        "Compare deadlines and importance."
+      ],
+      [
+        "What will you start tomorrow before gaming?",
+        "Name the exact first action."
+      ]
+    ]
+  },
+  {
+    "title": "🪞 Evidence-Based Reflection",
+    "desc": "Use your own experiences to evaluate progress.",
+    "write": [
+      [
+        "What evidence from the last five school days shows whether the five-minute rule helped?",
+        "Describe what actually happened."
+      ],
+      [
+        "Compare your ideal routine with your actual routine.",
+        "What causes the difference?"
+      ],
+      [
+        "What strength helps you start tasks at school?",
+        "How could you use it at home?"
+      ],
+      [
+        "Write a testable prediction for next week.",
+        "If I ___, then I expect ___ on ___ days."
+      ],
+      [
+        "What should Laura ask you about next session?",
+        "Make it specific."
+      ]
+    ]
+  },
+  {
+    "title": "🏆 Unlock Next Week",
+    "desc": "Reflect on what you learned and choose a manageable challenge.",
+    "pick": [
+      [
+        "How confident are you about the five-minute rule?",
+        "Very confident",
+        "Somewhat confident",
+        "Not confident yet"
+      ],
+      [
+        "How many school days will you practise?",
+        "One",
+        "Two",
+        "Three"
+      ]
+    ],
+    "write": [
+      [
+        "What is the most useful strategy you learned today?",
+        "Explain why it might work for you."
+      ],
+      [
+        "Write your challenge for next week.",
+        "Include what you will start, when, and how you will measure success."
+      ],
+      [
+        "What should Laura ask you about next session?",
+        "Choose a question that would help you reflect honestly."
+      ]
+    ]
+  },
+  {
+    "title": "🎃 BONUS: Halloween Trivia Vault",
+    "desc": "Optional fun round if you have time. Choose an answer, see feedback and try to unlock the trivia trophy!",
+    "trivia": [
+      [
+        "Which vegetable was traditionally carved into lanterns in parts of Ireland and Scotland before pumpkins became popular?",
+        "Turnips",
+        "Carrots",
+        "Cucumbers",
+        0,
+        "Turnips were used for early jack-o'-lanterns."
+      ],
+      [
+        "What does 'nocturnal' mean?",
+        "Active mainly at night",
+        "Active mainly at noon",
+        "Able to fly",
+        0,
+        "Nocturnal animals are active mostly at night."
+      ],
+      [
+        "Which planet has the shortest day?",
+        "Earth",
+        "Jupiter",
+        "Mars",
+        1,
+        "Jupiter rotates in about 10 hours."
+      ],
+      [
+        "Which author wrote Frankenstein?",
+        "Mary Shelley",
+        "Bram Stoker",
+        "Edgar Allan Poe",
+        0,
+        "Mary Shelley published Frankenstein in 1818."
+      ],
+      [
+        "If 12 houses each give 3 candies, how many candies is that?",
+        "24",
+        "36",
+        "48",
+        1,
+        "12 × 3 = 36."
+      ],
+      [
+        "Which animal uses echolocation to navigate in darkness?",
+        "Bat",
+        "Rabbit",
+        "Turtle",
+        0,
+        "Many bats use echoes to locate objects and prey."
+      ]
+    ],
+    "write": [
+      [
+        "Which trivia question surprised you?",
+        "Tell Laura something new you learned."
+      ]
+    ]
+  }
+]
