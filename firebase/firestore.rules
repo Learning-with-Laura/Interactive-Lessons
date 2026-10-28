@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isTeacher() {
+      return request.auth != null
+        && request.auth.token.email == 'laurademe6@gmail.com'
+        && request.auth.token.email_verified == true
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+    function isPracticeStudent() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    function isEverett() {
+      return request.auth != null
+        && request.auth.uid == 'leRi423sVucUgyRIYDq6lZIQInT2';
+    }
+    function isPaul() {
+      return request.auth != null
+        && request.auth.uid == 'UsDMd02G5yXgTq0wXihNOxbCutF3';
+    }
+    function isDaniel(uid) {
+      return request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider == 'anonymous'
+        && exists(/databases/$(database)/documents/studentAccess/$(uid))
+        && get(/databases/$(database)/documents/studentAccess/$(uid)).data.active == true
+        && get(/databases/$(database)/documents/studentAccess/$(uid)).data.lessonId == 'daniel_halloween_20261028';
+    }
+    match /demoQuestions/practice_20261028_93f08c2a4b7e {
+      allow read: if isTeacher() || isPracticeStudent();
+      allow create, update: if isTeacher()
+        && request.resource.data.keys().hasOnly(['prompt','updatedAt'])
+        && request.resource.data.prompt is string
+        && request.resource.data.prompt.size() <= 500;
+    }
+    match /demoAnswers/practice_20261028_93f08c2a4b7e {
+      allow read: if isTeacher() || isPracticeStudent();
+      allow create, update: if isPracticeStudent()
+        && request.resource.data.keys().hasOnly(['choice','text','updatedAt'])
+        && request.resource.data.choice is string
+        && request.resource.data.choice.size() <= 40
+        && request.resource.data.text is string
+        && request.resource.data.text.size() <= 1000;
+    }
+    match /lessonQuestions/everett_halloween_20261028 {
+      allow read: if isTeacher() || isEverett();
+      allow create, update: if isTeacher();
+    }
+    match /lessonAnswers/everett_halloween_20261028 {
+      allow read: if isTeacher() || isEverett();
+      allow create, update: if isEverett();
+    }
+    match /lessonQuestions/paul_halloween_20261028 {
+      allow read: if isTeacher() || isPaul();
+      allow create, update: if isTeacher();
+    }
+    match /lessonAnswers/paul_halloween_20261028 {
+      allow read: if isTeacher() || isPaul();
+      allow create, update: if isPaul()
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 19
+        && request.resource.data.updatedAt is number;
+    }
+    match /studentAccess/{uid} {
+      allow get: if isTeacher() || (request.auth != null && request.auth.uid == uid);
+      allow list, create, update, delete: if isTeacher();
+    }
+    match /lessonContent/daniel_halloween_20261028 {
+      allow read: if isTeacher() || (request.auth != null && isDaniel(request.auth.uid));
+      allow create, update: if isTeacher()
+        && request.resource.data.keys().hasOnly(['overrides','updatedAt'])
+        && request.resource.data.overrides is map;
+      allow delete: if isTeacher();
+    }
+    match /studentAnswers/{key} {
+      allow read: if isTeacher() || (
+        request.auth != null
+        && key == request.auth.uid + '__daniel_halloween_20261028'
+        && isDaniel(request.auth.uid)
+      );
+      allow create, update: if request.auth != null
+        && key == request.auth.uid + '__daniel_halloween_20261028'
+        && isDaniel(request.auth.uid)
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
+      allow delete: if isTeacher();
+    }
+  }
+}
