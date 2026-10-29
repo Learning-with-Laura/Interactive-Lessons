@@ -92,5 +92,29 @@ service cloud.firestore {
         && request.resource.data.page <= 17;
       allow delete: if isTeacher();
     }
+    function isLeen() {
+      return request.auth != null
+        && request.auth.uid == 'x5zZk9UozVY6ESWu79ckw3lucv33'
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+    match /lessonQuestions/leen_halloween_20261029 {
+      allow read: if isTeacher() || isLeen();
+      allow create, update, delete: if isTeacher()
+        && request.resource.data.keys().hasOnly(['missions','updatedAt'])
+        && request.resource.data.missions is list
+        && request.resource.data.missions.size() <= 30;
+    }
+    match /lessonAnswers/leen_halloween_20261029 {
+      allow read: if isTeacher() || isLeen();
+      allow create, update: if isLeen()
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 14
+        && request.resource.data.updatedAt is number;
+      allow delete: if isTeacher();
+    }
+
   }
 }
