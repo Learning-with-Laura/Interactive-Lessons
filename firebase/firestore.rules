@@ -116,5 +116,33 @@ service cloud.firestore {
       allow delete: if isTeacher();
     }
 
+    // Reusable lesson model for all future password-authenticated students.
+    // Teacher creates an assignment under the student's own UID.
+    // Student can read only assigned lesson content and edit only their responses.
+    function isStudentOwner(uid) {
+      return request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+    match /students/{uid}/lessons/{lessonId} {
+      allow get, list: if isTeacher() || isStudentOwner(uid);
+      allow create, update, delete: if isTeacher();
+      match /content/{documentId} {
+        allow get, list: if isTeacher() || isStudentOwner(uid);
+        allow create, update, delete: if isTeacher();
+      }
+      match /responses/{documentId} {
+        allow get, list: if isTeacher() || isStudentOwner(uid);
+        allow create, update: if (isTeacher() || isStudentOwner(uid))
+          && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+          && request.resource.data.answers is map
+          && request.resource.data.page is int
+          && request.resource.data.page >= 0
+          && request.resource.data.page <= 200
+          && request.resource.data.updatedAt is number;
+        allow delete: if isTeacher();
+      }
+    }
+
   }
 }
