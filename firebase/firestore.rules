@@ -69,11 +69,28 @@ service cloud.firestore {
       allow get: if isTeacher() || (request.auth != null && request.auth.uid == uid);
       allow list, create, update, delete: if isTeacher();
     }
+    // Daniel signs in with an account created by Laura in Firebase Authentication.
+    // No device approval or anonymous authentication is required.
+    function isDanielPasswordAccount() {
+      return request.auth != null
+        && request.auth.token.email == 'daniel.song@learning-with-laura.github.io'
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
     match /lessonContent/daniel_halloween_20261028 {
-      allow read: if isTeacher() || (request.auth != null && isDaniel(request.auth.uid));
+      allow read: if isTeacher() || isDanielPasswordAccount();
       allow create, update: if isTeacher()
         && request.resource.data.keys().hasOnly(['overrides','updatedAt'])
         && request.resource.data.overrides is map;
+      allow delete: if isTeacher();
+    }
+    match /studentAnswers/daniel__daniel_halloween_20261028 {
+      allow read: if isTeacher() || isDanielPasswordAccount();
+      allow create, update: if isDanielPasswordAccount()
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
       allow delete: if isTeacher();
     }
     match /studentAnswers/{key} {
