@@ -187,17 +187,30 @@ $('preview').onclick=startPreview;$('backTeacher').onclick=stopPreview;
 $('prev').onclick=()=>{current--;persist();render()};$('next').onclick=()=>{current++;persist();render()};$('export').onclick=()=>{let lines=[['Mission','Question','Response']];missions.forEach((m,i)=>{lines.push([i+1,m.q?.[1]||m.title,JSON.stringify(answers[i]??'')]);if(photoNotes[i])['Evidence observed','Inference and reasoning','Historical question'].forEach((name,j)=>lines.push([i+1,'Photo Detective: '+name,photoNotes[i][j]||'']))});let csv=lines.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='Violet-Canada-Remembers.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('signIn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){$('authMessage').textContent=e.message}};$('logout').onclick=()=>signOut(auth);
 function formatLiveAnswer(value,mission){
+  if(mission.type==='alliance'){
+    const a=value&&typeof value==='object'?value:{},matches=a.flagMatches||{},neutral=a.flagDistractors||[];
+    const section=(side,title)=>'<h4>'+title+'</h4><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:8px">'+allianceCountries.map((country,i)=>({country,i})).filter(x=>x.country[2]===side).map(({country,i})=>{const id=matches[i],flag=id!==undefined?allianceFlagBank[Number(id)]:null;return '<div style="padding:10px;border:1px solid #c8d9e5;border-radius:10px;background:white"><div style="font-size:28px">'+(flag?esc(flag.flag):'⬜')+'</div><strong>'+esc(country[1])+'</strong><div style="font-size:14px">'+(flag?esc(flag.name):'No flag placed')+'</div></div>'}).join('')+'</div>';
+    return '<p><strong>Task:</strong> Match each country with its flag under the Allied or Central Powers. Place the three neutral-country flags in the Did Not Fight section.</p>'+section('allied','🤝 Allied and Associated Powers')+section('central','⚔️ Central Powers')+'<h4>🚫 Did Not Fight: Neutral flags</h4><p>'+ (neutral.length?neutral.map(id=>{const f=allianceFlagBank[Number(id)];return f?'<span style="display:inline-block;padding:8px;margin:4px;background:white;border-radius:8px;font-size:22px">'+esc(f.flag)+' <span style="font-size:15px">'+esc(f.name)+'</span></span>':''}).join(''):'No flags placed yet')+'</p>'+(a.flagExplain?'<p><strong>Violet’s explanation:</strong> '+esc(a.flagExplain)+'</p>':'');
+  }
   if(value===undefined||value===null||value==='')return '<p>Not answered</p>';
   const show=v=>'<span style="white-space:pre-wrap;overflow-wrap:anywhere">'+esc(String(v??''))+'</span>';
-  const questionLabel=k=>{
-    if(mission.type==='video'){
-      const prompts=['Name two historical facts presented in the video.','Identify one example of courage or sacrifice.','What is the central message? Explain using one detail from the video.','Which claim would you like to verify with a historical source?'];
-      return prompts[Number(k)]||'Response '+(Number(k)+1);
+  if(mission.type==='question'&&mission.q){
+    const q=mission.q,options=q[2];
+    let out='<p><strong>Question:</strong> '+esc(q[1])+'</p>';
+    if(Array.isArray(options)&&['choice','map','multi','match','order'].includes(q[0])){
+      out+='<div><strong>Possible answers / items:</strong><ul>'+options.map((o,i)=>'<li>'+esc(Array.isArray(o)?o[0]:o)+'</li>').join('')+'</ul></div>';
     }
-    return /^\\d+$/.test(k)?'Response '+(Number(k)+1):k.replace(/([a-z])([A-Z])/g,'$1 $2');
-  };
-  if(Array.isArray(value))return '<ol>'+value.map(v=>'<li>'+show(typeof v==='object'?JSON.stringify(v):v)+'</li>').join('')+'</ol>';
-  if(typeof value==='object')return Object.entries(value).map(([k,v])=>'<p><strong>'+esc(questionLabel(k))+':</strong></p><p>'+show(typeof v==='object'?JSON.stringify(v):v)+'</p>').join('');
+    if(typeof value==='number'&&Array.isArray(options))return out+'<p><strong>Violet selected:</strong> '+esc(Array.isArray(options[value])?options[value][0]:(options[value]??value))+'</p>';
+    return out+'<p><strong>Violet’s response:</strong> '+show(typeof value==='object'?JSON.stringify(value,null,2):value)+'</p>';
+  }
+  if(mission.type==='video'&&typeof value==='object'&&!Array.isArray(value)){
+    const prompts=['Name two historical facts presented in the video.','Identify one example of courage or sacrifice.','What is the central message? Explain using one detail from the video.','Which claim would you like to verify with a historical source?'];
+    return prompts.map((p,i)=>'<p><strong>'+esc(p)+'</strong></p><p>'+show(value[i]??'Not answered')+'</p>').join('');
+  }
+  if(mission.type==='word'&&typeof value==='object')return '<p><strong>Task:</strong> Find and record the vocabulary words from the word search.</p><p>'+show(value.notes||'Not answered')+'</p>';
+  if(mission.type==='supplykit'&&typeof value==='object')return '<p><strong>Task:</strong> Pack useful objects into the soldier’s field supply bag.</p><p><strong>Objects packed:</strong> '+(value.kitPicked||[]).map(i=>supplyKitItems[Number(i)]?.join(' ')||'Unknown item').map(esc).join(', ')+'</p><p><strong>Explanation:</strong> '+show(value.kitExplain||'Not answered')+'</p>';
+  if(Array.isArray(value))return '<ol>'+value.map(v=>'<li>'+show(typeof v==='object'?JSON.stringify(v,null,2):v)+'</li>').join('')+'</ol>';
+  if(typeof value==='object')return Object.entries(value).map(([k,v])=>'<p><strong>'+esc(/^\\d+$/.test(k)?'Response '+(Number(k)+1):k.replace(/([a-z])([A-Z])/g,'$1 $2'))+':</strong></p><p>'+show(typeof v==='object'?JSON.stringify(v,null,2):v)+'</p>').join('');
   return '<p>'+show(value)+'</p>';
 }
 onAuthStateChanged(auth,u=>{user=u;teacher=!!u&&u.email?.toLowerCase()===teacherEmail;$('login').classList.toggle('hide',!!u);$('app').classList.toggle('hide',!u);if(!u)return;$('preview').classList.toggle('hide',!teacher);$('backTeacher').classList.add('hide');$('runChecks').classList.add('hide');previewMode=false;$('identity').textContent=teacher?'Laura • Teacher':u.email;$('teacher').classList.toggle('hide',!teacher);if(unsub)unsub();if(teacher){$('preview').classList.remove('hide');$('connection').textContent='Teacher view: watching Violet’s lesson record';$('mission').innerHTML='<p>Live student progress appears below.</p>';$('prev').disabled=true;$('next').disabled=true;unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_qs31eTNryMYuuZJrydQbwW1X8QB3'),snap=>{let d=snap.data();$('live').innerHTML=d?'<p>Current mission: '+(d.current+1)+'</p>'+missions.map((m,i)=>'<div class="task"><strong>'+esc((i+1)+'. '+(m.q?.[1]||m.title))+'</strong>'+formatLiveAnswer(d.answers?.[i],m)+'</div>').join(''):'<p>Waiting for Violet to open this lesson.</p>'},e=>{if(!previewMode)$('connection').textContent='Teacher read access: '+e.message}) ;if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}else{unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_'+u.uid),snap=>{if(snap.exists()){let d=snap.data();if(!Object.keys(answers).length){answers=d.answers||{};current=d.current||0;if(d.soldier)soldier={...soldier,...d.soldier};render()}}$('connection').textContent='Connected to Firebase'},e=>$('connection').textContent='Using local save; Firebase: '+e.message);render();if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}});
