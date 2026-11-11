@@ -186,5 +186,38 @@ $('runChecks').onclick=runLessonChecks;
 $('preview').onclick=startPreview;$('backTeacher').onclick=stopPreview;
 $('prev').onclick=()=>{current--;persist();render()};$('next').onclick=()=>{current++;persist();render()};$('export').onclick=()=>{let lines=[['Mission','Question','Response']];missions.forEach((m,i)=>{lines.push([i+1,m.q?.[1]||m.title,JSON.stringify(answers[i]??'')]);if(photoNotes[i])['Evidence observed','Inference and reasoning','Historical question'].forEach((name,j)=>lines.push([i+1,'Photo Detective: '+name,photoNotes[i][j]||'']))});let csv=lines.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='James-Canada-Remembers.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('signIn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){$('authMessage').textContent=e.message}};$('logout').onclick=()=>signOut(auth);
-onAuthStateChanged(auth,u=>{user=u;teacher=!!u&&u.email?.toLowerCase()===teacherEmail;$('login').classList.toggle('hide',!!u);$('app').classList.toggle('hide',!u);if(!u)return;$('preview').classList.toggle('hide',!teacher);$('backTeacher').classList.add('hide');$('runChecks').classList.add('hide');previewMode=false;$('identity').textContent=teacher?'Laura • Teacher':u.email;$('teacher').classList.toggle('hide',!teacher);if(unsub)unsub();if(teacher){$('preview').classList.remove('hide');$('connection').textContent='Teacher view: watching James’s lesson record';$('mission').innerHTML='<p>Live student progress appears below.</p>';$('prev').disabled=true;$('next').disabled=true;unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_UsDMd02G5yXgTq0wXihNOxbCutF3'),snap=>{let d=snap.data();$('live').innerHTML=d?'<p>Current mission: '+(d.current+1)+'</p>'+missions.map((m,i)=>'<div class="task"><strong>'+esc((i+1)+'. '+(m.q?.[1]||m.title))+'</strong><p>'+esc(JSON.stringify(d.answers?.[i]??'Not answered'))+'</p></div>').join(''):'<p>Waiting for James to open this lesson.</p>'},e=>{if(!previewMode)$('connection').textContent='Teacher read access: '+e.message}) ;if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}else{unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_'+u.uid),snap=>{if(snap.exists()){let d=snap.data();if(!Object.keys(answers).length){answers=d.answers||{};current=d.current||0;if(d.soldier)soldier={...soldier,...d.soldier};render()}}$('connection').textContent='Connected to Firebase'},e=>$('connection').textContent='Using local save; Firebase: '+e.message);render();if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}});
+function teacherAnswerHtml(value,m){
+ if(value===undefined||value===null||value==='')return '<em>Not answered yet</em>';
+ if(typeof value!=='object')return '<p>'+esc(value)+'</p>';
+ if(Array.isArray(value))return '<ul>'+value.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+ const names={found:'Words found',notes:'James’s explanation',flagMatches:'Flag matches',flagDistractors:'Unused flags',choice:'Selected choice',text:'Written response'};
+ return Object.entries(value).map(([k,v])=>{
+  let label=names[k]||(/^\\d+$/.test(k)?'Question '+(Number(k)+1):k.replace(/([A-Z])/g,' $1'));
+  if(k==='flagMatches'&&v&&typeof v==='object')return '<p><strong>Flags placed:</strong> '+Object.keys(v).length+'</p>'+Object.entries(v).map(([country,flag])=>'<p>'+esc(country)+': '+esc(flag)+'</p>').join('');
+  let val=Array.isArray(v)?v.join(', '):(v&&typeof v==='object'?Object.entries(v).map(([a,b])=>a+': '+b).join('; '):String(v));
+  return '<p><strong>'+esc(label)+':</strong> '+esc(val||'None yet')+'</p>';
+ }).join('');
+}
+function teacherMissionHtml(m,i,d){
+ let active=i===d.current,answered=d.answers?.[i]!==undefined;
+ let question=m.q?.[1]||m.title;
+ let detail=m.q?.[2];
+ return '<div class="task" style="'+(active?'border:3px solid #16729a;background:#eaf7ff;':'')+'"><strong>'+esc((i+1)+'. '+m.title)+(active?' • CURRENT MISSION':'')+'</strong>'+
+ (question!==m.title?'<p><strong>Question:</strong> '+esc(question)+'</p>':'')+
+ (typeof detail==='string'&&detail.length<700?'<p>'+esc(detail)+'</p>':'')+
+ (m.type==='alliance'?'<p>James is matching WWI flags to their countries and alliances.</p>':'')+
+ (m.type==='word'?'<p>James is finding eight history vocabulary words.</p>':'')+
+ (m.type==='video'?'<p>James is answering questions about the remembrance video.</p>':'')+
+ teacherAnswerHtml(d.answers?.[i],m)+'</div>';
+}
+function teacherLiveHtml(d){
+ if(!d)return '<p>Waiting for James’s first successful save.</p>';
+ let idx=Math.max(0,Math.min(missions.length-1,d.current||0));
+ return '<h3>James is working on Mission '+(idx+1)+' of '+missions.length+': '+esc(missions[idx].title)+'</h3>'+
+ '<p>Last saved: '+esc(d.updatedAt||'Unknown')+'</p>'+
+ '<h3>Current activity</h3>'+teacherMissionHtml(missions[idx],idx,d)+
+ '<h3>Earlier activities and responses</h3>'+
+ missions.map((m,i)=>i===idx?'':(i<idx||d.answers?.[i]!==undefined?teacherMissionHtml(m,i,d):'')).join('');
+}
+onAuthStateChanged(auth,u=>{user=u;teacher=!!u&&u.email?.toLowerCase()===teacherEmail;$('login').classList.toggle('hide',!!u);$('app').classList.toggle('hide',!u);if(!u)return;$('preview').classList.toggle('hide',!teacher);$('backTeacher').classList.add('hide');$('runChecks').classList.add('hide');previewMode=false;$('identity').textContent=teacher?'Laura • Teacher':u.email;$('teacher').classList.toggle('hide',!teacher);if(unsub)unsub();if(teacher){$('preview').classList.remove('hide');$('connection').textContent='Teacher view: watching James’s lesson record';$('mission').innerHTML='<p>Live student progress appears below.</p>';$('prev').disabled=true;$('next').disabled=true;unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_UsDMd02G5yXgTq0wXihNOxbCutF3'),snap=>{$('live').innerHTML=teacherLiveHtml(snap.data())},e=>{if(!previewMode)$('connection').textContent='Teacher read access: '+e.message}) ;if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}else{unsub=onSnapshot(doc(db,'lessonProgress',lesson+'_'+u.uid),snap=>{if(snap.exists()){let d=snap.data();if(!Object.keys(answers).length){answers=d.answers||{};current=d.current||0;if(d.soldier)soldier={...soldier,...d.soldier};render()}}$('connection').textContent='Connected to Firebase'},e=>$('connection').textContent='Using local save; Firebase: '+e.message);render();if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}});
 </script></body></html>
