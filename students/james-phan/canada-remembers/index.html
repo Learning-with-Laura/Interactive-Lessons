@@ -189,16 +189,23 @@ $('preview').onclick=startPreview;$('backTeacher').onclick=stopPreview;
 $('prev').onclick=()=>{current--;persist();render()};$('next').onclick=()=>{current++;persist();render()};$('export').onclick=()=>{let lines=[['Mission','Question','Response']];missions.forEach((m,i)=>{lines.push([i+1,m.q?.[1]||m.title,JSON.stringify(answers[i]??'')]);if(photoNotes[i])['Evidence observed','Inference and reasoning','Historical question'].forEach((name,j)=>lines.push([i+1,'Photo Detective: '+name,photoNotes[i][j]||'']))});let csv=lines.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='James-Canada-Remembers.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('signIn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){$('authMessage').textContent=e.message}};$('logout').onclick=()=>signOut(auth);
 function teacherAnswerHtml(value,m){
- if(value===undefined||value===null||value==='')return '<em>Not answered yet</em>';
- if(typeof value!=='object')return '<p>'+esc(value)+'</p>';
- if(Array.isArray(value))return '<ul>'+value.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
- const names={found:'Words found',notes:'James’s explanation',flagMatches:'Flag matches',flagDistractors:'Unused flags',choice:'Selected choice',text:'Written response'};
- return Object.entries(value).map(([k,v])=>{
-  let label=names[k]||(/^\\d+$/.test(k)?'Question '+(Number(k)+1):k.replace(/([A-Z])/g,' $1'));
-  if(k==='flagMatches'&&v&&typeof v==='object')return '<p><strong>Flags placed:</strong> '+Object.keys(v).length+'</p>'+Object.entries(v).map(([country,flag])=>'<p>'+esc(country)+': '+esc(flag)+'</p>').join('');
-  let val=Array.isArray(v)?v.join(', '):(v&&typeof v==='object'?Object.entries(v).map(([a,b])=>a+': '+b).join('; '):String(v));
-  return '<p><strong>'+esc(label)+':</strong> '+esc(val||'None yet')+'</p>';
- }).join('');
+ if(value===undefined||value===null||value==='')return '<p class="muted">No response recorded yet.</p>';
+ let q=m.q||[],type=q[0],a=value;
+ if(m.type==='question'){
+  if(isPreservedWriting(m,a))return '<p><strong>Original written responses (preserved):</strong></p>'+a.filter(x=>typeof x==='string'&&x.trim()).map((x,i)=>'<p><strong>Writing step '+(i+1)+':</strong> '+esc(x)+'</p>').join('');
+  if(['choice','map','math'].includes(type)&&typeof a==='number')return '<p><strong>James selected:</strong> '+esc(q[2]?.[a]||'Option '+(a+1))+' <strong>'+(a===q[3]?'✓ Correct':'✗ Review')+'</strong></p>';
+  if(type==='multi'&&Array.isArray(a))return '<p><strong>Selected '+a.length+' statements:</strong></p><ul>'+a.map(i=>'<li>'+esc(q[2]?.[i]?.[0]||'Option '+(Number(i)+1))+' '+(q[2]?.[i]?.[1]?'✓':'✗')+'</li>').join('')+'</ul>';
+  if(type==='match'&&a&&typeof a==='object'&&!Array.isArray(a))return '<ul>'+Object.entries(a).map(([i,j])=>'<li><strong>'+esc(q[2]?.[Number(i)]?.[0]||'Term '+(Number(i)+1))+'</strong> → '+esc(q[2]?.[Number(j)]?.[1]||'Meaning '+(Number(j)+1))+(Number(i)===Number(j)?' ✓':' ✗')+'</li>').join('')+'</ul>';
+  if(type==='order'&&Array.isArray(a))return '<ol>'+a.map(v=>'<li>'+esc(v)+'</li>').join('')+'</ol>';
+  if(type==='cloze'&&Array.isArray(a))return '<p>'+a.map((v,i)=>'<strong>Blank '+(i+1)+':</strong> '+esc(v)).join(' · ')+'</p>';
+  if(type==='text'&&Array.isArray(a))return a.map((v,i)=>'<p><strong>Writing step '+(i+1)+':</strong> '+esc(v||'Not completed')+'</p>').join('');
+ }
+ if(m.type==='word'&&a&&typeof a==='object')return '<p><strong>Words found:</strong> '+esc((a.found||[]).join(', ')||'None yet')+'</p><p><strong>James’s explanation:</strong> '+esc(a.notes||'Not recorded')+'</p>';
+ if(m.type==='alliance'&&a&&typeof a==='object')return '<p><strong>Flags placed:</strong> '+Object.keys(a.flagMatches||{}).length+'</p>'+Object.entries(a.flagMatches||{}).map(([k,v])=>'<p>'+esc(k)+' → '+esc(v)+'</p>').join('');
+ if(m.type==='video'&&a&&typeof a==='object'){let prompts=['Two historical facts','Courage or sacrifice','Central message and evidence','Claim to verify'];return Object.entries(a).map(([k,v])=>'<p><strong>'+esc(prompts[Number(k)]||'Question '+(Number(k)+1))+':</strong> '+esc(v)+'</p>').join('')}
+ if(typeof a!=='object')return '<p><strong>Response:</strong> '+esc(a)+'</p>';
+ if(Array.isArray(a))return '<ul>'+a.map(v=>'<li>'+esc(v)+'</li>').join('')+'</ul>';
+ return Object.entries(a).map(([k,v])=>'<p><strong>'+esc(k)+':</strong> '+esc(typeof v==='object'?JSON.stringify(v):v)+'</p>').join('');
 }
 const preservedWritingPrompts={
  'Match each cause to the way it could spread or intensify the First World War.':'In two sentences, explain why alliances could turn a conflict between two countries into a larger war.',
@@ -213,25 +220,21 @@ const preservedWritingPrompts={
 };
 function isPreservedWriting(m,a){return !!(m?.type==='question'&&preservedWritingPrompts[m.q?.[1]]&&Array.isArray(a)&&a.some(v=>typeof v==='string'&&v.trim().length>0))}
 function teacherMissionHtml(m,i,d){
- let active=i===d.current,answered=d.answers?.[i]!==undefined;
- let question=isPreservedWriting(m,d.answers?.[i])?preservedWritingPrompts[m.q[1]]:(m.q?.[1]||m.title);
- let detail=m.q?.[2];
- return '<div class="task" style="'+(active?'border:3px solid #16729a;background:#eaf7ff;':'')+'"><strong>'+esc((i+1)+'. '+m.title)+(active?' • CURRENT MISSION':'')+'</strong>'+
+ let active=i===d.current,a=d.answers?.[i],question=isPreservedWriting(m,a)?preservedWritingPrompts[m.q[1]]:(m.q?.[1]||m.title);
+ let type=m.q?.[0],kind={choice:'Multiple choice',multi:'Select all that apply',match:'Matching',order:'Sequencing',cloze:'Fill in the blanks',text:'Writing',map:'Geography',math:'Mathematics',investigation:'Math investigation'}[type]||({word:'Word search',video:'Video response',alliance:'Flag sorting',cheer:'Soldier journey',intro:'Introduction',supplykit:'Supply kit'}[m.type]||'Activity');
+ return '<section class="task" style="margin:12px 0;'+(active?'border:3px solid #16729a;background:#eaf7ff;':'')+'"><strong>Mission '+(i+1)+' · '+esc(m.title)+(active?' · CURRENT':'')+'</strong><p class="muted">'+esc(kind)+'</p>'+
  (question!==m.title?'<p><strong>Question:</strong> '+esc(question)+'</p>':'')+
- (typeof detail==='string'&&detail.length<700?'<p>'+esc(detail)+'</p>':'')+
- (m.type==='alliance'?'<p>James is matching WWI flags to their countries and alliances.</p>':'')+
- (m.type==='word'?'<p>James is finding eight history vocabulary words.</p>':'')+
- (m.type==='video'?'<p>James is answering questions about the remembrance video.</p>':'')+
- teacherAnswerHtml(d.answers?.[i],m)+'</div>';
+ teacherAnswerHtml(a,m)+'</section>';
 }
 function teacherLiveHtml(d){
  if(!d)return '<p>Waiting for James’s first successful save.</p>';
- let idx=Math.max(0,Math.min(missions.length-1,d.current||0));
- return '<h3>James is working on Mission '+(idx+1)+' of '+missions.length+': '+esc(missions[idx].title)+'</h3>'+
- '<p>Last saved: '+esc(d.updatedAt||'Unknown')+'</p>'+
- '<h3>Current activity</h3>'+teacherMissionHtml(missions[idx],idx,d)+
- '<h3>Earlier activities and responses</h3>'+
- missions.map((m,i)=>i===idx?'':(i<idx||d.answers?.[i]!==undefined?teacherMissionHtml(m,i,d):'')).join('');
+ let idx=Math.max(0,Math.min(missions.length-1,d.current||0)),entries=Object.entries(d.answers||{}).filter(([i,v])=>v!==undefined&&v!==null&&v!==''),answered=entries.length;
+ let earlier=entries.map(([i])=>Number(i)).filter(i=>i!==idx&&i>=0&&i<missions.length).sort((a,b)=>b-a);
+ let saved=d.updatedAt?new Date(d.updatedAt):null,last=saved&&!isNaN(saved)?saved.toLocaleString('en-CA',{dateStyle:'medium',timeStyle:'short'}):'Unknown';
+ return '<div class="task" style="background:#eef8ff"><h3>James’s live learning dashboard</h3><p><strong>Current:</strong> Mission '+(idx+1)+' of '+missions.length+' · '+esc(missions[idx].title)+'</p><p><strong>Activities with recorded answers:</strong> '+answered+' · <strong>Last saved:</strong> '+esc(last)+'</p><p class="muted">Mission position is not a completion score. Responses update when Firebase saves.</p></div>'+
+ '<h3>Current activity and response</h3>'+teacherMissionHtml(missions[idx],idx,d)+
+ '<h3>Previous saved responses (newest first)</h3>'+(earlier.length?earlier.map(i=>teacherMissionHtml(missions[i],i,d)).join(''):'<p>No earlier responses recorded.</p>')+
+ '<details><summary>Show earlier missions without recorded answers</summary>'+missions.map((m,i)=>i<idx&&d.answers?.[i]===undefined?teacherMissionHtml(m,i,d):'').join('')+'</details>';
 }
 let photoScale=1;
 function setPhotoScale(v){photoScale=Math.max(1,Math.min(4,v));$('photoZoomImage').style.setProperty('--zoom-scale',photoScale)}
