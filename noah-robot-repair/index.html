@@ -1,1 +1,125 @@
-
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Noah's Robot Repair | Learning with Laura</title><style>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(130deg,#d9f6ff,#fff1c9);font:20px system-ui,sans-serif;color:#17354a}header{background:#135b85;color:white;padding:16px;text-align:center}h1{margin:4px;font-size:clamp(28px,5vw,45px)}main{max-width:930px;margin:20px auto;padding:12px}.panel{background:white;border-radius:24px;padding:24px;box-shadow:0 8px 25px #154a6630}button,input{font:inherit;border-radius:14px;padding:12px;border:2px solid #8bb9cf}button{cursor:pointer;background:#e8f7ff}button:focus-visible{outline:4px solid orange}.primary{background:#146ca0;color:white}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:22px 0}.choice{min-height:115px;font-weight:700;font-size:24px}.selected{background:#b9f5cd;border-color:#26894a}.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.muted{color:#536875;font-size:15px}.big{font-size:clamp(38px,7vw,78px);text-align:center}.robot{font-size:90px;display:block}.spin{animation:spin 1.4s ease-in-out 1;animation-fill-mode:forwards}@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}.reward{border:3px solid #a4d9eb;background:#f2fbff}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}progress{width:100%;height:18px}#teacherPanel{margin-top:18px}#teacherLog{max-height:380px;overflow:auto;font-size:15px}.prompt{font-size:clamp(24px,4vw,34px);font-weight:750}.success{color:#146b3a;font-weight:700}#status{font-size:15px}label{display:block;margin:12px 0}input{max-width:100%;width:360px}@media(max-width:520px){.panel{padding:16px}.robot{font-size:65px}}
+</style></head><body><header><h1>🤖 Noah's Robot Repair</h1><div>Chief Mechanic Noah • Learning with Laura</div></header><main>
+<section id="login" class="panel"><h2>Welcome to the Robot Workshop!</h2><p>Choose your sign-in:</p><div class="toolbar"><button id="teacherLogin">👩‍🏫 Laura • Sign in with Google</button></div><hr><h3>🤖 Noah • Student sign-in</h3><label>Email <input id="email" autocomplete="username" value="noahf@students.learningwithlaura.invalid"></label><label>Password <input id="password" type="password" autocomplete="current-password"></label><button id="studentLogin" class="primary">Enter workshop</button><p id="loginStatus" aria-live="polite"></p></section>
+<section id="app" style="display:none"><div class="panel"><div class="toolbar"><strong id="role"></strong><button id="logout">Sign out</button><button id="export" style="display:none">Export answers (CSV)</button><button id="reset" style="display:none">Reset Noah's answers</button></div><progress id="progress" max="1" value="0"></progress><p class="muted" id="count"></p><h2 id="heading"></h2><p class="prompt" id="prompt"></p><div id="options" class="choices"></div><p id="feedback" aria-live="polite"></p><div class="nav"><button id="prev">← Previous</button><button id="next" class="primary">Next →</button></div><p id="status">Connecting…</p></div><div id="teacherPanel" class="panel" style="display:none"><h3>Live student responses</h3><p class="muted">Teacher navigation is a preview; student position is shown below.</p><p id="studentPosition"></p><div id="teacherLog"></div></div></section>
+</main><script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
+import {getAuth,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+import {getFirestore,doc,onSnapshot,setDoc,deleteDoc} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+const app=initializeApp({apiKey:"AIzaSyC7y-jx-LMOJyjtbLHuChc3yEGZXlQrtZ8",authDomain:"live-learning-with-laura.firebaseapp.com",projectId:"live-learning-with-laura",appId:"1:846701984036:web:0447c64aef753c1c1e1bb1"});
+const auth=getAuth(app),db=getFirestore(app),uid="5TP2L5dQgCgWzl41HrxWNc0GQWz2",studentEmail="noahf@students.learningwithlaura.invalid";
+const ref=doc(db,"lessonProgress","noah-robot-repair-2026_"+uid);
+const $=id=>document.getElementById(id);
+const pages=[],add=(type,title,prompt,choices=[])=>pages.push({type,title,prompt,choices});
+const robots=['🤖','🦾','🛸','🦿','🚀','⚙️','🔩','🔧','🛰️','🦸','🚜','🚗','🚙','🏎️','🚒','🚚','🚂','🚁','🛻','🛺','🛵','🚲','🦺','🧲','💡','🔋','📡','🕹️','🪛','🧰','🛠️','🎛️','🦽'];
+const robotColors=['#dff6ff','#fff0c2','#e7dcff','#d5f6dd','#ffdfe7','#e0f1f2'];
+const movement=[
+['Stand behind your chair','March loudly three times','Sit down and cross your arms'],
+['Reach both arms high','Clap four times','Sit with hands on your knees'],
+['Turn an imaginary screwdriver three times','Touch your shoulders','Give two thumbs up'],
+['Stand tall','Turn around once','Freeze like a robot'],
+['Touch your head','Stomp three times','Sit quietly'],
+['Stretch your arms wide','Tap your knees twice','Cross your arms'],
+['Stand beside your chair','March four times','Sit and smile'],
+['Pretend to tighten a bolt','Wave both hands','Put hands on your head'],
+['Stand up','Touch your toes','Sit with hands folded'],
+['Clap three times','Take one slow breath','Give a thumbs up'],
+['Stand tall','March three times','Sit with arms crossed']];
+const prompts=[
+['Robot Check-In','Which robot feeling matches you?',['😄 Happy','🙂 Calm','😴 Tired']],
+['Robot Workshop','Which tool fixes a loose screw?',['🔧 Wrench','🪛 Screwdriver','🥄 Spoon']],
+['Letter Scanner','Find the letter N.',['N','M','H']],
+['Letter Scanner','Find the letter O.',['Q','O','D']],
+['Letter Scanner','Find the letter A.',['A','V','R']],
+['Letter Scanner','Find the letter H.',['K','H','N']],
+['Sound Scanner','Which word starts with /m/?',['Moon','Dog','Sun']],
+['Sound Scanner','Which word starts with /s/?',['Cat','Sun','Dog']],
+['Sound Scanner','Which word starts with /b/?',['Ball','Fish','Moon']],
+['Robot Word Builder','What word do c - a - t make?',['cat','dog','sun']],
+['Robot Word Builder','What word do d - o - g make?',['pin','dog','map']],
+['Robot Word Builder','What word do r - u - n make?',['run','red','rat']],
+['Robot Word Builder','Which word rhymes with cat?',['hat','sun','dog']],
+['Robot Word Builder','Which word rhymes with log?',['pig','dog','car']],
+['Robot Eyes','What colour is this battery? 🔴',['Red','Blue','Green']],
+['Robot Eyes','What colour is this light? 🟢',['Yellow','Green','Purple']],
+['Robot Eyes','Which shape is round?',['⚪ Circle','🔺 Triangle','🟦 Square']],
+['Robot Eyes','Which shape has three sides?',['🟦 Square','🔺 Triangle','⚪ Circle']],
+['Mechanic Math','How many wheels on one car? 🚗',['2','4','6']],
+['Mechanic Math','Two wheels plus two wheels makes…',['3','4','5']],
+['Mechanic Math','Which number comes after 5?',['4','6','8']],
+['Mechanic Math','Which number comes before 3?',['2','5','7']],
+['Robot Listening','Which tool is for turning a screw?',['🪛','🧹','🥄']],
+['Robot Listening','What should a robot do at a red light?',['Stop','Go','Jump']],
+['Robot Listening','What should a robot do at a green light?',['Stop','Go','Sleep']],
+['Robot Listening','What do you do first when you need help?',['Ask Laura','Throw the tool','Walk away']],
+['Robot Problem Solver','A robot has no power. What should we check?',['Battery','Shoes','Hat']],
+['Robot Problem Solver','The wheel fell off. What does it need?',['A wheel','A pillow','A sandwich']],
+['Robot Problem Solver','The robot is dirty. What can clean it?',['A cloth','A book','A shoe']],
+['Robot Problem Solver','A robot cannot see. What part might be broken?',['Camera','Wheel','Battery']],
+['Robot Thinking','Which one is different?',['🔧','🪛','🍎']],
+['Robot Thinking','Which is the biggest number?',['2','7','4']],
+['Robot Thinking','What comes next: red, blue, red, blue…',['Red','Green','Yellow']],
+['Robot Thinking','What comes next: 1, 2, 3…',['4','6','8']],
+['Robot Safety','Where should we write?',['On paper','On the floor','On the wall']],
+['Robot Safety','What do we do with a tool after using it?',['Put it away','Throw it','Hide it']],
+['Robot Conversation','What would you like to repair?',['Robot','Car','Vacuum']],
+['Robot Conversation','Which machine would you like to explain to Laura?',['Vacuum','Car','Computer']],
+['Robot Conversation','Which job would you choose?',['Engineer','Mechanic','Robot designer']],
+['Robot Conversation','What would you name your robot?',['Bolt','Sparky','Zoom']],
+['Robot Listening','Listen: The robot found a red wheel. What colour was it?',['Red','Blue','Green']],
+['Robot Listening','Listen: The robot put its tool in a box. Where is it?',['Box','Bag','Car']],
+['Robot Listening','Listen: Two robots are fixing a car. How many robots?',['1','2','3']],
+['Robot Listening','Listen: The robot drove home. Where did it go?',['Home','School','Park']],
+['Robot Sequence','What comes first when repairing a robot?',['Find the problem','Celebrate','Put tools away']],
+['Robot Sequence','What comes last after fixing the robot?',['Test it','Break it','Hide it']],
+['Robot Sequence','What should you do before crossing a road?',['Stop and look','Run','Close eyes']],
+['Robot Sequence','What should you do after listening to directions?',['Try the steps','Forget them','Shout']],
+['Robot Words','Which word says NOAH?',['NOAH','NORA','NASH']],
+['Robot Words','Which word says MOM?',['MOM','MAP','MUD']],
+['Robot Words','Which word says DOG?',['DIG','DOG','DOT']],
+['Robot Words','Which word says CAT?',['CAN','CUP','CAT']],
+['Robot Words','Which word says FIX?',['FOX','FIX','FUN']],
+['Robot Words','Which word says RUN?',['RUN','RAN','RUG']],
+['Robot Builder','Which letter begins robot?',['R','B','D']],
+['Robot Builder','Which letter begins car?',['C','K','T']],
+['Robot Builder','Which letter begins vacuum?',['V','F','B']],
+['Robot Builder','Which letter begins wheel?',['W','M','N']],
+['Robot Builder','Which letter ends cat?',['T','S','P']],
+['Robot Builder','Which letter ends dog?',['G','B','M']],
+['Robot Builder','Which word has the /a/ sound in cat?',['map','moon','feet']],
+['Robot Builder','Which word has the /o/ sound in dog?',['log','leaf','bike']],
+['Robot Memory','Remember: red, blue. Which came first?',['Red','Blue','Green']],
+['Robot Memory','Remember: wheel, bolt. Which came last?',['Wheel','Bolt','Car']],
+['Robot Memory','Remember: car, robot, dog. Which came second?',['Robot','Dog','Car']],
+['Robot Memory','Remember: stop, look, go. What came last?',['Go','Look','Stop']],
+['Robot Repair','Which part helps a car roll?',['Wheels','Windows','Seats']],
+['Robot Repair','Which part helps a robot hear?',['Microphone','Wheels','Shoes']],
+['Robot Repair','Which part helps a robot see?',['Camera','Battery','Wheel']],
+['Robot Repair','Which part stores energy?',['Battery','Paint','Hat']],
+['Robot Repair','What would you fix first?',['Broken wheel','Sticker','Colour']],
+['Robot Repair','Which tool helps hold two parts together?',['Screw','Ball','Leaf']],
+['Robot Repair','What do you do if a repair is hard?',['Ask for help','Give up','Break it']],
+['Robot Repair','What should we do when a robot works?',['Celebrate','Break it','Hide it']],
+['Robot Finale','What was your favourite part?',['Letters','Tools','Robots']],
+['Robot Finale','How do you feel about your work?',['🌟 Proud','🙂 Good','💪 Still learning']]
+];
+let q=0,breakIndex=0;
+for(let i=0;i<prompts.length;i++){const p=prompts[i];add('question',p[0],p[1],p[2]);if((i+1)%7===0&&breakIndex<11){let m=movement[breakIndex];add('power','⚡ Robot Power-Up '+(breakIndex+1),'Repeat all three directions before you move: '+m.map((s,j)=>(j+1)+'. '+s+'.').join(' '));add('reward','🏆 Choose Your Robot!','Which robot is your favourite?',robots.slice(breakIndex*3,breakIndex*3+3));breakIndex++;}}
+while(breakIndex<11){let m=movement[breakIndex];add('power','⚡ Robot Power-Up '+(breakIndex+1),'Repeat all three directions before you move: '+m.map((s,j)=>(j+1)+'. '+s+'.').join(' '));add('reward','🏆 Choose Your Robot!','Which robot is your favourite?',robots.slice(breakIndex*3,breakIndex*3+3));breakIndex++;}
+add('finale','🎉 Workshop Complete!','Amazing work, Chief Mechanic Noah! You helped repair the robots!');
+let teacher=false,current=0,answers={},remoteCurrent=0,unsub=null,ready=false,spun=new Set();
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function render(){const p=pages[current];$('heading').textContent=p.title;$('prompt').textContent=p.prompt;$('count').textContent='Activity '+(current+1)+' of '+pages.length;$('progress').max=pages.length;$('progress').value=current+1;$('prev').disabled=current===0;$('next').textContent=current===pages.length-1?'Finish ✓':'Next →';$('next').disabled=current===pages.length-1;$('feedback').textContent='';const box=$('options');box.innerHTML='';if(p.type==='power'){$('feedback').textContent='🤖 Laura: Ask Noah to repeat the three steps, then say “Robot activated! Go!”';return}if(p.type==='finale')return;
+p.choices.forEach((choice,i)=>{const b=document.createElement('button');b.className='choice'+(answers[current]===i?' selected':'');if(p.type==='reward'){b.classList.add('reward');const icon=document.createElement('span');icon.className='robot';icon.textContent=choice;b.append(icon);const label=document.createElement('span');label.textContent='Robot '+(i+1);b.append(label);b.style.background=robotColors[(current+i)%robotColors.length];if(answers[current]===i&&spun.has(current))icon.classList.add('spin');}else b.textContent=choice;b.onclick=()=>{if(teacher)return;if(p.type==='reward'&&spun.has(current))return;answers[current]=i;if(p.type==='reward'){spun.add(current);const icon=b.querySelector('.robot');icon.classList.add('spin');$('feedback').textContent='🌟 Fantastic choice, Noah!';}else $('feedback').textContent='⭐ Great thinking, Noah!';save();renderChoiceState();};box.append(b);});}
+function renderChoiceState(){[...$('options').children].forEach((b,i)=>b.classList.toggle('selected',answers[current]===i));}
+let saveTimer;async function save(){if(teacher||!ready)return;clearTimeout(saveTimer);saveTimer=setTimeout(async()=>{try{await setDoc(ref,{answers,current,studentEmail,updatedAt:new Date().toISOString()});$('status').textContent='✓ Saved for Laura';}catch(e){$('status').textContent='Save error: '+e.message;}},150);}
+$('next').onclick=()=>{if(current<pages.length-1){current++;render();save();}};$('prev').onclick=()=>{if(current>0){current--;render();save();}};
+$('studentLogin').onclick=async()=>{try{$('loginStatus').textContent='Signing in…';await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value);}catch(e){$('loginStatus').textContent=e.message;}};
+$('teacherLogin').onclick=async()=>{try{$('loginStatus').textContent='Opening Google sign-in…';await signInWithPopup(auth,new GoogleAuthProvider());}catch(e){$('loginStatus').textContent=e.message;}};
+$('logout').onclick=()=>signOut(auth);
+$('export').onclick=()=>{const rows=[['activity','type','question','answer','student_choice']];pages.forEach((p,i)=>rows.push([i+1,p.type,p.prompt,answers[i]===undefined?'':p.choices[answers[i]]||'',answers[i]===undefined?'':answers[i]+1]));const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='noah-robot-repair-answers.csv';a.click();URL.revokeObjectURL(a.href);};
+$('reset').onclick=async()=>{if(!confirm("Delete Noah's saved progress and answers?"))return;await deleteDoc(ref);answers={};remoteCurrent=0;current=0;render();};
+function teacherLog(){const log=$('teacherLog');log.innerHTML='';pages.forEach((p,i)=>{if(p.type!=='question'&&p.type!=='reward')return;const d=document.createElement('div');d.style.cssText='padding:8px;border-bottom:1px solid #ddd';const val=answers[i]===undefined?'⏳ Waiting':p.choices[answers[i]]||'Selected';d.textContent=(i+1)+'. '+p.prompt+' | Choices: '+p.choices.join(' / ')+' | Noah: '+val;log.append(d);});$('studentPosition').textContent='Noah is on activity '+(remoteCurrent+1)+' of '+pages.length;}
+onAuthStateChanged(auth,user=>{if(unsub){unsub();unsub=null;}ready=false;if(!user){$('login').style.display='block';$('app').style.display='none';return;}teacher=user.email==='laurademe6@gmail.com'&&user.providerData.some(p=>p.providerId==='google.com'&&user.emailVerified);if(!teacher&&!(user.uid===uid&&user.email===studentEmail)){$('loginStatus').textContent='This account is not authorized for Noah’s lesson.';signOut(auth);return;}$('login').style.display='none';$('app').style.display='block';$('role').textContent=teacher?'Laura • Teacher preview':'Noah • Student';$('teacherPanel').style.display=teacher?'block':'none';$('export').style.display=teacher?'inline-block':'none';$('reset').style.display=teacher?'inline-block':'none';$('status').textContent='Connecting to live progress…';unsub=onSnapshot(ref,snap=>{const data=snap.exists()?snap.data():{};answers=data.answers||{};remoteCurrent=Number.isInteger(data.current)?data.current:0;if(!teacher)current=Math.min(Math.max(0,remoteCurrent),pages.length-1);ready=true;render();if(teacher)teacherLog();$('status').textContent='✓ Live connection ready';},e=>{$('status').textContent='Live connection error: '+e.message;});});
+</script></body></html>
