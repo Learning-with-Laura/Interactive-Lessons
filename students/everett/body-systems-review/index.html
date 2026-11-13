@@ -87,7 +87,7 @@ let stopTeacherWatch=null;
 function escapeTeacher(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function showTeacherProgress(d){
  const responses=d?.answers||{};
- const entries=Object.entries(responses).filter(([k,v])=>/^q\\d+$/.test(k)&&v&&typeof v==='object').sort((a,b)=>Number(a[0].slice(1))-Number(b[0].slice(1)));
+ const entries=Object.entries(responses).filter(([k,v])=>/^q\d+$/.test(k)&&v&&typeof v==='object').sort((a,b)=>Number(a[0].slice(1))-Number(b[0].slice(1)));
  const correct=entries.filter(([k,v])=>v.correct===true||v.isCorrect===true).length;
  document.getElementById('teacherStatus').textContent=d?'Saved quiz responses loaded.':'No saved quiz document found at the original lesson location.';
  document.getElementById('teacherSummary').innerHTML='<p><strong>'+entries.length+' questions with saved responses</strong> (out of 60 if Everett used the expanded quiz). '+(correct?'Correct flags: '+correct+'.':'')+'</p><p>Saved attempt: '+escapeTeacher(d?.attempt||'Not available')+'</p><p>Last updated: '+escapeTeacher(d?.lastUpdated?.toDate?.()?.toLocaleString?.()||'Not available')+'</p><p><small>This dashboard reports saved responses only. It does not count unanswered questions as completed.</small></p>';
