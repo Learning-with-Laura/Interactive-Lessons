@@ -90,8 +90,8 @@ function showTeacherProgress(d){
  const entries=Object.entries(responses).filter(([k,v])=>/^q\d+$/.test(k)&&v&&typeof v==='object').sort((a,b)=>Number(a[0].slice(1))-Number(b[0].slice(1)));
  const correct=entries.filter(([k,v])=>v.correct===true||v.isCorrect===true).length;
  document.getElementById('teacherStatus').textContent=d?'Saved quiz responses loaded.':'No saved quiz document found at the original lesson location.';
- document.getElementById('teacherSummary').innerHTML='<p><strong>'+entries.length+' questions with saved responses</strong> (out of 60 if Everett used the expanded quiz). '+(correct?'Correct flags: '+correct+'.':'')+'</p><p>Saved attempt: '+escapeTeacher(d?.attempt||'Not available')+'</p><p>Last updated: '+escapeTeacher(d?.lastUpdated?.toDate?.()?.toLocaleString?.()||'Not available')+'</p><p><small>This dashboard reports saved responses only. It does not count unanswered questions as completed.</small></p>';
- document.getElementById('teacherResponses').innerHTML=entries.length?entries.map(([k,v])=>'<div class="tile" style="margin:8px 0"><strong>Question '+escapeTeacher(k.slice(1))+'</strong><pre style="white-space:pre-wrap;overflow-wrap:anywhere">'+escapeTeacher(JSON.stringify(v,null,2))+'</pre></div>').join(''):'<p>No saved answers found in this document.</p>';
+ document.getElementById('teacherSummary').innerHTML='<p><strong>'+entries.length+' questions with saved responses</strong> (current saved record; the original quiz may have had a different number of questions). '+(correct?'Correct flags: '+correct+'.':'')+'</p><p>Saved attempt: '+escapeTeacher(d?.attempt||'Not available')+'</p><p>Last updated: '+escapeTeacher(d?.lastUpdated?.toDate?.()?.toLocaleString?.()||'Not available')+'</p><p><small>This dashboard reports saved responses only. It does not count unanswered questions as completed.</small></p>';
+ document.getElementById('teacherResponses').innerHTML=entries.length?entries.map(([k,v])=>'<div class="tile" style="margin:8px 0"><strong>Question '+escapeTeacher(k.slice(1))+'</strong><pre style="white-space:pre-wrap;overflow-wrap:anywhere">'+escapeTeacher(JSON.stringify(v,null,2))+'</pre></div>').join(''):'<p>No numbered question responses were found in the current saved record.</p><p><strong>Actual saved answer keys:</strong> '+escapeTeacher(Object.keys(responses).join(', ')||'(none)')+'</p><details><summary>Inspect saved record (teacher only)</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">'+escapeTeacher(JSON.stringify(d,(key,value)=>key==='lastUpdated'&&value?.toDate?value.toDate().toISOString():value,2))+'</pre></details>';
 }
 function showTeacherError(e){document.getElementById('teacherStatus').textContent='Unable to read saved answers: '+e.message+'. Check deployed Firestore permissions for lessonAnswers/everett_body_systems_20261104.'}
 async function enterTeacher(u){
@@ -124,7 +124,7 @@ window.recordEverettAnswer=async(answer)=>{
  if(auth.currentUser?.uid!==uid)return;
  if(!attempt)attempt=Date.now();
  const id='everett_body_systems_20261104';
- try{await setDoc(doc(db,'lessonAnswers',id),{student:'Everett',uid,lesson:'Body Systems Challenge',attempt:String(attempt),lastUpdated:serverTimestamp(),answers:{['q'+answer.number]:answer}}, {merge:!firstAnswerOfAttempt});firstAnswerOfAttempt=false;}
+ try{await setDoc(doc(db,'lessonAnswers',id),{student:'Everett',uid,lesson:'Body Systems Challenge',attempt:String(attempt),lastUpdated:serverTimestamp(),answers:{['q'+answer.number]:answer}}, {merge:true});firstAnswerOfAttempt=false;}
  catch(e){console.error('Unable to save quiz answer',e);let notice=document.getElementById('saveNotice');if(!notice){notice=document.createElement('p');notice.id='saveNotice';document.getElementById('app').appendChild(notice)}notice.textContent='Your answer was not saved to the teacher dashboard. Tell Laura.'}
 };
 </script></html>
