@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everett's Body Systems Challenge</title><style>body{font-family:system-ui;background:#edf5ff;color:#172b50;margin:0}main{max-width:850px;margin:auto;padding:20px}header{background:#243c88;color:white;padding:20px;border-radius:18px}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}button{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-size:16px;background:#d9e7ff;color:#172b50}button:hover{filter:brightness(.95)}button.active,.primary{background:#3256d7;color:white}.panel{background:white;padding:20px;border-radius:18px;box-shadow:0 4px 20px #20387018;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.tile{padding:16px;background:#f3f7ff;border-radius:14px}.big{font-size:46px}.answer{display:block;width:100%;margin:8px 0;text-align:left}.good{background:#c6f5d6}.bad{background:#ffd8d8}.targets{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.target{border:2px dashed #8ba2d9;border-radius:14px;padding:18px;min-height:75px}.pieces{display:flex;gap:8px;flex-wrap:wrap}.piece{background:#ffdf9b;touch-action:manipulation}small{color:#56647b}h2{margin-top:0}</style><div id="loginGate" class="panel" style="max-width:460px;margin:40px auto"><h2>Everett's sign-in</h2><p>Enter your username and password to begin.</p><input id="studentName" value="EverettO" autocomplete="username" style="padding:12px;width:90%;margin-bottom:10px"><input id="studentPassword" type="password" placeholder="Password" autocomplete="current-password" style="padding:12px;width:90%;margin-bottom:10px"><button id="studentSignIn" class="primary">Sign in</button><p id="loginMessage" role="status"></p></div><main id="lessonMain" style="display:none"><header><h1>🧠 Everett's Body Systems Challenge!</h1><p>Grade 5 • Six systems • Study, flip, match and test yourself</p></header><nav id="nav"></nav><section id="app"></section></main><script>
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everett's Body Systems Challenge</title><style>body{font-family:system-ui;background:#edf5ff;color:#172b50;margin:0}main{max-width:850px;margin:auto;padding:20px}header{background:#243c88;color:white;padding:20px;border-radius:18px}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}button{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-size:16px;background:#d9e7ff;color:#172b50}button:hover{filter:brightness(.95)}button.active,.primary{background:#3256d7;color:white}.panel{background:white;padding:20px;border-radius:18px;box-shadow:0 4px 20px #20387018;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.tile{padding:16px;background:#f3f7ff;border-radius:14px}.big{font-size:46px}.answer{display:block;width:100%;margin:8px 0;text-align:left}.good{background:#c6f5d6}.bad{background:#ffd8d8}.targets{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.target{border:2px dashed #8ba2d9;border-radius:14px;padding:18px;min-height:75px}.pieces{display:flex;gap:8px;flex-wrap:wrap}.piece{background:#ffdf9b;touch-action:manipulation}small{color:#56647b}h2{margin-top:0}</style><div id="loginGate" class="panel" style="max-width:460px;margin:40px auto"><h2>Everett's sign-in</h2><p>Enter your username and password to begin.</p><input id="studentName" value="EverettO" autocomplete="username" style="padding:12px;width:90%;margin-bottom:10px"><input id="studentPassword" type="password" placeholder="Password" autocomplete="current-password" style="padding:12px;width:90%;margin-bottom:10px"><button id="studentSignIn" class="primary">Sign in</button><p id="loginMessage" role="status"></p></div><section id="teacherPanel" class="panel" style="display:none;max-width:950px;margin:24px auto"><h2>Everett’s Body Systems | Teacher progress</h2><p id="teacherStatus">Connecting to saved quiz responses…</p><div id="teacherSummary"></div><div id="teacherResponses"></div><button id="teacherSignOut">Sign out</button></section><main id="lessonMain" style="display:none"><header><h1>🧠 Everett's Body Systems Challenge!</h1><p>Grade 5 • Six systems • Study, flip, match and test yourself</p></header><nav id="nav"></nav><section id="app"></section></main><script>
 const systems=[
 ['Digestive','🍎','Breaks food down, absorbs nutrients and removes solid waste.',[['Mouth','Chews food; saliva starts digestion'],['Esophagus','Moves food to the stomach'],['Stomach','Mixes food with digestive juices'],['Small intestine','Absorbs most nutrients'],['Liver','Makes bile to help digest fats'],['Gallbladder','Stores bile'],['Pancreas','Makes digestive juices'],['Large intestine','Absorbs remaining water and forms waste'],['Rectum','Stores waste'],['Anus','Lets waste leave the body']]],
 ['Circulatory','❤️','Moves blood, oxygen and nutrients around the body.',[['Heart','Pumps blood'],['Blood vessels','Carry blood around the body'],['Blood','Carries oxygen, nutrients and wastes'],['Arteries','Carry blood away from the heart'],['Veins','Carry blood toward the heart']]],
@@ -74,11 +74,42 @@ function respond(el,ok){document.querySelectorAll('.answer').forEach(b=>b.disabl
 render();
 </script><script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import {getAuth,signInWithEmailAndPassword,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import {getFirestore,doc,setDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+import {getAuth,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import {getFirestore,doc,setDoc,getDoc,onSnapshot,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 const app=initializeApp({apiKey:'AIzaSyC7y-jx-LMOJyjtbLHuChc3yEGZXlQrtZ8',authDomain:'live-learning-with-laura.firebaseapp.com',projectId:'live-learning-with-laura',appId:'1:846701984036:web:0447c64aef753c1c1e1bb1'});
 const auth=getAuth(app),db=getFirestore(app),uid='leRi423sVucUgyRIYDq6lZIQInT2';
 let attempt=0;let firstAnswerOfAttempt=true;
+const teacherEmail='laurademe6@gmail.com';
+const isTeacherUser=u=>!!u&&u.email===teacherEmail&&u.providerData.some(p=>p.providerId==='google.com');
+const params=new URLSearchParams(location.search);
+const teacherRequested=params.get('teacher')==='1';
+let stopTeacherWatch=null;
+function escapeTeacher(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showTeacherProgress(d){
+ const responses=d?.answers||{};
+ const entries=Object.entries(responses).filter(([k,v])=>/^q\\d+$/.test(k)&&v&&typeof v==='object').sort((a,b)=>Number(a[0].slice(1))-Number(b[0].slice(1)));
+ const correct=entries.filter(([k,v])=>v.correct===true||v.isCorrect===true).length;
+ document.getElementById('teacherStatus').textContent=d?'Saved quiz responses loaded.':'No saved quiz document found at the original lesson location.';
+ document.getElementById('teacherSummary').innerHTML='<p><strong>'+entries.length+' questions with saved responses</strong> (out of 60 if Everett used the expanded quiz). '+(correct?'Correct flags: '+correct+'.':'')+'</p><p>Saved attempt: '+escapeTeacher(d?.attempt||'Not available')+'</p><p>Last updated: '+escapeTeacher(d?.lastUpdated?.toDate?.()?.toLocaleString?.()||'Not available')+'</p><p><small>This dashboard reports saved responses only. It does not count unanswered questions as completed.</small></p>';
+ document.getElementById('teacherResponses').innerHTML=entries.length?entries.map(([k,v])=>'<div class="tile" style="margin:8px 0"><strong>Question '+escapeTeacher(k.slice(1))+'</strong><pre style="white-space:pre-wrap;overflow-wrap:anywhere">'+escapeTeacher(JSON.stringify(v,null,2))+'</pre></div>').join(''):'<p>No saved answers found in this document.</p>';
+}
+function showTeacherError(e){document.getElementById('teacherStatus').textContent='Unable to read saved answers: '+e.message+'. Check deployed Firestore permissions for lessonAnswers/everett_body_systems_20261104.'}
+async function enterTeacher(u){
+ document.getElementById('loginGate').style.display='none';document.getElementById('lessonMain').style.display='none';document.getElementById('teacherPanel').style.display='block';
+ if(stopTeacherWatch)stopTeacherWatch();
+ stopTeacherWatch=onSnapshot(doc(db,'lessonAnswers','everett_body_systems_20261104'),snap=>showTeacherProgress(snap.exists()?snap.data():null),showTeacherError);
+}
+document.getElementById('teacherSignOut').onclick=()=>signOut(auth);
+if(teacherRequested){
+ const gate=document.getElementById('loginGate');
+ gate.querySelector('h2').textContent='Laura’s teacher sign-in';
+ gate.querySelector('p').textContent='Sign in with your Google teacher account to view Everett’s saved Body Systems answers.';
+ document.getElementById('studentName').style.display='none';document.getElementById('studentPassword').style.display='none';
+ const b=document.getElementById('studentSignIn');b.style.display='none';
+ const google=document.createElement('button');google.textContent='Sign in with Google';google.className='primary';gate.insertBefore(google,b);
+ google.onclick=async()=>{try{const result=await signInWithPopup(auth,new GoogleAuthProvider());if(!isTeacherUser(result.user))throw Error('Please use the authorized teacher Google account.');await enterTeacher(result.user)}catch(e){msg.textContent=e.message}};
+}
+
 const msg=document.getElementById('loginMessage');
 document.getElementById('studentSignIn').addEventListener('click',async()=>{
  const name=document.getElementById('studentName').value.trim(),pass=document.getElementById('studentPassword').value;
@@ -87,7 +118,7 @@ document.getElementById('studentSignIn').addEventListener('click',async()=>{
  try{const credential=await signInWithEmailAndPassword(auth,'everetto@students.learningwithlaura.invalid',pass);if(credential.user.uid!==uid){await auth.signOut();throw Error('This account is not Everett’s account.')}msg.textContent='Signed in.'}
  catch(e){msg.textContent='Sign-in failed. Check the password and try again.'}
 });
-onAuthStateChanged(auth,user=>{const ok=user?.uid===uid;document.getElementById('loginGate').style.display=ok?'none':'block';document.getElementById('lessonMain').style.display=ok?'block':'none'});
+onAuthStateChanged(auth,user=>{const teacher=teacherRequested&&isTeacherUser(user);if(teacher){enterTeacher(user);return}const ok=!teacherRequested&&user?.uid===uid;document.getElementById('loginGate').style.display=ok?'none':'block';document.getElementById('lessonMain').style.display=ok?'block':'none';document.getElementById('teacherPanel').style.display='none'});
 window.startEverettAttempt=()=>{attempt=Date.now();firstAnswerOfAttempt=true};
 window.recordEverettAnswer=async(answer)=>{
  if(auth.currentUser?.uid!==uid)return;
