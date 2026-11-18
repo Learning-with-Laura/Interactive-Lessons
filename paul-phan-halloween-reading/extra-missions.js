@@ -35,3 +35,61 @@ const candy={
 };
 window.paulExtraMissions.forEach((m,i)=>{const n=i+31;if(inference[n])m.qs.push(["🔎 Inference: "+inference[n][0],inference[n][1],inference[n][2]]);if(candy[n])m.qs.push(["🍬 Grade 2–3 math: "+candy[n][0],candy[n][1],candy[n][2]])});
 })();
+
+/* Additional Grade 3 practice for Missions 44–60. Append questions only to preserve existing answer keys. */
+(function(){
+const practice={
+44:{short:"What caused the tapping? (1–2 words)",qs:[
+["📖 Comprehension: Where did the family hear the tapping?",["In the attic","At the harbour","In the kitchen"],0],
+["🔎 Inference: Why was the tapping louder when it was windy?",["The branch moved against the roof","The family was singing","The clock was ringing"],0]]},
+45:{short:"Name one shape. (1–2 words)",qs:[
+["📖 Comprehension: What should you study to match a shadow?",["Its outline","Its colour","Its smell"],0],
+["🔎 Inference: Which detail helps identify a bat shadow?",["Wide wings","A round pumpkin stem","A pointed pirate sword"],0]]},
+46:{short:"How many pumpkins altogether? (Number only)",qs:[
+["📖 Comprehension: Which size of pumpkin was most common?",["Medium","Small","Large"],0],
+["🍬 Grade 2–3 math: How many pumpkins did Paul count altogether?",["19","18","20"],0]]},
+47:{short:"Who saved a chocolate bar? (1–2 words)",qs:[
+["📖 Comprehension: How many wrappers were on the counter?",["Two","Three","Four"],0],
+["🔎 Inference: Why did Paul inspect the unopened packet?",["To check his brother's explanation","To see the expiry date","To count pumpkins"],0]]},
+48:{short:"Who helped the ship? (1–2 words)",qs:[
+["📖 Comprehension: Where did the ship arrive?",["A safe harbour","A mountain cave","A pumpkin farm"],0],
+["🔎 Inference: How might the crew feel after reaching harbour?",["Relieved","Confused about the weather","Angry at the lighthouse"],0]]},
+49:{short:"Write one un- word. (1 word)",qs:[
+["📖 Vocabulary: What does the prefix un- mean in unhappy?",["Not","Very","Again"],0],
+["🔎 Inference: Which sign suggests a door cannot be opened?",["Unlocked","Unbreakable","Unopenable"],2]]},
+50:{short:"About how many bars? (Number only)",qs:[
+["🍬 Grade 2–3 math: Estimate 7 bags with about 8 bars each.",["56","15","78"],0],
+["🔎 Reasoning: Why might the actual total differ from 56?",["Each bag has about, not exactly, 8","The bags are orange","Paul is a pirate"],0]]},
+51:{short:"What detail was missing? (1 word)",qs:[
+["📖 Comprehension: Which detail did the ghost add?",["The address","A costume colour","A treasure map"],0],
+["🔎 Inference: Why did the ghost specify evening?",["To avoid confusion about the time","To make the party shorter","To change Saturday"],0]]},
+52:{short:"When did they sail? (1 word)",qs:[
+["📖 Comprehension: What did Captain Paul study?",["The clouds","A candy chart","A newspaper"],0],
+["🔎 Inference: What might have happened if they sailed in the storm?",["The trip could be dangerous","The storm would stop immediately","The ship would become faster"],0]]},
+53:{short:"Fraction saved? (Example: 5/8)",qs:[
+["🍫 Grade 3 math: How many of the eight pieces were saved?",["5","3","8"],0],
+["🍫 Grade 3 math: What fraction of the bar did Paul eat?",["3/8","5/8","3/5"],0]]},
+54:{short:"What sank? (1 word)",qs:[
+["📖 Comprehension: What object sank?",["The stone","The pumpkin","The tub"],0],
+["🔎 Inference: Why test a second pumpkin?",["To see if the prediction holds","To make the water sweeter","To count the stones"],0]]},
+55:{short:"Which direction first? (1 word)",qs:[
+["📖 Comprehension: Which direction did Paul travel first?",["North","East","South"],0],
+["🔎 Inference: Why trace the path before walking?",["To avoid taking a wrong turn","To make the map larger","To move the tree"],0]]},
+56:{short:"Money left? (Example: $3.25)",qs:[
+["🍬 Grade 3 math: What is the total cost of both treats?",["$6.75","$6.25","$7.75"],0],
+["🍬 Grade 3 math: How much change from $10.00?",["$3.25","$4.25","$2.75"],0]]},
+57:{short:"How did the ghost feel? (1 word)",qs:[
+["📖 Comprehension: What did Paul invite the ghost to join?",["The parade","The science lab","The ship's crew"],0],
+["🔎 Inference: Which action shows kindness?",["Inviting someone who is alone","Ignoring the ghost","Closing the window"],0]]},
+58:{short:"How many treats remained? (Number only)",qs:[
+["🍬 Grade 3 math: How many treats were in five piles of twelve?",["60","17","50"],0],
+["🍬 Grade 3 math: After giving away 14, how many remain?",["46","44","54"],0]]},
+59:{short:"Name a shadow shape. (1–2 words)",qs:[
+["📖 Comprehension: Where were the silhouettes hidden?",["On the wall","Under the sea","In a chocolate box"],0],
+["🔎 Inference: Which feature helps identify a witch's hat?",["A pointed top","Round bat wings","A ghost's wavy edge"],0]]},
+60:{short:"Name Paul's costume. (1 word)",qs:[
+["📖 Comprehension: What was Paul's costume?",["Pirate","Astronaut","Dragon"],0],
+["🔎 Inference: Why choose a headline before sharing the report?",["To help readers know its topic","To hide the story","To count chocolate bars"],0]]}
+};
+window.paulExtraMissions.forEach((mission,index)=>{const n=index+31;const p=practice[n];if(!p)return;mission.short=p.short;mission.qs.push(...p.qs)});
+})();
