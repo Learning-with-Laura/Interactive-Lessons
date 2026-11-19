@@ -102,6 +102,24 @@ service cloud.firestore {
         && request.resource.data.page <= 17;
       allow delete: if isTeacher();
     }
+    // Also support the November 18 response document used by an earlier
+    // deployed version while the student still has that tab open.
+    match /studentAnswers/daniel__nov18_2026 {
+      allow read: if isTeacher() || isDanielPasswordAccount();
+      allow create: if isDanielPasswordAccount()
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
+      allow update: if isDanielPasswordAccount()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
+      allow delete: if isTeacher();
+    }
     match /studentAnswers/{key} {
       allow read: if isTeacher() || (
         request.auth != null
