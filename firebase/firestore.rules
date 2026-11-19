@@ -85,8 +85,17 @@ service cloud.firestore {
     }
     match /studentAnswers/daniel__daniel_halloween_20261028 {
       allow read: if isTeacher() || isDanielPasswordAccount();
-      allow create, update: if isDanielPasswordAccount()
+      // Permit Daniel to save current lesson fields even when an older
+      // response document contains legacy metadata retained by merge writes.
+      // Only these three fields may be changed by Daniel.
+      allow create: if isDanielPasswordAccount()
         && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 17;
+      allow update: if isDanielPasswordAccount()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['answers','page','updatedAt'])
         && request.resource.data.answers is map
         && request.resource.data.page is int
         && request.resource.data.page >= 0
