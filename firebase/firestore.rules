@@ -160,6 +160,27 @@ service cloud.firestore {
       allow delete: if isTeacher();
     }
 
+    // Noah Lesson 2: dedicated document, limited to Laura and Noah.
+    function isNoahLesson2() {
+      return request.auth != null
+        && request.auth.uid == '5TP2L5dQgCgWzl41HrxWNc0GQWz2'
+        && request.auth.token.email == 'noahf@students.learningwithlaura.invalid'
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+    match /lessonProgress/noah-pokemon-rescue-lesson2_5TP2L5dQgCgWzl41HrxWNc0GQWz2 {
+      allow get: if isTeacher() || isNoahLesson2();
+      allow create, update: if (isTeacher() || isNoahLesson2())
+        && request.resource.data.keys().hasOnly(['answers','notes','current','studentEmail','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.notes is map
+        && request.resource.data.current is int
+        && request.resource.data.current >= 0
+        && request.resource.data.current <= 42
+        && request.resource.data.studentEmail == 'noahf@students.learningwithlaura.invalid'
+        && request.resource.data.updatedAt is string;
+      allow delete: if isTeacher();
+    }
+
     // Reusable lesson model for all future password-authenticated students.
     // Teacher creates an assignment under the student's own UID.
     // Student can read only assigned lesson content and edit only their responses.
