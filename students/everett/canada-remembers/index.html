@@ -263,5 +263,28 @@ $('zoomOut').addEventListener('click',()=>setPhotoScale(photoScale-.5));
 $('zoomReset').addEventListener('click',()=>setPhotoScale(1));
 $('zoomClose').addEventListener('click',()=>$('photoZoom').classList.remove('open'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$('photoZoom').classList.remove('open')});
+// Everett must compose written answers himself. Do not restrict Laura's teacher view.
+function studentWritingGuard(e){
+  if(teacher || !user || user.uid!==studentUid || previewMode)return;
+  const target=e.target;
+  const inLesson=target instanceof Element && !!target.closest('#mission');
+  if(!inLesson)return;
+  if(e.type==='paste' || e.type==='copy' || e.type==='cut' || e.type==='dragstart'){
+    e.preventDefault();
+    if(e.type==='paste' && (target.matches('textarea,input,[contenteditable="true"]'))){
+      $('connection').textContent='✍️ Please type your own answer instead of pasting.';
+    }
+  }
+  if(e.type==='contextmenu' && !target.matches('textarea,input,[contenteditable="true"]'))e.preventDefault();
+}
+['copy','cut','paste','dragstart','contextmenu'].forEach(type=>document.addEventListener(type,studentWritingGuard,true));
+document.addEventListener('keydown',e=>{
+  if(teacher || !user || user.uid!==studentUid || previewMode)return;
+  if(!(e.target instanceof Element) || !e.target.closest('#mission'))return;
+  if((e.ctrlKey||e.metaKey) && ['c','x','v'].includes(e.key.toLowerCase())){
+    e.preventDefault();
+    if(e.key.toLowerCase()==='v')$('connection').textContent='✍️ Please type your own answer instead of pasting.';
+  }
+},true);
 onAuthStateChanged(auth,u=>{user=u;teacher=!!u&&u.email?.toLowerCase()===teacherEmail;$('login').classList.toggle('hide',!!u);$('app').classList.toggle('hide',!u);if(!u){loadedRemote=false;return;}if(!teacher&&u.uid!==studentUid){$('login').classList.remove('hide');$('app').classList.add('hide');$('authMessage').textContent='This lesson is assigned only to Everett. Please use EverettO.';return;}$('preview').classList.toggle('hide',!teacher);$('backTeacher').classList.add('hide');$('runChecks').classList.add('hide');previewMode=false;$('identity').textContent=teacher?'Laura • Teacher':u.email;$('teacher').classList.toggle('hide',!teacher);if(unsub)unsub();if(teacher){$('preview').classList.remove('hide');$('connection').textContent='Teacher view: watching Everett’s lesson record';$('mission').innerHTML='<p>Live student progress appears below.</p>';$('prev').disabled=true;$('next').disabled=true;unsub=onSnapshot(doc(db,'students',studentUid,'lessons',lesson,'responses','current'),snap=>{let raw=snap.data(),d=raw?{answers:raw.answers?.missions||{},photoNotes:raw.answers?.photoNotes||{},soldier:raw.answers?.soldier||{},current:raw.position,updatedAt:raw.updatedAt}:null;monitorSoldier=d?.soldier||{};$('connection').textContent=d?'✓ Live Firebase connection · Last update '+new Date(d.updatedAt||Date.now()).toLocaleTimeString():'✓ Teacher connected to Firebase · No student save received yet';$('live').innerHTML=teacherLiveHtml(d)},e=>{if(!previewMode){$('connection').textContent='⚠ Teacher Firebase read failed: '+e.message;$('live').innerHTML='<p style="background:#ffe5e5;padding:16px;border-radius:12px">Teacher cannot read Everett’s responses. Firebase says: '+esc(e.message)+'</p>'}}) ;if(teacher&&new URLSearchParams(location.search).get('preview')==='1')startPreview()}else{unsub=onSnapshot(doc(db,'students',studentUid,'lessons',lesson,'responses','current'),snap=>{if(snap.exists()){let raw=snap.data();if(!loadedRemote){const remoteAnswers=raw.answers?.missions||{};answers={...remoteAnswers,...answers};photoNotes={...(raw.answers?.photoNotes||{}),...photoNotes};current=Math.max(current,Number.isInteger(raw.position)?raw.position:0);if(raw.answers?.soldier)soldier={...raw.answers.soldier,...soldier};loadedRemote=true;render();persist()}}else if(!loadedRemote){loadedRemote=true;persist()}if(!$('connection').textContent.includes('Saved to Laura')&&!$('connection').textContent.includes('NOT SAVED'))$('connection').textContent='Firebase connected · Checking save…'},e=>{$('connection').textContent='⚠ Firebase connection error: '+e.message;$('connection').style.cssText='background:#ffe5e5;color:#8a1111;padding:12px;border-radius:10px;font-weight:700'});render();if(new URLSearchParams(location.search).get('preview')==='1')startPreview()}});
 </script><div id="photoZoom" class="photo-zoom" role="dialog" aria-modal="true" aria-label="Enlarge historical photograph"><p id="photoZoomLabel">Historical photograph</p><div style="overflow:auto;max-width:98vw;max-height:78vh"><img id="photoZoomImage" alt="Enlarged historical photograph"></div><div class="photo-zoom-controls"><button type="button" id="zoomOut">− Zoom out</button><button type="button" id="zoomIn">+ Zoom in</button><button type="button" id="zoomReset">Reset</button><button type="button" id="zoomClose">Close ✕</button></div><p>Click + to inspect small details. Press Escape to close.</p></div></body></html>
