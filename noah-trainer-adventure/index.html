@@ -29,6 +29,17 @@
 
 #app.liveTeacher #items{flex:1 1 150px;min-width:120px;max-width:100%}
 #app.liveTeacher #teacher>.panel>.row:last-child{margin-top:7px!important}
+ 
+#scores .score-0{background:#166534;color:#fff}
+#scores .score-1{background:#1756b0;color:#fff}
+#scores .score-2{background:#7541a5;color:#fff}
+#scores .score-3{background:#ffc078;color:#542b00}
+#scores .score-4{background:#b91c1c;color:#fff}
+#scores .score-5{background:#d1d5db;color:#1f2937}
+#scores button{font-weight:750}
+#body{background:#cce9f7;color:#164c69}
+#dismiss{background:#e5e7eb;color:#374151}
+#reward{background:#facc15;color:#422b00}
 </style></head><body><header><div><strong>TRAINER ADVENTURE</strong><br><small>Learning with Laura • Reading Power</small></div><div class="row"><span id="role"></span><button id="logout" hidden>Sign out</button></div></header><main>
 <section id="login" class="panel"><h1>Welcome, Trainer!</h1><p class="muted">Sign in with your usual account.</p><button id="teacherLogin" class="primary">Teacher • Google sign-in</button><label>Student email<input id="email" value="noahf@students.learningwithlaura.invalid" autocomplete="username"></label><label>Password<input id="password" type="password" autocomplete="current-password"></label><button id="studentLogin" class="gold">Start adventure</button><p id="loginStatus" class="status" role="status"></p><hr><button id="local">Teacher practice / Teams fallback</button><p class="muted">Works on this device only. No student sign-in or live sync. Share the student display in Teams; record locally and export.</p></section>
 <section id="app" hidden><div class="row" style="justify-content:space-between;margin:8px 0"><div id="status" class="status" role="status">Connecting…</div><div id="collection" class="collection"></div></div>
@@ -142,7 +153,7 @@ $("local").onclick=()=>{if(unsub){unsub();unsub=null}local=true;teacher=true;rea
 $("logout").onclick=async()=>{if(local){location.reload()}else await signOut(auth)};
 if(new URLSearchParams(location.search).get("practice")==="1")$("local").click();
 onAuthStateChanged(auth,async user=>{if(local)return;if(unsub){unsub();unsub=null}ready=false;if(!user){$("login").hidden=false;$("app").hidden=true;$("logout").hidden=true;return}teacher=user.email==="laurademe6@gmail.com"&&user.emailVerified&&user.providerData.some(p=>p.providerId==="google.com");if(!teacher&&!(user.uid===uid&&user.email===studentEmail)){$("loginStatus").textContent="Account not authorized.";await signOut(auth);return}$("loginStatus").textContent="Connecting to live progress…";try{await runTransaction(db,async tx=>{const snap=await tx.get(ref);if(!snap.exists())tx.set(ref,{answers:{},notes:{},current:0,studentEmail,updatedAt:now()})});unsub=onSnapshot(ref,{includeMetadataChanges:true},snap=>{let d=snap.data()||{},n=d.notes?.[NS]||{};if(!teacher||!pendingWrites){if(n.control)control=n.control;records=n.records||{};attempts=n.attempts||{}}if(teacher||!pendingWrites)responses=d.answers?.[NS]||{};if(!ready)openApp();ready=true;status(snap.metadata.hasPendingWrites?"Saving…":snap.metadata.fromCache?"Cached • connection not confirmed":"Live • connected");render()},e=>{status("Live sync failed: "+e.message,true);$("loginStatus").textContent="Live sync failed: "+e.message})}catch(e){$("loginStatus").textContent="Live connection failed: "+e.message+" — use Teacher practice / Teams fallback.";status("Live connection failed: "+e.message,true)}});
-results.forEach((r,i)=>{let b=el("button",i<3?"green":i===3?"amber":i===4?"danger":"",r);b.onclick=()=>record(r);$("scores").append(b)});
+results.forEach((r,i)=>{let b=el("button","score-"+i,r);b.onclick=()=>record(r);$("scores").append(b)});
 $("skillPicker").onchange=()=>change($("skillPicker").value,Math.max(0,unused($("skillPicker").value)));$("items").onchange=()=>change(group().id,+$("items").value);$("prev").onclick=()=>change(group().id,control.i-1);$("next").onclick=()=>moveNext();$("teach").onclick=()=>change(group().id,control.i,"teach");$("probe").onclick=()=>change(group().id,control.i,"probe");$("reward").onclick=()=>setOverlay("reward");$("body").onclick=()=>setOverlay("body");$("dismiss").onclick=dismiss;$("export").onclick=exportCSV;$("finish").onclick=()=>change("finish",0);
 $("present").onclick=()=>{present=true;$("app").classList.remove("liveTeacher");$("teacher").hidden=true;$("restore").hidden=false;if(local){lastOverlay="";drawOverlay()}};$("restore").onclick=()=>{present=false;$("app").classList.add("liveTeacher");$("teacher").hidden=false;$("restore").hidden=true;closeOverlay()};
 </script><footer style="text-align:center;font-size:11px;color:#53647f;padding:15px">Unofficial educational activity. Pokémon artwork via PokeAPI official-artwork collection; Pokémon belongs to its respective rights holders. Not affiliated with Pokémon or UFLI.</footer></body></html>
