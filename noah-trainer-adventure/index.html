@@ -32,14 +32,19 @@
  
 #scores .score-0{background:#166534;color:#fff}
 #scores .score-1{background:#1756b0;color:#fff}
-#scores .score-2{background:#7541a5;color:#fff}
-#scores .score-3{background:#ffc078;color:#542b00}
+#scores .score-2{background:#f8df73;color:#493700}
+#scores .score-3{background:#c65d11;color:#fff}
 #scores .score-4{background:#b91c1c;color:#fff}
 #scores .score-5{background:#d1d5db;color:#1f2937}
 #scores button{font-weight:750}
 #body{background:#cce9f7;color:#164c69}
 #dismiss{background:#e5e7eb;color:#374151}
 #reward{background:#facc15;color:#422b00}
+
+#app.liveTeacher #scores{grid-template-columns:minmax(0,1fr);gap:4px}
+#app.liveTeacher #scores button{min-height:34px;width:100%;text-align:left;padding:7px 12px}
+#app.liveTeacher .rewardrow{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+#app.liveTeacher .rewardrow button{width:100%;min-height:32px;text-align:left;padding:6px 12px}
 </style></head><body><header><div><strong>TRAINER ADVENTURE</strong><br><small>Learning with Laura • Reading Power</small></div><div class="row"><span id="role"></span><button id="logout" hidden>Sign out</button></div></header><main>
 <section id="login" class="panel"><h1>Welcome, Trainer!</h1><p class="muted">Sign in with your usual account.</p><button id="teacherLogin" class="primary">Teacher • Google sign-in</button><label>Student email<input id="email" value="noahf@students.learningwithlaura.invalid" autocomplete="username"></label><label>Password<input id="password" type="password" autocomplete="current-password"></label><button id="studentLogin" class="gold">Start adventure</button><p id="loginStatus" class="status" role="status"></p><hr><button id="local">Teacher practice / Teams fallback</button><p class="muted">Works on this device only. No student sign-in or live sync. Share the student display in Teams; record locally and export.</p></section>
 <section id="app" hidden><div class="row" style="justify-content:space-between;margin:8px 0"><div id="status" class="status" role="status">Connecting…</div><div id="collection" class="collection"></div></div>
