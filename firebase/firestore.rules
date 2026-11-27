@@ -209,5 +209,65 @@ service cloud.firestore {
       }
     }
 
+    // JamesP: narrowly scoped legacy lesson schemas and teacher-only migration sources.
+    function isJamesP() {
+      return request.auth != null
+        && request.auth.uid == '9gCeO83CHDWqHUqTkKi85rhfX0t2'
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+    match /students/9gCeO83CHDWqHUqTkKi85rhfX0t2/lessons/halloween-language-2026 {
+      allow read: if isTeacher() || isJamesP();
+      allow create, update: if isTeacher();
+      match /responses/current {
+        allow read: if isTeacher() || isJamesP();
+        allow create, update: if (isTeacher() || isJamesP())
+          && request.resource.data.keys().hasOnly(['answers','position','cheerPosition','updatedAt'])
+          && (!('answers' in request.resource.data) || request.resource.data.answers is map)
+          && (!('position' in request.resource.data) || (request.resource.data.position is int && request.resource.data.position >= 0 && request.resource.data.position <= 200))
+          && (!('cheerPosition' in request.resource.data) || (request.resource.data.cheerPosition is int && request.resource.data.cheerPosition >= -1 && request.resource.data.cheerPosition <= 200))
+          && (!('updatedAt' in request.resource.data) || request.resource.data.updatedAt is timestamp);
+      }
+    }
+    match /students/james-phan/lessons/halloween-language-2026 {
+      allow get: if isTeacher();
+      match /responses/current {
+        allow get: if isTeacher();
+      }
+    }
+    match /lessonProgress/james-canada-remembers-2026_9gCeO83CHDWqHUqTkKi85rhfX0t2 {
+      allow get: if isTeacher() || isJamesP();
+      allow create, update: if (isTeacher() || isJamesP())
+        && request.resource.data.keys().hasOnly(['answers','current','photoNotes','soldier','studentEmail','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.current is int
+        && request.resource.data.current >= 0
+        && request.resource.data.current <= 80
+        && request.resource.data.photoNotes is map
+        && request.resource.data.soldier is map
+        && request.resource.data.studentEmail is string
+        && request.resource.data.updatedAt is string;
+    }
+    match /lessonProgress/james-canada-remembers-2026_cw2uoQh2iheyrwMmMoZCY9Rwu2A2 {
+      allow get: if isTeacher();
+    }
+    match /students/9gCeO83CHDWqHUqTkKi85rhfX0t2/lessons/medical-academy-2026/content/profile {
+      allow get: if isTeacher() || isJamesP();
+      allow create, update: if isTeacher()
+        && request.resource.data.keys().hasOnly(['portrait','updatedAt'])
+        && request.resource.data.portrait is string
+        && request.resource.data.portrait.size() <= 500000
+        && request.resource.data.updatedAt is number;
+    }
+    match /students/9gCeO83CHDWqHUqTkKi85rhfX0t2/lessons/medical-academy-2026/responses/current {
+      allow get: if isTeacher() || isJamesP();
+      allow create, update: if (isTeacher() || isJamesP())
+        && request.resource.data.keys().hasOnly(['answers','page','updatedAt'])
+        && request.resource.data.answers is map
+        && request.resource.data.page is int
+        && request.resource.data.page >= 0
+        && request.resource.data.page <= 167
+        && request.resource.data.updatedAt is number;
+    }
+
   }
 }
