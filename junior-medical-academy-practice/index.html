@@ -1,0 +1,1476 @@
+<!doctype html><html lang="en-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Junior Medical Academy</title><style>*{box-sizing:border-box}body{margin:0;background:#eef4f8;color:#173047;font:17px/1.55 system-ui,sans-serif}header{background:linear-gradient(120deg,#10263d,#126971);color:white;padding:24px max(18px,calc((100% - 1180px)/2))}header h1{margin:0;font-size:clamp(26px,4vw,38px)}header p{margin:4px 0;color:#bce7e9}main{max-width:1180px;margin:20px auto;padding:0 15px}.card{background:white;border:1px solid #cedfe7;padding:22px;border-radius:14px;margin:12px 0;box-shadow:0 3px 15px #1730470b}h2,h3{line-height:1.2}h2{margin-top:8px}.row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.spread{justify-content:space-between}button{font:inherit;font-weight:650;background:#087b83;color:white;border:1px solid #087b83;border-radius:8px;padding:9px 14px;cursor:pointer}button:hover{filter:brightness(.94)}button:disabled{opacity:.43;cursor:not-allowed}.outline,.tiny{background:white;color:#17475b;border:1px solid #91adb8}.tiny{font-size:13px;padding:3px 8px}.option{display:block;text-align:left;background:#f4f8fb;color:#173047;border:1px solid #acc7d3;width:100%;margin:8px 0}.selected,.done{background:#197448;color:white;border-color:#197448}.flagged{background:#b17c18;color:white}.current{background:#215b9a}input,textarea,select{display:block;width:100%;padding:10px;font:inherit;color:#173047;background:white;border:1px solid #91adb8;border-radius:8px;margin:4px 0 12px}label{display:block;font-weight:600;margin:8px 0}.check{display:flex;gap:9px;align-items:center;font-weight:400}.check input{width:auto;margin:0}.small,small{font-size:13px;color:#526c7c}.lead{font-size:20px;font-weight:650}.brief{background:#f0f8fa;border-left:4px solid #16828a;border-radius:8px;padding:14px;margin:12px 0}.brief p{margin:8px 0}dt{font-weight:700}dd{margin:0 0 8px 18px}.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0}.flow span,.equipment span{border:1px solid #a9c7cf;background:#e4f3f6;padding:7px 10px;border-radius:8px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px}.progress{height:9px;border-radius:8px;background:#e3ebef;overflow:hidden;margin:8px 0}.progress div{height:100%;background:#1a8a87}.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:320px;overflow:auto}.nav button{font-size:13px;padding:6px 3px;background:#e4edf2;color:#173047;border:0}.nav button.done{background:#197448;color:white}.nav button.current{background:#215b9a;color:white}.nav button.flagged{background:#b17c18;color:white}.feedback{margin-top:14px;min-height:26px;padding:8px;border-radius:8px}.good{color:#17643b;background:#e7f5eb}.warn{color:#825612;background:#fff5dc}.panel{position:fixed;top:100px;right:15px;z-index:20;background:white;border:1px solid #9ab6bf;border-radius:12px;box-shadow:0 6px 40px #14304640;width:390px;max-width:calc(100% - 30px);max-height:78vh;overflow:auto;padding:16px}.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.keys button{padding:9px}.calcresult{font-size:26px;text-align:right;padding:10px;background:#e8f1f2}.star{font-size:34px;line-height:1;background:white;border:0;color:#c6890e;padding:5px}.stars{color:#c6890e;font-size:24px;letter-spacing:1px}.ratingrow{display:grid;grid-template-columns:1fr auto;gap:2px;padding:8px 0;border-bottom:1px solid #dfe8ec}.ratingrow small{grid-column:1/-1}.idcard{max-width:510px;background:#163650;color:white;border-radius:12px;padding:18px;margin:16px 0;box-shadow:0 4px 15px #17304733}.idcard.teal{background:#12656b}.idcard.burgundy{background:#653548}.idhead{display:flex;align-items:center;gap:12px;border-bottom:1px solid #ffffff55;padding-bottom:12px;font-weight:700}.idhead small,.idcard small{display:block;color:#d0e3e8;font-size:10px}.cross{font-size:28px}.idbody{display:flex;gap:18px;align-items:center;padding:14px 0}.portrait{width:100px;height:120px;object-fit:cover;background:#dae6e9;border-radius:4px}.portrait svg{width:100%;height:100%}.idbody h2{margin:0;font-size:29px}.idbody p{font-size:12px}.barcode{height:22px;width:125px;background:repeating-linear-gradient(90deg,white 0 2px,transparent 2px 4px,white 4px 5px,transparent 5px 8px)}.equipment{display:flex;gap:8px;flex-wrap:wrap}.certificate{border:4px double #b08a30;text-align:center;padding:30px;margin:15px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7fa;padding:12px} [hidden]{display:none!important}@media(max-width:850px){.layout{grid-template-columns:1fr}.panel{top:auto;bottom:12px}.nav{max-height:150px}}@media print{header,#account,#gate,#toolbar,#controls,aside,#panel,#sync,button{display:none!important}body{background:white}.layout{display:block}.card{box-shadow:none}}.medicalPhoto{margin:12px 0}.medicalPhoto img{display:block;max-width:100%;max-height:330px;object-fit:contain;margin:auto;cursor:zoom-in;background:white}.medicalPhoto img.zoomed{max-height:none;width:100%;cursor:zoom-out}.medicalPhoto figcaption{font-size:12px;color:#526c7c}.graphRow{display:grid;grid-template-columns:100px minmax(60px,1fr) 95px;gap:8px;align-items:center;margin:10px 0;font-size:14px}.graphTrack{background:#dbe8ee;border-radius:5px;height:22px}.graphTrack div{background:#16828a;border-radius:5px;height:100%}@media(max-width:500px){.graphRow{grid-template-columns:70px 1fr 70px;font-size:12px}}.achievement{margin-top:14px;border:2px solid #b08a30;background:linear-gradient(135deg,#f7f0db,#fff);color:#173047;border-radius:12px;padding:16px;text-align:center;animation:awardIn .65s ease-out}.achievement strong{font-size:12px;letter-spacing:.12em;color:#7a5a15}@keyframes awardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.achievement{animation:none}}</style></head><body><header><p>LEARNING WITH LAURA · GRADE 6 SCIENCE AND LITERACY</p><h1>Junior Doctor's Junior Medical Academy</h1><p>Discover the human body. Investigate evidence. Explore your future.</p></header><main><div id="account" hidden class="row spread"><span id="sync" role="status">Connecting…</span><button id="logout" class="outline">Download responses (JSON)</button><button id="localCsv" class="outline">Download CSV</button><label>Restore backup <input id="restoreLocal" type="file" accept=".json"></label></div><section id="gate" hidden></section><div class="card"><b>Independent practice mode</b> · No sign-in or private records. Progress stays on this device. Download your CSV and JSON at the end and send them privately to your teacher.</div><section id="student" hidden><button id="exitPreview" hidden class="outline">Return to teacher dashboard</button><div class="layout"><section class="card"><div id="position" class="small"></div><div class="progress"><div id="bar"></div></div><div id="toolbar" class="row"><button id="calc" class="outline">Calculator</button><button id="reference" class="outline">Reference</button><button id="hint" class="outline">Hint</button><button id="flag" class="outline">Revisit / flag</button><button id="portfolio" class="outline">Career portfolio</button><button id="journalBtn" class="outline">Curiosity journal</button></div><p id="department" class="small"></p><h2 id="title"></h2><div id="content"></div><div id="feedback" class="feedback" role="status" aria-live="polite"></div><div id="controls" class="row spread"><button id="prev" class="outline">Previous</button><button id="help" class="outline">Ask my teacher</button><button id="next">Next mission</button></div></section><aside><section class="card"><h3>Medical journey</h3><p id="stats" class="small"></p><div id="nav" class="nav"></div><p class="small">Green = completed. Gold = revisit or skipped extension. Blue = current. Locked = not yet taught.</p><h3>Revisit list</h3><div id="backlog"></div><p><button id="pause">Finish today's session / pause</button></p><button id="backup" class="outline">Save private backup</button></section></aside></div></section><section id="pauseScreen" hidden class="card"><h2>Well done, Doctor!</h2><p>Your progress is stored on this device and cloud saving will retry if needed. Return next time to continue your journey.</p><button id="resume">Resume training</button></section><section id="teacher" hidden></section><section id="panel" class="panel" hidden><div class="row spread"><h3 id="panelTitle"></h3><button id="closePanel" class="outline">Close</button></div><div id="panelBody"></div></section></main><script>const departments = [
+  {
+    "id": 1,
+    "name": "Medical Laboratory",
+    "topic": "Cells and tissues",
+    "reward": "Microscope",
+    "hook": "Why can you see some living things only with a microscope?",
+    "teach": "Cells are the tiny living units that make up your body. A group of similar cells working together forms a tissue. Different tissues form organs, and organs work together in body systems. A microscope magnifies tiny objects so we can see details. Red blood cells carry oxygen; muscle cells help produce movement. Not every cell looks the same because cells have different jobs.",
+    "vocab": [
+      [
+        "cell",
+        "the basic living unit"
+      ],
+      [
+        "tissue",
+        "similar cells working together"
+      ],
+      [
+        "organ",
+        "structure made of tissues"
+      ],
+      [
+        "magnify",
+        "make something look larger"
+      ]
+    ],
+    "flow": [
+      "cell",
+      "tissue",
+      "organ",
+      "system"
+    ],
+    "questions": [
+      {
+        "p": "Which level comes after tissue?",
+        "o": [
+          "Cell",
+          "Body system",
+          "Microscope",
+          "Organ"
+        ],
+        "k": 3
+      },
+      {
+        "p": "Which cell is specialized for carrying oxygen?",
+        "o": [
+          "Red blood cell",
+          "Muscle cell",
+          "Skin cell",
+          "Nerve cell"
+        ],
+        "k": 0
+      },
+      {
+        "p": "Why do different cells have different shapes?",
+        "o": [
+          "They are not living",
+          "They have different jobs",
+          "They all do the same job",
+          "They are all the same size"
+        ],
+        "k": 1
+      }
+    ],
+    "example": "A microscope makes a 2 mm object look 10 times larger. How wide does it appear?",
+    "worked": "2 × 10 = 20 mm",
+    "math": {
+      "p": "A 3 mm object is magnified 20 times. How wide does it appear?",
+      "answer": 60,
+      "unit": "mm"
+    },
+    "writing": {
+      "starter": "Cells have different shapes because",
+      "keywords": [
+        "jobs",
+        "function",
+        "work",
+        "special"
+      ]
+    },
+    "case": {
+      "p": "A lab worker sees long, thin cells in a sample. Which conclusion is supported?",
+      "o": [
+        "All cells are identical",
+        "The cells prove a disease",
+        "The cells may be specialized for a particular job",
+        "The sample must contain blood"
+      ],
+      "k": 2
+    },
+    "career": {
+      "p": "What does a pathologist do?",
+      "answer": "Examines tissues and laboratory findings to help identify disease."
+    }
+  },
+  {
+    "id": 2,
+    "name": "Cardiology",
+    "topic": "Heart and blood",
+    "reward": "Stethoscope",
+    "hook": "Why does your heart beat faster when you run?",
+    "teach": "The heart is a muscle that pumps blood. Blood travels through blood vessels. Arteries carry blood away from the heart; veins carry it back. Tiny capillaries connect blood vessels and allow materials to move between blood and tissues. Red blood cells carry oxygen. During exercise, muscles need more oxygen and nutrients, so the heart usually pumps faster.",
+    "vocab": [
+      [
+        "pulse",
+        "heartbeat felt in an artery"
+      ],
+      [
+        "circulation",
+        "movement of blood"
+      ],
+      [
+        "artery",
+        "vessel carrying blood away from heart"
+      ],
+      [
+        "vein",
+        "vessel carrying blood toward heart"
+      ]
+    ],
+    "flow": [
+      "heart",
+      "arteries",
+      "capillaries",
+      "veins",
+      "heart"
+    ],
+    "questions": [
+      {
+        "p": "Which vessels carry blood away from the heart?",
+        "o": [
+          "Nerves",
+          "Airways",
+          "Arteries",
+          "Veins"
+        ],
+        "k": 2
+      },
+      {
+        "p": "What is the main job of red blood cells?",
+        "o": [
+          "Digest food",
+          "Make bones",
+          "Send nerve messages",
+          "Carry oxygen"
+        ],
+        "k": 3
+      },
+      {
+        "p": "Why does heart rate usually rise during exercise?",
+        "o": [
+          "Muscles need more oxygen and nutrients",
+          "Bones need to become longer",
+          "The stomach stops working",
+          "The lungs stop taking in air"
+        ],
+        "k": 0
+      }
+    ],
+    "example": "A heart beats 70 times per minute. In 3 minutes it beats 70 × 3 = 210 times.",
+    "worked": "70 × 3 = 210 beats",
+    "math": {
+      "p": "A heart beats 78 times each minute. How many beats in 4 minutes at the same rate?",
+      "answer": 312,
+      "unit": "beats"
+    },
+    "writing": {
+      "starter": "During exercise, the heart beats faster because",
+      "keywords": [
+        "muscle",
+        "oxygen",
+        "blood",
+        "energy",
+        "nutrient"
+      ]
+    },
+    "case": {
+      "p": "A runner's pulse rises from 72 to 140 bpm. What is the best explanation?",
+      "o": [
+        "The bones are growing faster",
+        "Working muscles need more oxygen-rich blood",
+        "The heart has stopped working",
+        "The blood has turned blue"
+      ],
+      "k": 1
+    },
+    "career": {
+      "p": "What does a cardiologist do?",
+      "answer": "Helps people with heart and blood vessel health."
+    }
+  },
+  {
+    "id": 3,
+    "name": "Respirology",
+    "topic": "Lungs and breathing",
+    "reward": "Pulse oximeter",
+    "hook": "Why do you breathe faster after running?",
+    "teach": "Air enters through the nose or mouth, passes down the trachea and through branching airways into the lungs. Tiny air sacs called alveoli allow oxygen to move into the blood and carbon dioxide to move out. The diaphragm is a muscle that helps air enter and leave the lungs. When exercising, cells need more oxygen and produce more carbon dioxide.",
+    "vocab": [
+      [
+        "trachea",
+        "windpipe"
+      ],
+      [
+        "alveoli",
+        "tiny air sacs"
+      ],
+      [
+        "diaphragm",
+        "breathing muscle below lungs"
+      ],
+      [
+        "carbon dioxide",
+        "waste gas made by cells"
+      ]
+    ],
+    "flow": [
+      "nose/mouth",
+      "trachea",
+      "airways",
+      "alveoli"
+    ],
+    "questions": [
+      {
+        "p": "Where does most gas exchange in the lungs occur?",
+        "o": [
+          "Ribs",
+          "Alveoli",
+          "Trachea",
+          "Stomach"
+        ],
+        "k": 1
+      },
+      {
+        "p": "Which muscle helps breathing?",
+        "o": [
+          "Heart",
+          "Tongue",
+          "Diaphragm",
+          "Biceps"
+        ],
+        "k": 2
+      },
+      {
+        "p": "What gas moves from the blood into the air sacs to be breathed out?",
+        "o": [
+          "Oxygen",
+          "Helium",
+          "Nitrogen only",
+          "Carbon dioxide"
+        ],
+        "k": 3
+      }
+    ],
+    "example": "If someone takes 7 breaths in 30 seconds, multiply by 2 to find 14 breaths per minute.",
+    "worked": "7 × 2 = 14",
+    "math": {
+      "p": "A person takes 9 breaths in 30 seconds. At the same rate, how many in one minute?",
+      "answer": 18,
+      "unit": "breaths"
+    },
+    "writing": {
+      "starter": "The lungs and heart work together because",
+      "keywords": [
+        "oxygen",
+        "blood",
+        "pump",
+        "lung",
+        "heart"
+      ]
+    },
+    "case": {
+      "p": "A swimmer breathes faster after a lap. Which systems work together to deliver oxygen?",
+      "o": [
+        "Respiratory and circulatory",
+        "Digestive and skeletal only",
+        "Skin and urinary only",
+        "Nervous and digestive only"
+      ],
+      "k": 0
+    },
+    "career": {
+      "p": "What does a respirologist do?",
+      "answer": "Helps people with lung and breathing problems."
+    }
+  },
+  {
+    "id": 4,
+    "name": "Gastroenterology",
+    "topic": "Digestion and nutrition",
+    "reward": "Digestive model",
+    "hook": "Why does the stomach not normally digest itself?",
+    "teach": "Digestion breaks food into smaller parts the body can use. Chewing starts digestion in the mouth. Food travels down the oesophagus to the stomach, where muscles and digestive juices mix it. A protective mucus layer helps protect the stomach. Most nutrients enter the bloodstream in the small intestine. The large intestine absorbs some remaining water. The liver makes bile, which helps digest fats.",
+    "vocab": [
+      [
+        "digest",
+        "break down food"
+      ],
+      [
+        "nutrient",
+        "substance the body needs"
+      ],
+      [
+        "oesophagus",
+        "tube from mouth to stomach"
+      ],
+      [
+        "absorb",
+        "take in"
+      ]
+    ],
+    "flow": [
+      "mouth",
+      "oesophagus",
+      "stomach",
+      "small intestine",
+      "large intestine"
+    ],
+    "questions": [
+      {
+        "p": "Where are most nutrients absorbed?",
+        "o": [
+          "Small intestine",
+          "Stomach",
+          "Mouth",
+          "Large intestine"
+        ],
+        "k": 0
+      },
+      {
+        "p": "What helps protect the stomach lining?",
+        "o": [
+          "Air",
+          "Mucus",
+          "Bones",
+          "Blood vessels only"
+        ],
+        "k": 1
+      },
+      {
+        "p": "What does the large intestine absorb from remaining material?",
+        "o": [
+          "Sound",
+          "Light",
+          "Water",
+          "Oxygen from air"
+        ],
+        "k": 2
+      }
+    ],
+    "example": "A snack contains 6 g of fibre per serving. Two servings contain 6 × 2 = 12 g.",
+    "worked": "6 × 2 = 12 g",
+    "math": {
+      "p": "A food contains 4 g of fibre per serving. How much in 3 servings?",
+      "answer": 12,
+      "unit": "g"
+    },
+    "writing": {
+      "starter": "The small intestine is important because",
+      "keywords": [
+        "nutrient",
+        "absorb",
+        "blood",
+        "food"
+      ]
+    },
+    "case": {
+      "p": "A food label lists protein, fibre and sugar. What is the best reason to read it?",
+      "o": [
+        "To diagnose a disease",
+        "To measure blood pressure",
+        "To find the body's temperature",
+        "To learn what nutrients the food contains"
+      ],
+      "k": 3
+    },
+    "career": {
+      "p": "What does a gastroenterologist do?",
+      "answer": "Helps people with digestive system conditions."
+    }
+  },
+  {
+    "id": 5,
+    "name": "Nephrology",
+    "topic": "Kidneys and waste",
+    "reward": "Kidney model",
+    "hook": "How does your body remove waste from blood?",
+    "teach": "The kidneys filter blood and help keep the right amount of water and salts in the body. They produce urine containing extra water and certain wastes. Urine travels down tubes called ureters to the bladder, where it is stored until it leaves the body. The urinary system works with the circulatory system because blood brings waste to the kidneys.",
+    "vocab": [
+      [
+        "filter",
+        "separate substances"
+      ],
+      [
+        "urine",
+        "liquid waste made by kidneys"
+      ],
+      [
+        "ureter",
+        "tube from kidney to bladder"
+      ],
+      [
+        "bladder",
+        "organ storing urine"
+      ]
+    ],
+    "flow": [
+      "kidneys",
+      "ureters",
+      "bladder",
+      "urethra"
+    ],
+    "questions": [
+      {
+        "p": "Which organs produce urine?",
+        "o": [
+          "Lungs",
+          "Stomach",
+          "Heart",
+          "Kidneys"
+        ],
+        "k": 3
+      },
+      {
+        "p": "Where is urine stored?",
+        "o": [
+          "Bladder",
+          "Ureter",
+          "Kidney only",
+          "Liver"
+        ],
+        "k": 0
+      },
+      {
+        "p": "Which system brings blood to the kidneys?",
+        "o": [
+          "Integumentary only",
+          "Circulatory",
+          "Skeletal",
+          "Respiratory only"
+        ],
+        "k": 1
+      }
+    ],
+    "example": "One litre equals 1000 millilitres. 1.5 L = 1500 mL.",
+    "worked": "1.5 × 1000 = 1500 mL",
+    "math": {
+      "p": "Convert 0.75 L to millilitres.",
+      "answer": 750,
+      "unit": "mL"
+    },
+    "writing": {
+      "starter": "The kidneys help the body by",
+      "keywords": [
+        "filter",
+        "waste",
+        "blood",
+        "water",
+        "urine"
+      ]
+    },
+    "case": {
+      "p": "A diagram shows urine moving from a kidney to the bladder. Which tube is it travelling through?",
+      "o": [
+        "Artery",
+        "Oesophagus",
+        "Ureter",
+        "Trachea"
+      ],
+      "k": 2
+    },
+    "career": {
+      "p": "What does a nephrologist do?",
+      "answer": "Helps people with kidney health and kidney disease."
+    }
+  },
+  {
+    "id": 6,
+    "name": "Neurology",
+    "topic": "Brain and nerves",
+    "reward": "Brain model",
+    "hook": "Why does your leg move when a doctor taps your knee?",
+    "teach": "The nervous system includes the brain, spinal cord and nerves. Nerves carry messages between the body and central nervous system. Sensory nerves carry information such as touch; motor nerves carry messages to muscles. A reflex is a fast automatic response, often coordinated by the spinal cord before you consciously think about it. Different brain areas help with movement, memory and senses.",
+    "vocab": [
+      [
+        "neuron",
+        "nerve cell"
+      ],
+      [
+        "spinal cord",
+        "bundle of nerve tissue connecting brain and body"
+      ],
+      [
+        "reflex",
+        "fast automatic response"
+      ],
+      [
+        "signal",
+        "message"
+      ]
+    ],
+    "flow": [
+      "stimulus",
+      "sensory nerve",
+      "spinal cord",
+      "motor nerve",
+      "muscle"
+    ],
+    "questions": [
+      {
+        "p": "What carries messages between the body and brain?",
+        "o": [
+          "Digestive juices",
+          "Urine",
+          "Nerves",
+          "Bones"
+        ],
+        "k": 2
+      },
+      {
+        "p": "What is a reflex?",
+        "o": [
+          "A food nutrient",
+          "A type of bone",
+          "A voluntary decision every time",
+          "A fast automatic response"
+        ],
+        "k": 3
+      },
+      {
+        "p": "What carries a message to a muscle?",
+        "o": [
+          "Motor nerve",
+          "Vein",
+          "Air sac",
+          "Ureter"
+        ],
+        "k": 0
+      }
+    ],
+    "example": "Reaction times are 0.3, 0.4 and 0.5 seconds. Average = (0.3+0.4+0.5) ÷ 3 = 0.4 seconds.",
+    "worked": "1.2 ÷ 3 = 0.4 s",
+    "math": {
+      "p": "Find the average of 0.2, 0.3 and 0.4 seconds.",
+      "answer": 0.3,
+      "unit": "s"
+    },
+    "writing": {
+      "starter": "A reflex is useful because",
+      "keywords": [
+        "quick",
+        "fast",
+        "automatic",
+        "protect",
+        "response"
+      ]
+    },
+    "case": {
+      "p": "A person pulls a hand away from a hot object before thinking about it. What explains this?",
+      "o": [
+        "The heart stops briefly",
+        "A reflex involving the nervous system",
+        "The bones send food to the hand",
+        "The kidneys control the hand"
+      ],
+      "k": 1
+    },
+    "career": {
+      "p": "What does a neurologist do?",
+      "answer": "Helps people with conditions involving the brain, spinal cord and nerves."
+    }
+  },
+  {
+    "id": 7,
+    "name": "Orthopaedics",
+    "topic": "Bones, joints and muscles",
+    "reward": "Skeleton model",
+    "hook": "How can a broken bone repair itself?",
+    "teach": "Bones are living tissue. They support the body, protect organs and help us move. Joints are places where bones meet. Muscles pull on bones through tendons; muscles often work in pairs, with one contracting while another relaxes. Bone cells can build new tissue during healing. Ligaments help connect bones at joints.",
+    "vocab": [
+      [
+        "joint",
+        "place where bones meet"
+      ],
+      [
+        "tendon",
+        "connects muscle to bone"
+      ],
+      [
+        "ligament",
+        "connects bone to bone"
+      ],
+      [
+        "contract",
+        "shorten or tighten"
+      ]
+    ],
+    "flow": [
+      "nerve signal",
+      "muscle contracts",
+      "tendon pulls",
+      "bone moves"
+    ],
+    "questions": [
+      {
+        "p": "What connects muscle to bone?",
+        "o": [
+          "Cartilage only",
+          "Tendon",
+          "Ligament",
+          "Vein"
+        ],
+        "k": 1
+      },
+      {
+        "p": "Which structure protects the brain?",
+        "o": [
+          "Ribs",
+          "Pelvis",
+          "Skull",
+          "Femur"
+        ],
+        "k": 2
+      },
+      {
+        "p": "Why do muscles often work in pairs?",
+        "o": [
+          "They push bones outward",
+          "They do not move bones",
+          "They are not living",
+          "They pull in opposite directions"
+        ],
+        "k": 3
+      }
+    ],
+    "example": "A model bone is 24 cm long and another 16 cm. Difference = 24 − 16 = 8 cm.",
+    "worked": "24 − 16 = 8 cm",
+    "math": {
+      "p": "Two model bones measure 32 cm and 19 cm. What is the difference?",
+      "answer": 13,
+      "unit": "cm"
+    },
+    "writing": {
+      "starter": "Bones are living tissue because",
+      "keywords": [
+        "cell",
+        "grow",
+        "repair",
+        "heal"
+      ]
+    },
+    "case": {
+      "p": "A person bends an elbow. What makes the forearm move?",
+      "o": [
+        "A muscle contracts and pulls on a bone through a tendon",
+        "The bone shortens by itself",
+        "The heart pushes the elbow",
+        "The skin becomes a tendon"
+      ],
+      "k": 0
+    },
+    "career": {
+      "p": "What does an orthopaedic specialist do?",
+      "answer": "Helps people with bones, joints and related muscles."
+    }
+  },
+  {
+    "id": 8,
+    "name": "Radiology",
+    "topic": "Medical imaging",
+    "reward": "Imaging console",
+    "hook": "How can doctors see inside the body without surgery?",
+    "teach": "Medical imaging creates pictures of the inside of the body. X-rays show bones well because dense bone blocks more X-rays than soft tissue. Ultrasound uses sound waves and can show movement inside the body. MRI uses a strong magnet and radio waves to create detailed pictures of soft tissues. CT uses X-rays to make cross-sectional images. Trained professionals choose the appropriate tool.",
+    "vocab": [
+      [
+        "imaging",
+        "making pictures of internal structures"
+      ],
+      [
+        "dense",
+        "tightly packed"
+      ],
+      [
+        "ultrasound",
+        "imaging with high-frequency sound"
+      ],
+      [
+        "MRI",
+        "imaging with magnets and radio waves"
+      ]
+    ],
+    "flow": [
+      "question",
+      "choose imaging tool",
+      "capture image",
+      "specialist interprets"
+    ],
+    "questions": [
+      {
+        "p": "Which tool uses sound waves?",
+        "o": [
+          "Ultrasound",
+          "X-ray",
+          "CT",
+          "MRI"
+        ],
+        "k": 0
+      },
+      {
+        "p": "Which tool often shows bones clearly?",
+        "o": [
+          "Microscope",
+          "X-ray",
+          "Stethoscope",
+          "Thermometer"
+        ],
+        "k": 1
+      },
+      {
+        "p": "Which tool uses a strong magnet and radio waves?",
+        "o": [
+          "CT",
+          "X-ray",
+          "MRI",
+          "Ultrasound"
+        ],
+        "k": 2
+      }
+    ],
+    "example": "A model scanner captures 5 images each minute. In 6 minutes it captures 30 images.",
+    "worked": "5 × 6 = 30 images",
+    "math": {
+      "p": "A simulated scanner captures 8 images per minute for 7 minutes. How many images?",
+      "answer": 56,
+      "unit": "images"
+    },
+    "writing": {
+      "starter": "Medical imaging is helpful because",
+      "keywords": [
+        "inside",
+        "picture",
+        "image",
+        "structure",
+        "bone"
+      ]
+    },
+    "case": {
+      "p": "A doctor needs a picture of a moving heart. Which taught technology can show movement using sound?",
+      "o": [
+        "Stethoscope",
+        "Thermometer",
+        "Microscope",
+        "Ultrasound"
+      ],
+      "k": 3
+    },
+    "career": {
+      "p": "What does a radiologist do?",
+      "answer": "Interprets medical images to help other healthcare professionals understand findings."
+    }
+  },
+  {
+    "id": 9,
+    "name": "Dermatology",
+    "topic": "Skin and protection",
+    "reward": "Skin model",
+    "hook": "Why do small cuts usually heal?",
+    "teach": "Skin is the body's largest organ and forms a protective barrier. It helps prevent many germs from entering, reduces water loss and helps control body temperature. Sweat can cool the body as it evaporates. Sensory receptors help us feel touch and temperature. When skin is injured, the body starts repair processes that can close small wounds.",
+    "vocab": [
+      [
+        "barrier",
+        "protective boundary"
+      ],
+      [
+        "evaporate",
+        "change from liquid to gas"
+      ],
+      [
+        "receptor",
+        "structure that detects information"
+      ],
+      [
+        "repair",
+        "fix damaged tissue"
+      ]
+    ],
+    "flow": [
+      "small injury",
+      "clot helps stop bleeding",
+      "repair cells work",
+      "skin heals"
+    ],
+    "questions": [
+      {
+        "p": "Which is a main function of skin?",
+        "o": [
+          "Pump blood",
+          "Digest food",
+          "Make urine",
+          "Protect the body"
+        ],
+        "k": 3
+      },
+      {
+        "p": "How does sweating help cool you?",
+        "o": [
+          "Sweat evaporates from the skin",
+          "Sweat makes bones colder",
+          "Sweat stops circulation",
+          "Sweat produces oxygen"
+        ],
+        "k": 0
+      },
+      {
+        "p": "What helps you detect touch?",
+        "o": [
+          "Villi",
+          "Sensory receptors",
+          "Kidneys",
+          "Alveoli"
+        ],
+        "k": 1
+      }
+    ],
+    "example": "A skin model has a surface 8 cm long and 4 cm wide. Area = 8 × 4 = 32 cm².",
+    "worked": "8 × 4 = 32 cm²",
+    "math": {
+      "p": "A rectangular skin model measures 6 cm by 5 cm. Find its area.",
+      "answer": 30,
+      "unit": "cm²"
+    },
+    "writing": {
+      "starter": "Skin helps protect the body by",
+      "keywords": [
+        "barrier",
+        "germ",
+        "protect",
+        "water"
+      ]
+    },
+    "case": {
+      "p": "Why does skin feel cooler as sweat dries?",
+      "o": [
+        "Blood stops moving",
+        "The bones absorb sweat",
+        "Evaporation removes heat",
+        "Skin stops being alive"
+      ],
+      "k": 2
+    },
+    "career": {
+      "p": "What does a dermatologist do?",
+      "answer": "Helps people with skin, hair and nail conditions."
+    }
+  },
+  {
+    "id": 10,
+    "name": "Immunology",
+    "topic": "Body defences",
+    "reward": "Immune model",
+    "hook": "How does your body remember some germs?",
+    "teach": "The immune system helps protect the body from harmful germs. Skin and mucus provide barriers. White blood cells recognize and respond to threats. Some immune cells make antibodies, proteins that recognize specific targets. Some cells remember a previous encounter, allowing faster responses later. Vaccines train immune responses without requiring the full disease.",
+    "vocab": [
+      [
+        "immune system",
+        "body defence network"
+      ],
+      [
+        "antibody",
+        "protein recognizing a specific target"
+      ],
+      [
+        "white blood cell",
+        "cell involved in defence"
+      ],
+      [
+        "vaccine",
+        "preparation that trains immune protection"
+      ]
+    ],
+    "flow": [
+      "barrier",
+      "immune recognition",
+      "response",
+      "immune memory"
+    ],
+    "questions": [
+      {
+        "p": "Which blood cells help defend against germs?",
+        "o": [
+          "Bone cells",
+          "Muscle cells",
+          "White blood cells",
+          "Red blood cells"
+        ],
+        "k": 2
+      },
+      {
+        "p": "What is an antibody?",
+        "o": [
+          "A bone joint",
+          "A digestive organ",
+          "A breathing muscle",
+          "A protein recognizing a specific target"
+        ],
+        "k": 3
+      },
+      {
+        "p": "How can a vaccine help?",
+        "o": [
+          "Train the immune system to recognize a threat",
+          "Replace all white blood cells",
+          "Destroy every germ forever",
+          "Stop digestion"
+        ],
+        "k": 0
+      }
+    ],
+    "example": "In a model group of 20 cells, 5 are highlighted. 5/20 = 1/4 = 25%.",
+    "worked": "5 ÷ 20 × 100 = 25%",
+    "math": {
+      "p": "In a model group of 40 cells, 10 are highlighted. What percentage is highlighted?",
+      "answer": 25,
+      "unit": "%"
+    },
+    "writing": {
+      "starter": "Immune memory is helpful because",
+      "keywords": [
+        "remember",
+        "faster",
+        "recognize",
+        "response"
+      ]
+    },
+    "case": {
+      "p": "A model shows the body's second response to a familiar germ is faster. Which idea explains it?",
+      "o": [
+        "Blood filtration",
+        "Immune memory",
+        "Digestion",
+        "Bone growth"
+      ],
+      "k": 1
+    },
+    "career": {
+      "p": "What does an immunologist do?",
+      "answer": "Studies the immune system and helps people with immune system conditions."
+    }
+  },
+  {
+    "id": 11,
+    "name": "Infectious Diseases",
+    "topic": "Microorganisms",
+    "reward": "Culture plate model",
+    "hook": "Are all microorganisms harmful?",
+    "teach": "Microorganisms include bacteria and some fungi. Viruses are tiny infectious agents that need host cells to reproduce. Many bacteria are harmless or helpful, including some in our digestive system. Some microorganisms cause disease. Washing hands helps reduce the spread of germs. Antibiotics treat certain bacterial infections, not viruses. Different living organisms contribute to biodiversity, the variety of life.",
+    "vocab": [
+      [
+        "microorganism",
+        "very small organism"
+      ],
+      [
+        "bacteria",
+        "single-celled organisms"
+      ],
+      [
+        "virus",
+        "infectious agent using host cells"
+      ],
+      [
+        "biodiversity",
+        "variety of life"
+      ]
+    ],
+    "flow": [
+      "germ reaches surface",
+      "hand contact",
+      "possible spread",
+      "handwashing reduces spread"
+    ],
+    "questions": [
+      {
+        "p": "Are all bacteria harmful?",
+        "o": [
+          "Bacteria are not found in people",
+          "No, some are helpful",
+          "Yes, all cause illness",
+          "Only those in food are harmful"
+        ],
+        "k": 1
+      },
+      {
+        "p": "Antibiotics treat certain infections caused by what?",
+        "o": [
+          "Broken bones",
+          "Allergies",
+          "Bacteria",
+          "Viruses"
+        ],
+        "k": 2
+      },
+      {
+        "p": "Which action can reduce germ spread?",
+        "o": [
+          "Sharing unwashed cups",
+          "Touching eyes with dirty hands",
+          "Ignoring hand hygiene",
+          "Washing hands"
+        ],
+        "k": 3
+      }
+    ],
+    "example": "A model dish shows 30 colonies before cleaning and 9 after. 30 − 9 = 21 fewer colonies.",
+    "worked": "30 − 9 = 21",
+    "math": {
+      "p": "A model has 48 colonies before cleaning and 12 afterward. How many fewer?",
+      "answer": 36,
+      "unit": "colonies"
+    },
+    "writing": {
+      "starter": "Some bacteria are helpful because",
+      "keywords": [
+        "digest",
+        "nutrient",
+        "gut",
+        "food",
+        "help"
+      ]
+    },
+    "case": {
+      "p": "A student says all germs are bacteria. Which correction is best?",
+      "o": [
+        "Viruses and some fungi can also cause infections",
+        "All germs are bones",
+        "Viruses are large animals",
+        "Bacteria are always harmful"
+      ],
+      "k": 0
+    },
+    "career": {
+      "p": "What does an infectious disease specialist do?",
+      "answer": "Helps investigate and manage infections."
+    }
+  },
+  {
+    "id": 12,
+    "name": "Medical Research",
+    "topic": "Scientific discovery and biodiversity",
+    "reward": "Research notebook",
+    "hook": "How do scientists discover which explanations are supported?",
+    "teach": "Medical researchers ask questions, collect evidence and compare results. In a fair test, researchers change one variable and keep other important conditions the same. Repeating measurements can make results more reliable. Biodiversity provides many organisms to study; some medicines have been inspired by substances found in nature. Evidence must be evaluated carefully before drawing conclusions.",
+    "vocab": [
+      [
+        "variable",
+        "factor that can change"
+      ],
+      [
+        "evidence",
+        "observations or data supporting an idea"
+      ],
+      [
+        "fair test",
+        "comparison controlling other factors"
+      ],
+      [
+        "biodiversity",
+        "variety of living things"
+      ]
+    ],
+    "flow": [
+      "question",
+      "plan fair test",
+      "collect data",
+      "compare",
+      "conclusion"
+    ],
+    "questions": [
+      {
+        "p": "What makes a comparison fair?",
+        "o": [
+          "Change one factor and keep other important conditions the same",
+          "Change every factor",
+          "Choose only favourite results",
+          "Never repeat measurements"
+        ],
+        "k": 0
+      },
+      {
+        "p": "Why repeat measurements?",
+        "o": [
+          "To change the question",
+          "To check reliability",
+          "To guarantee the desired result",
+          "To avoid recording data"
+        ],
+        "k": 1
+      },
+      {
+        "p": "What is biodiversity?",
+        "o": [
+          "A type of medicine",
+          "A single organ",
+          "Variety of living things",
+          "One kind of cell"
+        ],
+        "k": 2
+      }
+    ],
+    "example": "Four measurements are 4, 6, 8 and 10. Average = 28 ÷ 4 = 7.",
+    "worked": "(4+6+8+10) ÷ 4 = 7",
+    "math": {
+      "p": "Find the average of 5, 7, 9 and 11.",
+      "answer": 8,
+      "unit": "units"
+    },
+    "writing": {
+      "starter": "A fair test is important because",
+      "keywords": [
+        "fair",
+        "compare",
+        "variable",
+        "same",
+        "evidence"
+      ]
+    },
+    "case": {
+      "p": "Two groups grow plants with different amounts of light. What should stay the same?",
+      "o": [
+        "The amount of light",
+        "The final height",
+        "All results",
+        "Plant type, water and other conditions"
+      ],
+      "k": 3
+    },
+    "career": {
+      "p": "What does a medical researcher do?",
+      "answer": "Uses scientific evidence to improve understanding of health."
+    }
+  },
+  {
+    "id": 13,
+    "name": "Paediatrics",
+    "topic": "Growth and children's health",
+    "reward": "Growth chart",
+    "hook": "Why do children grow at different rates?",
+    "teach": "Children's bodies grow and change over time. Bones, muscles and organs develop, and the brain continues learning. Growth varies naturally between people. Sleep, food, movement and health all support development. Healthcare professionals look at patterns over time rather than judging health from a single number.",
+    "vocab": [
+      [
+        "development",
+        "changes as a person grows"
+      ],
+      [
+        "growth",
+        "increase in size"
+      ],
+      [
+        "pattern",
+        "repeated or changing trend"
+      ],
+      [
+        "measurement",
+        "finding a quantity"
+      ]
+    ],
+    "flow": [
+      "measure",
+      "record",
+      "compare over time",
+      "look for pattern"
+    ],
+    "questions": [
+      {
+        "p": "Why look at growth over time?",
+        "o": [
+          "To judge health from one number",
+          "To make everyone grow equally",
+          "To avoid measuring",
+          "To understand a pattern"
+        ],
+        "k": 3
+      },
+      {
+        "p": "Which supports healthy development?",
+        "o": [
+          "Sleep, food and movement",
+          "Skipping sleep",
+          "Avoiding all activity",
+          "Only drinking water"
+        ],
+        "k": 0
+      },
+      {
+        "p": "What is a growth chart used for?",
+        "o": [
+          "Replacing all medical care",
+          "Tracking measurements over time",
+          "Measuring heartbeats only",
+          "Identifying every disease"
+        ],
+        "k": 1
+      }
+    ],
+    "example": "A fictional child grows from 130 cm to 134 cm. Difference = 4 cm.",
+    "worked": "134 − 130 = 4 cm",
+    "math": {
+      "p": "A fictional child measures 142 cm then 146 cm. How much growth is recorded?",
+      "answer": 4,
+      "unit": "cm"
+    },
+    "writing": {
+      "starter": "A growth chart is helpful because",
+      "keywords": [
+        "pattern",
+        "track",
+        "time",
+        "growth",
+        "change"
+      ]
+    },
+    "case": {
+      "p": "Two children grow at different rates. What conclusion is reasonable from this alone?",
+      "o": [
+        "They must eat the same food",
+        "One cannot be healthy",
+        "Growth can vary naturally",
+        "One must be sick"
+      ],
+      "k": 2
+    },
+    "career": {
+      "p": "What does a paediatrician do?",
+      "answer": "Provides medical care for infants, children and adolescents."
+    }
+  },
+  {
+    "id": 14,
+    "name": "Family Medicine",
+    "topic": "Everyday health",
+    "reward": "Health planner",
+    "hook": "How do healthy habits support several body systems?",
+    "teach": "Family doctors provide ongoing care and help people prevent and manage health problems. Sleep supports the brain and body repair. Movement strengthens muscles and supports heart health. A varied diet supplies nutrients. Hygiene reduces the spread of germs. Healthcare decisions consider the whole person and reliable evidence, not a single symptom.",
+    "vocab": [
+      [
+        "prevention",
+        "reducing risk before problems occur"
+      ],
+      [
+        "habit",
+        "repeated behaviour"
+      ],
+      [
+        "balanced",
+        "including a useful variety"
+      ],
+      [
+        "evidence",
+        "information supporting a conclusion"
+      ]
+    ],
+    "flow": [
+      "observe",
+      "ask questions",
+      "gather information",
+      "plan care"
+    ],
+    "questions": [
+      {
+        "p": "Which habit supports the brain and body repair?",
+        "o": [
+          "Avoiding all movement",
+          "Staying awake every night",
+          "Adequate sleep",
+          "Skipping meals"
+        ],
+        "k": 2
+      },
+      {
+        "p": "Why is a varied diet useful?",
+        "o": [
+          "Makes every illness impossible",
+          "Replaces sleep",
+          "Stops the heart working",
+          "Provides different nutrients"
+        ],
+        "k": 3
+      },
+      {
+        "p": "Why does a family doctor ask questions about several body systems?",
+        "o": [
+          "Health involves the whole person",
+          "Only one organ matters",
+          "Questions replace all tests",
+          "Every symptom has one cause"
+        ],
+        "k": 0
+      }
+    ],
+    "example": "A fictional schedule has 20 minutes walking and 15 minutes cycling. Total = 35 minutes.",
+    "worked": "20 + 15 = 35 minutes",
+    "math": {
+      "p": "A fictional schedule has 25 minutes walking and 18 minutes cycling. How many total minutes?",
+      "answer": 43,
+      "unit": "minutes"
+    },
+    "writing": {
+      "starter": "Healthy habits support body systems by",
+      "keywords": [
+        "sleep",
+        "nutrient",
+        "movement",
+        "heart",
+        "repair"
+      ]
+    },
+    "case": {
+      "p": "A fictional patient has several concerns. What should a clinician do before drawing a conclusion?",
+      "o": [
+        "Choose the fastest explanation",
+        "Gather more information",
+        "Guess from one symptom",
+        "Ignore the patient's words"
+      ],
+      "k": 1
+    },
+    "career": {
+      "p": "What does a family doctor do?",
+      "answer": "Provides ongoing general medical care and helps coordinate other care."
+    }
+  },
+  {
+    "id": 15,
+    "name": "Emergency Medicine",
+    "topic": "Systems working together",
+    "reward": "Medical case file",
+    "hook": "How do body systems work together when someone exercises?",
+    "teach": "Emergency physicians assess urgent health concerns and work with other professionals. In our fictional cases, focus on body system connections, not diagnosing real people. During exercise, lungs bring oxygen in, blood carries oxygen, muscles use it and the nervous system coordinates movement. The body adjusts as needs change. Evidence and careful communication help professionals decide what information is needed.",
+    "vocab": [
+      [
+        "urgent",
+        "needing prompt attention"
+      ],
+      [
+        "coordinate",
+        "work together"
+      ],
+      [
+        "symptom",
+        "something a person experiences"
+      ],
+      [
+        "observation",
+        "something noticed or measured"
+      ]
+    ],
+    "flow": [
+      "observe",
+      "gather evidence",
+      "explain connections",
+      "communicate"
+    ],
+    "questions": [
+      {
+        "p": "Which systems deliver oxygen to muscles?",
+        "o": [
+          "Skeletal and skin only",
+          "Respiratory and circulatory",
+          "Digestive and skeletal only",
+          "Urinary and skin only"
+        ],
+        "k": 1
+      },
+      {
+        "p": "Which system coordinates movement?",
+        "o": [
+          "Urinary",
+          "Integumentary",
+          "Nervous",
+          "Digestive"
+        ],
+        "k": 2
+      },
+      {
+        "p": "What is a good first step in an educational case?",
+        "o": [
+          "Guess a diagnosis immediately",
+          "Ignore the evidence",
+          "Choose a medicine",
+          "Read observations carefully"
+        ],
+        "k": 3
+      }
+    ],
+    "example": "A fictional pulse is 80 bpm at rest and 120 bpm after activity. Increase = 120 − 80 = 40 bpm.",
+    "worked": "120 − 80 = 40 bpm",
+    "math": {
+      "p": "A fictional pulse is 76 bpm at rest and 136 bpm after activity. What is the increase?",
+      "answer": 60,
+      "unit": "bpm"
+    },
+    "writing": {
+      "starter": "During exercise, body systems work together because",
+      "keywords": [
+        "oxygen",
+        "blood",
+        "muscle",
+        "lung",
+        "heart",
+        "nerve"
+      ]
+    },
+    "case": {
+      "p": "A fictional athlete is breathing faster after exercise. Which explanation uses the evidence?",
+      "o": [
+        "Working muscles need more oxygen and produce more carbon dioxide",
+        "The athlete must have a serious disease",
+        "The kidneys stopped filtering",
+        "The heart no longer beats"
+      ],
+      "k": 0
+    },
+    "career": {
+      "p": "What does an emergency physician do?",
+      "answer": "Assesses urgent health concerns and works with a healthcare team."
+    }
+  }
+];
+
+(function(){
+const $=id=>document.getElementById(id), E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hospitalNames=["Discovery Medical Centre","Discovery Institute of Medicine","Discovery University Hospital","Summit Medical Centre","Horizon Medical Institute","Pinnacle Teaching Hospital","Legacy Medical Centre","Lotus Medical Institute","Unity University Hospital","Vanguard Medical Centre"],mottos=["Every Discovery Makes a Difference","Knowledge Saves Lives","Science with Compassion","Today's Learning. Tomorrow's Medicine","Dedicated to Discovery and Care","Innovation for a Healthier World"],qual=["Not particularly interested — this area is not for me.","Slightly interested — a few parts were interesting.","Interested — I enjoyed learning about this area.","Very interested — I would like to learn more.","Extremely interested — I loved it and could imagine exploring it as a future career."],reasons=["Learning how the body works","Examining medical images","Solving medical mysteries","Using medical equipment","Working with numbers and data","Helping people","Discovering scientific information","Understanding illnesses and injuries"];
+const labs=[{"title":"Microscope sample","teach":"Count cells in three equal-sized areas of a simulated slide. Equal areas make a fair comparison.","labels":["Area A","Area B","Area C"],"vals":[18,25,21],"unit":"cells","correct":"Area B","diff":7},{"title":"Exercise and recovery","teach":"A pulse usually rises during exercise and falls during recovery. The model shows a student's simulated heart rate.","labels":["Rest","Exercise","Recovery"],"vals":[72,144,90],"unit":"bpm","correct":"Exercise","diff":72},{"title":"Breathing after activity","teach":"Breathing usually increases during exercise because the body needs more oxygen and removes more carbon dioxide.","labels":["Rest","Walking","Running"],"vals":[15,22,34],"unit":"breaths/min","correct":"Running","diff":19},{"title":"Nutrition label comparison","teach":"These fictional snacks show fibre per equal-sized serving. Compare the same serving size; one nutrient alone cannot determine overall healthfulness.","labels":["Snack A","Snack B","Snack C"],"vals":[3,7,5],"unit":"g","correct":"Snack B","diff":4},{"title":"Measuring water","teach":"The kidneys regulate water balance. Here are model containers of water, not medical recommendations.","labels":["A","B","C"],"vals":[250,500,750],"unit":"mL","correct":"C","diff":500},{"title":"Reaction-time model","teach":"A millisecond is one thousandth of a second. These are three simulated measurements. A smaller reading means a faster reaction.","labels":["Trial A","Trial B","Trial C"],"vals":[310,250,280],"unit":"ms","correct":"Trial A","diff":60},{"title":"Bone model lengths","teach":"Bones have different sizes because they have different roles. These are plastic bone models.","labels":["A","B","C"],"vals":[12,28,19],"unit":"cm","correct":"B","diff":16},{"title":"Digital medical images","teach":"A megabyte (MB) is a unit of digital storage. File size does not tell us which medical image is most useful.","labels":["Image A","Image B","Image C"],"vals":[8,15,11],"unit":"MB","correct":"Image B","diff":7},{"title":"Skin surface model","teach":"Area measures surface size. These model patches have different areas in square centimetres.","labels":["Patch A","Patch B","Patch C"],"vals":[16,24,36],"unit":"cm²","correct":"Patch C","diff":20},{"title":"Immune cell model","teach":"These are counts of highlighted immune cells in simulated images. Counts alone cannot diagnose illness.","labels":["Image A","Image B","Image C"],"vals":[12,28,20],"unit":"cells","correct":"Image B","diff":16},{"title":"Cleaning experiment","teach":"The model shows counts of colonies in equal sample areas before and after cleaning. A lower count suggests fewer detectable microorganisms.","labels":["Before","After rinse","After wash"],"vals":[48,30,12],"unit":"colonies","correct":"Before","diff":36},{"title":"Repeat trials","teach":"Researchers repeat measurements to examine variation rather than rely on a single reading. All results should be recorded.","labels":["Trial A","Trial B","Trial C"],"vals":[10,14,12],"unit":"units","correct":"Trial B","diff":4},{"title":"Growth over time","teach":"A fictional growth record helps show a pattern. One measurement alone cannot determine health.","labels":["Year 1","Year 2","Year 3"],"vals":[130,136,141],"unit":"cm","correct":"Year 3","diff":11},{"title":"Activity log","teach":"A fictional activity log records minutes of movement. It is a maths exercise, not an exercise prescription.","labels":["Monday","Wednesday","Friday"],"vals":[25,35,20],"unit":"minutes","correct":"Wednesday","diff":15},{"title":"Integrated exercise case","teach":"In a simulated case, pulse rises and falls again as the participant rests. The numbers describe a pattern, not a diagnosis.","labels":["Before","After","Recovery"],"vals":[76,136,88],"unit":"bpm","correct":"After","diff":60}];const pictures={"1":["SEM blood cells.jpg","Scanning electron micrograph of blood cells; NCI, public domain"],"2":["Diagram of the Human Heart.jpg","Heart blood flow diagram; Natalieconstancehall, CC BY 4.0"],"3":["2301 Major Respiratory Organs.jpg","Respiratory anatomy; OpenStax College, CC BY 3.0"],"4":["Human Digestive Tract (NIH BioArt 212 - 657932).svg","Digestive anatomy; NIH BioArt via Wikimedia Commons"],"5":["Human Kidney (NIH BioArt 229).svg","Kidney illustration; NIH BioArt via Wikimedia Commons"],"8":["Normal posteroanterior (PA) chest radiograph (X-ray).jpg","Normal chest X-ray; Mikael Häggström, CC0"],"10":["SEM blood cells.jpg","Blood cells including a white blood cell; NCI, public domain"],"15":["Human Anatomy (NIH BioArt 519 - 657946).png","Human body systems; NIH BioArt via Wikimedia Commons"]};const mission=[{type:"setup",title:"Establish your hospital"},{type:"tools",title:"Medical tools training"}];for(const d of departments){let add=(type,title,extra={})=>mission.push({type,title,d,...extra});add("learn","Medical briefing");add("vocab","Medical vocabulary");add("order","Trace the process");d.questions.forEach((q,i)=>add("choice","Guided investigation "+(i+1),{q}));add("math","Medical mathematics");add("write","Clinical writing");add("choice","Patient investigation",{q:d.case});add("data","Medical data lab · extra investigation",{x:labs[d.id-1]});add("career","Career discovery and interest rating");}mission.push({type:"final",title:"Graduation and career portfolio"});
+const fresh=()=>({page:0,max:0,done:{},responses:{},ratings:{},ratingHistory:[],tools:{},flagged:[],hospital:"",motto:"",colour:"navy",seconds:0,started:false,finished:false,events:[],journal:"",help:false,stamp:0});let state=fresh(),teacher=false,preview=false,user=null,cloud=false,initialRead=false,unsub=null,photoUnsub=null,debounce=null,saving=false,pending=false,advanceTimer=null,saveTask=null,remote=null,active=false,lastTick=Date.now(),lastWrite=0,toolsPanel="",localPhoto="",pendingPhoto="",currentFeedback="",trialRef=false,trialHint=false,trialAway=false,trialReturn=false,calcTrial=false,toolStage=0,selectedOrder=[],writePhoto=false;
+let localKey="junior-medical-academy-local-v1";const clamp=n=>Math.max(0,Math.min(mission.length-1,Number(n)||0));
+function restore(v){let s={...fresh(),...(v||{})};s.page=clamp(s.page);s.max=clamp(s.max);return s}
+function record(){state.stamp=Date.now();try{localStorage.setItem(localKey,JSON.stringify(state));status("✓ Saved on this device · download backup before closing")}catch(e){status("Browser storage unavailable · download your backup before closing")}}function status(t){$("sync").textContent=t}function flush(){}
+function saveImmediate(){record();clearTimeout(debounce);flush()}
+function response(){return state.responses[state.page]||(state.responses[state.page]={attempts:[],hints:0,answer:"",unit:"",work:"",complete:false})}
+function event(t,detail){state.events.push({page:state.page,t,detail,at:Date.now()});if(state.events.length>1200)state.events.shift()}
+function cancelAdvance(){clearTimeout(advanceTimer);advanceTimer=null}
+function go(n){cancelAdvance();if(n<0||n>=mission.length||n>state.max)return;state.page=n;currentFeedback="";selectedOrder=[];toolsPanel="";$("panel").hidden=true;state.help=false;saveImmediate();render();window.scrollTo(0,0)}
+function complete(auto=false){state.done[state.page]=true;response().complete=true;state.max=Math.max(state.max,Math.min(state.page+1,mission.length-1));saveImmediate();refreshNav();$("next").disabled=state.page>=state.max||state.page===mission.length-1;if(auto){cancelAdvance();const p=state.page;advanceTimer=setTimeout(()=>{if(state.page===p&&!toolsPanel)go(p+1)},2400)}}
+function feedback(msg,kind="good"){currentFeedback=msg;$("feedback").className="feedback "+kind;$("feedback").textContent=msg}
+function checkAnswer(ok,answer,explain,hint,auto=false){let r=response();if(r.complete)return;r.attempts.push({answer,correct:ok,at:Date.now()});r.answer=answer;if(ok){feedback((r.attempts.length===1?"✓ Correct, Doctor! ":"✓ Excellent self-correction, Doctor! ")+explain);complete(auto)}else{feedback("Not quite, Doctor. "+(r.attempts.length>1?explain+" Review the briefing, then try again.":hint),"warn");record()}}
+function button(label,fn,cls=""){const b=document.createElement("button");b.type="button";b.className=cls;b.textContent=label;b.onclick=fn;return b}
+function photo(d){const a=pictures[d.id];if(!a)return "";const file=encodeURIComponent(a[0].replace(/ /g,"_"));return `<figure class="medicalPhoto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/${file}?width=800" alt="${E(a[1])}" onerror="this.hidden=true;this.nextElementSibling.hidden=false" onclick="this.classList.toggle(\'zoomed\')"><p hidden>Image temporarily unavailable. Use the labelled process and explanation below.</p><figcaption>${E(a[1])} · Click to zoom · <a href="https://commons.wikimedia.org/wiki/File:${file}" target="_blank" rel="noopener">Image source and licence</a></figcaption></figure>`}function info(d){return `<div class="brief"><h3>${E(d.hook)}</h3><p>${E(d.teach)}</p>${photo(d)}<div class="flow">${d.flow.map((x,i)=>`<span>${E(x)}</span>${i<d.flow.length-1?"<b>→</b>":""}`).join("")}</div><h3>Medical vocabulary</h3><dl>${d.vocab.map(v=>`<dt>${E(v[0])}</dt><dd>${E(v[1])}</dd>`).join("")}</dl></div>`}
+function ratingsHtml(s){return departments.filter(d=>s.ratings[d.id]).map(d=>`<div class="ratingrow"><b>${E(d.name)}</b><span class="stars">${"★".repeat(s.ratings[d.id])}${"☆".repeat(5-s.ratings[d.id])}</span><small>${E(qual[s.ratings[d.id]-1])}</small></div>`).join("")||"<p>No departments rated yet.</p>"}
+function badgeHtml(){return `<div class="idcard ${E(state.colour)}"><div class="idhead"><span class="cross">✚</span><div>${E(state.hospital||"Junior Medical Academy")}<small>${E(state.motto||"Medical education")}</small></div></div><div class="idbody">${localPhoto?`<img class="portrait" src="${localPhoto}" alt="Approved private portrait">`:`<div class="portrait placeholder"><svg viewBox="0 0 100 120" aria-label="Portrait pending"><rect width="100" height="120" fill="#e8edf1"/><circle cx="50" cy="40" r="23" fill="#8296a7"/><path d="M10 120V104Q10 68 50 68Q90 68 90 104V120" fill="#8296a7"/></svg></div>`}<div><h2>JUNIOR DOCTOR</h2><b>${state.finished?"Academy Graduate":Object.keys(state.ratings).length>=10?"Senior Medical Investigator":Object.keys(state.ratings).length>=5?"Medical Science Scholar":Object.keys(state.tools).length===4?"Junior Medical Investigator":"Medical Trainee"}</b><p>TRAINING ID · MED-0626</p><div class="barcode"></div></div></div><small>JUNIOR MEDICAL ACADEMY · EDUCATIONAL SIMULATION · NOT A CLINICAL CREDENTIAL</small></div>`}
+function refreshNav(){let m=mission[state.page];$("position").textContent=`Mission ${state.page+1} / ${mission.length} · ${m.d?.name||"Academy"}`;$("bar").style.width=100*(Object.keys(state.done).length+Object.values(state.responses).filter(v=>v.skipped&&!v.complete).length)/mission.length+"%";$("stats").textContent=`${Object.keys(state.done).length}/${mission.length} missions · ${Object.keys(state.ratings).length}/15 departments`;let nav=$("nav");nav.replaceChildren();for(let i=0;i<mission.length;i++){let b=button(String(i+1),()=>go(i),state.done[i]?"done":state.responses[i]?.skipped?"flagged":state.flagged.includes(i)?"flagged":i===state.page?"current":"");b.title=mission[i].title;b.disabled=i>state.max;b.setAttribute("aria-label",`Mission ${i+1}: ${mission[i].title}`);nav.append(b)}$("prev").disabled=state.page===0;$("next").disabled=state.page>=state.max||state.page===mission.length-1;$("flag").textContent=state.flagged.includes(state.page)?"Remove revisit flag":"Revisit / flag";$("backlog").innerHTML=state.flagged.length?state.flagged.map(p=>`<button data-go="${p}">Mission ${p+1}: ${E(mission[p].title)}</button>`).join(""):"<small>No flagged missions.</small>";$("backlog").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go))}
+function render(){if(!active)return;const m=mission[state.page],d=m.d,r=response(),el=$("content");refreshNav();$("department").textContent=d?d.name+" · "+d.topic:"Junior Medical Academy";$("title").textContent=m.title;$("feedback").textContent="";$("feedback").className="feedback";el.replaceChildren();let H=h=>el.insertAdjacentHTML("beforeend",h),B=(t,f,c)=>el.append(button(t,f,c));if(m.type==="setup"){H(`<h3>Welcome, Doctor!</h3><p>Choose your fictional teaching hospital and its motto. Your identification card will grow with your achievements.</p><label>Hospital name<select id="hospital"><option value="">Choose a hospital</option>${hospitalNames.map(v=>`<option ${v===state.hospital?"selected":""}>${E(v)}</option>`).join("")}</select></label><label>Hospital motto<select id="motto"><option value="">Choose a motto</option>${mottos.map(v=>`<option ${v===state.motto?"selected":""}>${E(v)}</option>`).join("")}</select></label><label>Badge colour<select id="colour">${["navy","teal","burgundy"].map(v=>`<option ${v===state.colour?"selected":""}>${v}</option>`).join("")}</select></label><div id="badgePreview">${badgeHtml()}</div>`);for(const k of ["hospital","motto","colour"])$(k).onchange=()=>{state[k]=$(k).value;$("badgePreview").innerHTML=badgeHtml();record()};B("Establish my hospital",()=>{if(!state.hospital||!state.motto){feedback("Choose a hospital name and motto first.","warn");return}feedback("✓ Your medical centre is established, Doctor!");complete()});}
+else if(m.type==="tools"){renderTools(el)}
+else if(m.type==="learn"){H(`<p class="lead">Doctor, today's mystery: ${E(d.hook)}</p>${info(d)}<p><b>Career connection:</b> ${E(d.career.answer)}</p><p>Read the briefing before moving on. You can reopen it whenever you need help.</p>`);B("Ready to practise",()=>{feedback("✓ Briefing complete. Let's put your knowledge to work.");complete();go(state.page+1)});}
+else if(m.type==="vocab"){let pair=d.vocab[1];H(`<p>Medical vocabulary helps you read and explain science. Review these terms.</p><dl>${d.vocab.map(v=>`<dt>${E(v[0])} <button class="tiny" data-say="${E(v[0])}">Listen</button></dt><dd>${E(v[1])}</dd>`).join("")}</dl><h3>Which term means “${E(pair[1])}”?</h3>`);el.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>{if("speechSynthesis"in window){let u=new SpeechSynthesisUtterance(b.dataset.say);u.lang="en-CA";speechSynthesis.speak(u)}else feedback("Audio is unavailable in this browser.","warn")});for(let v of d.vocab)B(v[0],()=>checkAnswer(v===pair,v[0],`${pair[0]} means ${pair[1]}.`,"Re-read the definitions above.",true),"option")}
+else if(m.type==="order"){H(`<p>Read the process in your briefing, then click the steps in the correct order. Use Undo if you need to change a step.</p><div id="orderSelected" class="flow"></div><div id="orderChoices" class="row"></div>`);selectedOrder=Array.isArray(r.orderIds)?r.orderIds.slice():[];function draw(){let order=$("orderSelected");order.innerHTML=selectedOrder.map(x=>`<span>${E(d.flow[x])}</span>`).join(" → ")||"<small>Click a step to begin.</small>";let box=$("orderChoices");box.replaceChildren();for(let i=d.flow.length-1;i>=0;i--){let b=button(d.flow[i],()=>{selectedOrder.push(i);r.orderIds=selectedOrder.slice();r.order=selectedOrder.map(x=>d.flow[x]);record();draw()},"outline");b.disabled=selectedOrder.includes(i)||r.complete;box.append(b)}}draw();B("Undo last step",()=>{if(!r.complete){selectedOrder.pop();r.orderIds=selectedOrder.slice();r.order=selectedOrder.map(x=>d.flow[x]);record();draw()}},"outline");B("Check sequence",()=>{if(selectedOrder.length!==d.flow.length){feedback("Select every step before checking.","warn");return}let values=selectedOrder.map(i=>d.flow[i]);checkAnswer(values.join("|")===d.flow.join("|"),values.join(" → "),`Correct sequence: ${d.flow.join(" → ")}.`,"Review the process in Reference, then use Undo to rearrange.",false)});}
+else if(m.type==="choice"){H(`<p class="lead">${E(m.q.p)}</p>${m.title==="Patient investigation"?'<p class="small">Fictional teaching case. Use evidence, not real-life diagnosis.</p>':""}`);for(let [i,o] of m.q.o.entries()){let b=button(o,()=>{checkAnswer(i===m.q.k,o,`The supported answer is ${m.q.o[m.q.k]}. ${d.teach}`,"Use the relevant information from the medical briefing or open Hint.",true);if(i===m.q.k)b.classList.add("selected")},"option");if(r.complete&&r.answer===o)b.classList.add("selected");el.append(b)}}
+else if(m.type==="math"){H(`<div class="brief"><h3>Worked example</h3><p>${E(d.example)}</p><b>${E(d.worked)}</b></div><p class="lead">${E(d.math.p)}</p><label>Numerical answer<input id="num" inputmode="decimal" value="${E(r.answer)}" placeholder="Type the number"></label><label>Unit of measurement<input id="unit" value="${E(r.unit)}" placeholder="e.g. ${E(d.math.unit)}"></label><label>How did you calculate it? (optional)<input id="work" value="${E(r.work)}" placeholder="Type the operation or steps"></label>`);for(const [id,key] of [["num","answer"],["unit","unit"],["work","work"]])$(id).oninput=()=>{r[key]=$(id).value;record()};B("Check my calculation",()=>{if(r.complete)return;let number=String(r.answer).trim(),unit=String(r.unit).trim();if(!number||!unit){feedback("Type both the numerical answer and its unit.","warn");return}let n=Number(number),norm=x=>x.toLowerCase().replace(/\s/g,"").replace(/²/g,"2"),a=Math.abs(n-d.math.answer)<1e-8,b=norm(unit)===norm(d.math.unit);if(a&&!b){r.attempts.push({answer:number+" "+unit,correct:false,partial:"number",at:Date.now()});feedback("✓ Your number is correct! Check the unit shown in the question.","warn");record();return}if(!a){r.attempts.push({answer:number+" "+unit,correct:false,at:Date.now()});feedback("Try the same method as the worked example, using the new numbers."+ (r.attempts.length>1?` The expected result is ${d.math.answer} ${d.math.unit}. Recheck your calculation.`:""),"warn");record();return}checkAnswer(true,number,`The result is ${d.math.answer} ${d.math.unit}.`, "",false)});}
+else if(m.type==="write"){H(`<div class="brief"><b>Sentence starter</b><p>${E(d.writing.starter)}...</p></div><label>Retype the starter and complete the sentence in your own words.<textarea id="writing" rows="5" placeholder="Retype the starter, then explain your idea.">${E(r.answer)}</textarea></label><p class="small">Helpful words: ${E(d.writing.keywords.join(" • "))}. Think about what the body part does and why it matters.</p>`);$("writing").oninput=()=>{r.answer=$("writing").value;record()};$("writing").onpaste=e=>{e.preventDefault();feedback("Please retype the starter and your own explanation.","warn")};B("Check my response",()=>{if(r.complete)return;let a=r.answer.trim(),start=d.writing.starter.toLowerCase();let rest=a.slice(start.length).trim(),hits=d.writing.keywords.filter(k=>rest.toLowerCase().includes(k));r.attempts.push({answer:a,correct:null,at:Date.now()});record();if(!a.toLowerCase().startsWith(start)||rest.split(/\s+/).length<4){feedback("Retype the starter exactly, then add at least four words explaining your idea.","warn");return}if(!hits.length){feedback("You've started your explanation. Compare it with the briefing. Can you include a relevant scientific idea? You may also save your own wording for teacher review.","warn");$("acceptWriting").hidden=false;return}feedback("✓ Your response includes relevant scientific vocabulary. Your teacher will review the accuracy and clarity of your full explanation.");complete()});let b=button("Save my explanation for teacher review",()=>{feedback("✓ Your explanation is saved for teacher review. You may continue.");complete()},"outline");b.id="acceptWriting";b.hidden=true;el.append(b)}
+else if(m.type==="data"){const x=m.x;H(`<div class="brief"><h3>${E(x.title)}</h3><p>${E(x.teach)}</p><p>Read the graph: the length of each bar shows the amount. The number gives the exact value.</p>${x.vals.map((v,i)=>`<div class="graphRow"><b>${E(x.labels[i])}</b><div class="graphTrack"><div style="width:${v/Math.max(...x.vals)*100}%"></div></div><span>${v} ${E(x.unit)}</span></div>`).join("")}<p><b>Math reminder:</b> For a difference, subtract the smallest value from the largest. Example: 25 − 15 = 10.</p></div><h3>1. Which label has the largest number?</h3><div id="dataChoice" class="row"></div><h3>2. Find the difference between the largest and smallest values.</h3><label>Numerical answer (${E(x.unit)})<input id="dataNum" inputmode="decimal" value="${E(r.dataNum||"")}" placeholder="Type the number"></label><h3>3. Explain your observation.</h3><label>Retype and finish: The graph shows that<textarea id="dataWrite" rows="3">${E(r.dataWrite||"")}</textarea></label><p>Use a number from the graph and explain what you noticed.</p>`);function drawChoices(){let z=$("dataChoice");z.replaceChildren();for(let a of x.labels)z.append(button(a,()=>{r.dataChoice=a;record();drawChoices();feedback(a===x.correct?"✓ Correct graph reading!":"Look at the labelled numbers again.",a===x.correct?"good":"warn")},r.dataChoice===a?"selected":"outline"))}drawChoices();$("dataNum").oninput=()=>{r.dataNum=$("dataNum").value;record()};$("dataWrite").oninput=()=>{r.dataWrite=$("dataWrite").value;record()};$("dataWrite").onpaste=e=>e.preventDefault();B("Check investigation",()=>{if(r.complete)return;let c=r.dataChoice===x.correct,n=String(r.dataNum||"").trim()!==""&&Number(r.dataNum)===x.diff,w=String(r.dataWrite||"").trim();r.attempts.push({answer:{choice:r.dataChoice||"",number:r.dataNum||"",writing:w},correct:c&&n,at:Date.now()});record();if(!c||!n){feedback((c?"✓ Graph choice correct. ":"Review the graph choice. ")+(n?"✓ Difference correct. ":"Subtract the lowest value from the highest."),"warn");return}if(!w.toLowerCase().startsWith("the graph shows that")||w.split(/\s+/).length<8){feedback("✓ Both data answers are correct. Retype the starter and finish your observation with a few more words.","warn");return}r.answer=w;r.skipped=false;feedback(`✓ Both data answers are correct! Difference: ${x.diff} ${x.unit}. Your writing is saved for teacher review.`);complete()});B("Skip extra investigation for now",()=>{r.skipped=true;state.max=Math.max(state.max,state.page+1);saveImmediate();go(state.page+1)},"outline")}else if(m.type==="career"){H(`<div class="brief"><h3>${E(d.name)}: a possible medical career</h3><p>${E(d.career.answer)}</p><p><b>Equipment earned:</b> ${E(d.reward)}</p></div><h3>How interested are you in this area, Doctor?</h3><p>There is no right or wrong answer. Your choice does not affect your academic score.</p><div id="starButtons" class="row stars"></div><div id="qualifier"></div><ol>${qual.map(x=>`<li>${E(x)}</li>`).join("")}</ol><h3>What did you enjoy? (optional)</h3><div id="reasons">${reasons.map((x,i)=>`<label class="check"><input type="checkbox" data-r="${i}" ${(r.reasons||[]).includes(i)?"checked":""}>${E(x)}</label>`).join("")}</div><label>Something I wonder about (optional)<textarea id="curiosity" rows="2">${E(r.curiosity||"")}</textarea></label><h3>Your previous career ratings</h3><div id="ratings">${ratingsHtml(state)}</div>`);let pick=state.ratings[d.id]||r.rating||0;function stars(){let box=$("starButtons");box.replaceChildren();for(let i=1;i<=5;i++){let b=button(i<=pick?"★":"☆",()=>{pick=i;r.rating=i;record();stars()},"star");b.setAttribute("aria-label",`${i} star${i===1?"":"s"}: ${qual[i-1]}`);b.setAttribute("aria-pressed",String(i===pick));box.append(b)}$("qualifier").textContent=pick?qual[pick-1]:"Click a star to choose your rating."}stars();el.querySelectorAll("[data-r]").forEach(b=>b.onchange=()=>{r.reasons=[...el.querySelectorAll("[data-r]:checked")].map(x=>+x.dataset.r);record()});$("curiosity").oninput=()=>{r.curiosity=$("curiosity").value;record()};B("Save my rating and unlock equipment",()=>{if(!pick){feedback("Choose one to five stars first.","warn");return}let firstRating=!state.ratings[d.id];if(state.ratings[d.id]!==pick)state.ratingHistory.push({department:d.name,rating:pick,at:Date.now()});state.ratings[d.id]=pick;r.rating=pick;feedback(`✓ Rating saved, Doctor! ${d.reward} unlocked. Your career portfolio has been updated.`);if(firstRating){let award=document.createElement("div");award.className="achievement";award.innerHTML=`<strong>MEDICAL EQUIPMENT UNLOCKED</strong><h2>${E(d.reward)}</h2><p>${E(d.name)} · training achievement</p>`;el.append(award);}$("ratings").innerHTML=ratingsHtml(state);complete()})}
+else if(m.type==="final"){H(`<h3>Congratulations, Doctor!</h3><p>Review the medical fields you have explored. Your ratings reflect your interests, not your ability or future career eligibility.</p>${badgeHtml()}<h3>Your career discovery portfolio</h3>${ratingsHtml(state)}<h3>Your medical equipment collection</h3><div class="equipment">${departments.filter(d=>state.ratings[d.id]).map(d=>`<span>${E(d.reward)}</span>`).join("")}</div><label>Retype and complete: The medical specialty that interested me the most was…<textarea id="reflection" rows="4">${E(r.answer)}</textarea></label>`);$("reflection").oninput=()=>{r.answer=$("reflection").value;record()};B("Complete my academy training",()=>{if(r.answer.trim().length<12){feedback("Write a short reflection before completing your training.","warn");return}state.finished=true;complete();feedback("✓ Academy complete, Doctor! Your portfolio and learning record are saved.");$("certificate").hidden=false});B("Print career portfolio",()=>window.print(),"outline");H(`<div id="certificate" ${state.finished?"":"hidden"} class="certificate"><h2>Junior Medical Academy</h2><p>Certificate of completion</p><h1>Doctor</h1><p>${E(state.hospital)}</p><p>15 areas of medical discovery · Educational simulation</p></div>`)}
+if(r.complete&&m.type!=="career"&&m.type!=="final"&&m.type!=="tools")feedback("✓ Completed. You may review this mission or continue.");
+}
+function renderTools(el){el.innerHTML=`<p>Try each real learning tool separately. Follow the exact instructions. A green check appears when you successfully complete a trial.</p><div class="row" id="trialTabs"></div><div id="trial"></div>`;const t=["Calculator","Reference","Hint","Revisit"];t.forEach((name,i)=>{$("trialTabs").append(button((state.tools[i]?"✓ ":"")+name,()=>{toolStage=i;renderTools(el)},state.tools[i]?"done":"outline"))});let box=$("trial"),mark=()=>{state.tools[toolStage]=true;record();feedback("✓ "+t[toolStage]+" training complete, Doctor!");if(Object.keys(state.tools).length===4)complete();renderTools(el)};if(toolStage===0){box.innerHTML="<h3>1. Calculator</h3><p>Click Calculator in the toolbar. Type <b>75*4</b> (the * means multiply), then press =. The display should show 300. Close the calculator. Type <b>300</b> below and check.</p><input id='trialAnswer' placeholder='Type 300'>";box.append(button("Check trial",()=>{if(calcTrial&&$("trialAnswer").value.trim()==="300")mark();else feedback("Use the actual calculator to calculate 75*4, then type 300 here.","warn")}))}
+else if(toolStage===1){box.innerHTML="<h3>2. Reference</h3><p>Click Reference in the toolbar. Read the orientation definition of cardiology. Close Reference. Type <b>heart</b> below.</p><input id='trialAnswer' placeholder='Type heart'>";box.append(button("Check trial",()=>{if(trialRef&&$("trialAnswer").value.trim().toLowerCase()==="heart")mark();else feedback("Open Reference first, then type heart.","warn")}))}
+else if(toolStage===2){box.innerHTML="<h3>3. Hint</h3><p>Click Hint in the toolbar and read the clue. Which organs let you breathe? Close Hint. Type <b>lungs</b> below.</p><input id='trialAnswer' placeholder='Type lungs'>";box.append(button("Check trial",()=>{if(trialHint&&$("trialAnswer").value.trim().toLowerCase()==="lungs")mark();else feedback("Open Hint and read the clue before entering lungs.","warn")}))}
+else{box.innerHTML="<h3>4. Revisit</h3><p>Click Revisit / flag in the toolbar to mark this mission. Click Previous to return to your hospital. Then click the flagged mission in the Revisit list. Click Remove revisit flag. You will earn your checkmark.</p>";if(state.tools[3])box.innerHTML+="<p>✓ You successfully returned to your flagged mission.</p>";}if(state.tools[toolStage])box.insertAdjacentHTML("beforeend","<p class='good'>✓ Trial completed.</p>");if(Object.keys(state.tools).length===4)box.append(button("Begin medical training",()=>go(state.page+1)))}
+function openPanel(kind){cancelAdvance();toolsPanel=kind;const m=mission[state.page],d=m.d;$("panel").hidden=false;$("panelTitle").textContent=kind;$("panelBody").replaceChildren();let p=$("panelBody");if(kind==="Calculator"){p.innerHTML='<label>Calculation<input id="expr" placeholder="e.g. 75*4" autocomplete="off"></label><div id="calcResult" class="calcresult" aria-live="polite"></div><div id="keys" class="keys"></div>';for(let k of ["7","8","9","÷","4","5","6","×","1","2","3","−","0",".","%","+","(",")","⌫","AC","="])$("keys").append(button(k,()=>{let e=$("expr");if(k==="="){evaluate()}else if(k==="AC"){e.value="";$("calcResult").textContent=""}else if(k==="⌫")e.value=e.value.slice(0,-1);else e.value+=k},"outline"));function evaluate(){let raw=$("expr").value;try{let result=calculate(raw);$("calcResult").textContent=String(result);if(m.type==="tools"&&raw.replace(/\s/g,"").replace(/×/g,"*")==="75*4"&&result===300)calcTrial=true}catch{$("calcResult").textContent="Check your calculation and try again."}}$("expr").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();evaluate()}}}
+else if(kind==="Reference"){if(m.type==="tools"){trialRef=true;p.innerHTML="<h3>Cardiology</h3><p>Medical care involving the heart and blood vessels.</p>"}else{p.innerHTML=d?info(d)+`<h3>Math reference</h3><p>${E(d.example)}<br>${E(d.worked)}</p>`:"<p>Choose a department to view its medical briefing.</p>"}}
+else if(kind==="Hint"){if(m.type==="tools"){trialHint=true;p.innerHTML="<p>These two organs fill with air when you breathe in.</p>"}else{response().hints++;record();let clue=m.type==="math"?`Use the method in this example: ${d.example} ${d.worked}`:m.type==="write"?`Review the role of the organ. Helpful words: ${d.writing.keywords.join(", ")}.`:m.type==="order"?`The process begins with ${d.flow[0]}. Open Reference to review the sequence.`:d?d.teach:"Read the instructions on this page.";p.innerHTML=`<p>${E(clue)}</p>`}}
+else if(kind==="Portfolio")p.innerHTML=badgeHtml()+ratingsHtml(state)+`<h3>Unlocked equipment</h3><div class="equipment">${departments.filter(d=>state.ratings[d.id]).map(d=>`<span>${E(d.reward)}</span>`).join("")}</div>`;else if(kind==="Journal"){p.innerHTML=`<label>What do you wonder about, Doctor?<textarea id="journal" rows="5">${E(state.journal)}</textarea></label>`;$("journal").oninput=()=>{state.journal=$("journal").value;record()}}}
+function calculate(raw){let s=raw.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/\s/g,"");let tokens=s.match(/\d+(?:\.\d*)?|\.\d+|[()+\-*/%]/g)||[];if(tokens.join("")!==s||tokens.length>100)throw Error("syntax");let i=0;function atom(){let x=tokens[i++],v;if(x==="+"||x==="-")v=(x==="-"?-1:1)*atom();else if(x==="("){v=sum();if(tokens[i++]!==")")throw Error("paren")}else if(x!==undefined&&/^(?:\d|\.)/.test(x))v=Number(x);else throw Error("number");while(tokens[i]==="%"){i++;v/=100}return v}function product(){let v=atom();while(["*","/"].includes(tokens[i])){let op=tokens[i++],b=atom();v=op==="*"?v*b:v/b}return v}function sum(){let v=product();while(["+","-"].includes(tokens[i])){let op=tokens[i++],b=product();v=op==="+"?v+b:v-b}return v}let v=sum();if(i!==tokens.length||!Number.isFinite(v))throw Error("invalid");return Number(v.toPrecision(12))}
+function start(s){state=restore(s);active=true;$("gate").hidden=true;$("student").hidden=false;$("teacher").hidden=true;$("account").hidden=false;$("exitPreview").hidden=!preview;render()}
+function download(name,body,type){const u=URL.createObjectURL(new Blob([body],{type})),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function csv(s){let rows=[["Mission","Department","Activity","Question","Response","Unit","Work","Attempts","Hints","Completed","Rating","Reasons","Curiosity"]];mission.forEach((m,i)=>{let r=s.responses?.[i]||{};rows.push([i+1,m.d?.name||"",m.type,m.q?.p||(m.type==="math"?m.d.math.p:m.type==="write"?m.d.writing.starter:m.title),r.answer||r.order?.join(" → ")||"",r.unit||"",r.work||(m.type==="data"?JSON.stringify({dataChoice:r.dataChoice||"",dataNum:r.dataNum||"",dataWrite:r.dataWrite||"",skipped:!!r.skipped}):""),JSON.stringify(r.attempts||[]),r.hints||0,!!s.done?.[i],m.type==="career"?s.ratings?.[m.d.id]||"": "",(r.reasons||[]).map(x=>reasons[x]).join("; "),r.curiosity||""])});return rows.map(row=>row.map(x=>'"'+String(x??"").replace(/^[=+\-@]/,"'$&").replace(/"/g,'""')+'"').join(",")).join("\r\n")}
+$("logout").onclick=()=>download("Medical-Academy-Responses.json",JSON.stringify(state,null,2),"application/json");$("prev").onclick=()=>{if(state.page===1&&state.flagged.includes(1))trialAway=true;go(state.page-1)};$("next").onclick=()=>go(state.page+1);$("flag").onclick=()=>{let p=state.page,had=state.flagged.includes(p);if(had)state.flagged=state.flagged.filter(x=>x!==p);else state.flagged.push(p);if(p===1&&had&&trialAway&&trialReturn){state.tools[3]=true;if(Object.keys(state.tools).length===4)complete();renderTools($("content"));feedback("✓ Revisit training complete, Doctor!")}record();refreshNav()};$("backlog").addEventListener("click",e=>{if(e.target.dataset.go==="1"&&trialAway)trialReturn=true},true);for(let [id,kind] of [["calc","Calculator"],["reference","Reference"],["hint","Hint"],["portfolio","Portfolio"],["journalBtn","Journal"]])$(id).onclick=()=>openPanel(kind);$("closePanel").onclick=()=>{$("panel").hidden=true;toolsPanel=""};$("pause").onclick=()=>{cancelAdvance();saveImmediate();$("pauseScreen").hidden=false;$("student").hidden=true;active=false};$("resume").onclick=()=>{$("pauseScreen").hidden=true;$("student").hidden=false;active=true;lastTick=Date.now();render()};$("help").onclick=()=>{state.help=true;saveImmediate();feedback("Your teacher has been notified through the dashboard if connected. You can review the briefing while you wait.","warn")};$("backup").onclick=()=>download("Medical-Academy-private-backup.json",JSON.stringify(state,null,2),"application/json");$("help").onclick=()=>feedback("Ask your teacher aloud if you need help; this practice version is not connected to a dashboard.","warn");$("backup").onclick=()=>download("Medical-Academy-Responses.json",JSON.stringify(state,null,2),"application/json");$("localCsv").onclick=()=>download("Medical-Academy-Responses.csv",csv(state),"text/csv");$("restoreLocal").onchange=async()=>{try{const file=$("restoreLocal").files[0];if(!file)return;const data=JSON.parse(await file.text());if(!data||typeof data.responses!=="object"||!Number.isInteger(data.page))throw Error("Invalid backup");start(data);record()}catch(e){status("Could not open this backup")}};let saved=null;try{saved=JSON.parse(localStorage.getItem(localKey)||"null")}catch{}start(saved);record();
+setInterval(()=>{let now=Date.now(),delta=Math.min(5,(now-lastTick)/1000);lastTick=now;if(active&&!preview&&!teacher&&!document.hidden&&!state.finished){state.seconds+=Math.max(0,delta);if(now-lastWrite>15000){if(!pending)record();flush()}}else if(pending&&!teacher&&!preview&&user)flush()},5000);document.addEventListener("visibilitychange",()=>{if(document.hidden&&active&&!teacher&&!preview)saveImmediate()});window.addEventListener("online",()=>{if(pending)flush()});
+})();</script></body></html>
