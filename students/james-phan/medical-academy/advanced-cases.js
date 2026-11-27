@@ -959,5 +959,245 @@ export const advancedCases = [
     "claim": "A convincing graph is enough evidence to prove every possible explanation.",
     "investigation": "Write a fair follow-up plan that distinguishes competing explanations and names a measurable outcome.",
     "audience": "A science fair judge evaluating a fictional medical model"
+  },
+  {
+    "id": 49,
+    "department": 3,
+    "title": "Integrated case: exercise and recovery",
+    "teach": "During activity, the heart, lungs and muscles cooperate to supply oxygen and release heat. Recovery readings vary with effort and the time of measurement. This fictional breathing-rate record is not a clinical assessment.",
+    "labels": [
+      "Before activity",
+      "Immediately after",
+      "After recovery"
+    ],
+    "values": [
+      16,
+      36,
+      20
+    ],
+    "unit": "breaths/min",
+    "claim": "The breathing rate returns to normal because the muscles no longer need any oxygen.",
+    "investigation": "Explain the relationship between exercise, respiration and circulation, and plan a fair comparison of two activity levels.",
+    "audience": "A student who is learning why they breathe faster after activity"
+  },
+  {
+    "id": 50,
+    "department": 9,
+    "title": "Integrated case: keeping the body cool",
+    "teach": "The skin helps exchange heat with the environment. Sweat evaporation and changes in blood flow near the skin can help regulate body temperature. Airflow and humidity influence evaporation.",
+    "labels": [
+      "Still dry air",
+      "Moving dry air",
+      "Moving humid air"
+    ],
+    "values": [
+      12,
+      24,
+      8
+    ],
+    "unit": "model cooling units",
+    "claim": "Sweating and skin blood flow are unrelated to circulation.",
+    "investigation": "Explain how skin and blood vessels work together and plan a fair model experiment comparing airflow and humidity.",
+    "audience": "A younger student wondering how the body cools itself"
+  },
+  {
+    "id": 51,
+    "department": 4,
+    "title": "Integrated case: energy from food",
+    "teach": "Digestion breaks large molecules into smaller ones, nutrients are absorbed and transported, and cells use nutrients to support their functions. A food-label comparison describes contents, not how much energy any individual needs.",
+    "labels": [
+      "Equal serving A",
+      "Equal serving B",
+      "Equal serving C"
+    ],
+    "values": [
+      15,
+      25,
+      35
+    ],
+    "unit": "g carbohydrate",
+    "claim": "Food moves directly from the stomach into muscle cells without being absorbed or transported.",
+    "investigation": "Explain the journey from digestion to circulation to cells; identify what other label information would help interpret the comparison.",
+    "audience": "A classmate learning why food provides energy"
+  },
+  {
+    "id": 52,
+    "department": 5,
+    "title": "Integrated case: sweating and water balance",
+    "teach": "The skin loses water through sweat and kidneys regulate water and dissolved substances. Water is also lost through breathing and other routes. A simple model is not personal hydration advice.",
+    "labels": [
+      "Cool model condition",
+      "Warm model condition",
+      "Hot model condition"
+    ],
+    "values": [
+      20,
+      50,
+      80
+    ],
+    "unit": "mL simulated water loss",
+    "claim": "Only the kidneys are involved when the body loses water during activity.",
+    "investigation": "Compare the roles of the skin and kidneys and design a model that accounts for multiple routes of water loss.",
+    "audience": "A student making a water-balance diagram"
+  },
+  {
+    "id": 53,
+    "department": 7,
+    "title": "Integrated case: the coordinated movement",
+    "teach": "The brain and spinal cord coordinate signals; motor nerves signal muscles, and muscles pull on bones through tendons. Joints allow movement. A model of repeated movement cannot diagnose strength or neurological function.",
+    "labels": [
+      "Trial A",
+      "Trial B",
+      "Trial C"
+    ],
+    "values": [
+      12,
+      18,
+      24
+    ],
+    "unit": "model movements per minute",
+    "claim": "Bones move independently of muscles and nerves.",
+    "investigation": "Trace a voluntary movement from a decision to the movement of a joint and plan a fair model comparison.",
+    "audience": "A student learning how a hand opens and closes"
+  },
+  {
+    "id": 54,
+    "department": 10,
+    "title": "Integrated case: skin and immune defence",
+    "teach": "Skin provides a protective barrier. If a barrier is damaged, immune responses may help protect the body; repair involves cells and blood supply. A classroom model does not establish wound severity or treatment.",
+    "labels": [
+      "Intact model barrier",
+      "Small model gap",
+      "Large model gap"
+    ],
+    "values": [
+      2,
+      8,
+      20
+    ],
+    "unit": "model particles passing",
+    "claim": "Skin and the immune system have no relationship to one another.",
+    "investigation": "Describe how a barrier and internal immune defences have different roles, then plan a safe model comparison using paper barriers.",
+    "audience": "A student learning why the body's defences work together"
+  },
+  {
+    "id": 55,
+    "department": 8,
+    "title": "Integrated case: imaging a moving system",
+    "teach": "Some imaging techniques can capture movement or show different structures. For example, ultrasound can display movement using sound echoes. An image is interpreted alongside other observations by professionals.",
+    "labels": [
+      "Frame A",
+      "Frame B",
+      "Frame C"
+    ],
+    "values": [
+      10,
+      25,
+      40
+    ],
+    "unit": "model displacement units",
+    "claim": "A single still image always explains how a moving organ functions.",
+    "investigation": "Describe what a sequence of images could reveal that a still image could not, and design a way to compare simulated frames.",
+    "audience": "A science fair visitor viewing a model of movement"
+  },
+  {
+    "id": 56,
+    "department": 1,
+    "title": "Integrated case: blood as a transport tissue",
+    "teach": "Blood contains several components with different roles, including red blood cells, white blood cells and plasma. Blood supports transport and other functions. Model counts cannot be used to determine whether an individual is healthy.",
+    "labels": [
+      "Model field A",
+      "Model field B",
+      "Model field C"
+    ],
+    "values": [
+      20,
+      25,
+      35
+    ],
+    "unit": "model red-cell count",
+    "claim": "Red blood cells perform every function of blood, including all immune defence.",
+    "investigation": "Compare two blood components and connect their roles to circulation and immunity. Describe how to compare equal microscope fields.",
+    "audience": "A student studying the components of blood"
+  },
+  {
+    "id": 57,
+    "department": 6,
+    "title": "Integrated case: interpreting a sleep-and-attention study",
+    "teach": "Sleep supports many aspects of brain function, and attention can affect task performance. A small fictional dataset cannot prove that one factor caused a change. Other factors such as practice and environment may matter.",
+    "labels": [
+      "Group A",
+      "Group B",
+      "Group C"
+    ],
+    "values": [
+      18,
+      24,
+      30
+    ],
+    "unit": "fictional task points",
+    "claim": "Three group scores prove exactly how much sleep every individual needs.",
+    "investigation": "Design a fair fictional study, identify two possible confounding variables, and explain why the dataset is not individual medical guidance.",
+    "audience": "A classmate evaluating a claim about study habits"
+  },
+  {
+    "id": 58,
+    "department": 12,
+    "title": "Medical ethics: privacy and evidence",
+    "teach": "Responsible scientific work protects participants' identities, obtains appropriate permission and reports findings honestly. Aggregated fictional data describe groups without identifying individuals.",
+    "labels": [
+      "Anonymous group A",
+      "Anonymous group B",
+      "Anonymous group C"
+    ],
+    "values": [
+      12,
+      18,
+      24
+    ],
+    "unit": "fictional responses",
+    "claim": "A scientist must publish every participant's name to make research trustworthy.",
+    "investigation": "Explain two ways to report results transparently while protecting privacy and design a consent-aware fictional survey.",
+    "audience": "A new member of a school research team"
+  },
+  {
+    "id": 59,
+    "department": 13,
+    "title": "Communication case: checking understanding",
+    "teach": "Clear health-science explanations use accurate simple language, allow questions and check understanding. A simulated comprehension score does not measure intelligence or determine a child's health.",
+    "labels": [
+      "Diagram only",
+      "Explanation only",
+      "Diagram plus explanation"
+    ],
+    "values": [
+      5,
+      7,
+      10
+    ],
+    "unit": "fictional comprehension points",
+    "claim": "If a child does not understand a medical word immediately, they cannot learn science.",
+    "investigation": "Design an accessible explanation using a diagram, a simple analogy and a teach-back question; explain how you would compare its effectiveness.",
+    "audience": "A younger learner who is nervous about medical vocabulary"
+  },
+  {
+    "id": 60,
+    "department": 15,
+    "title": "Final integrated investigation: the evidence conference",
+    "teach": "Scientific teams compare evidence, distinguish observations from interpretations, and explain uncertainty. A classroom clinical conference connects systems without making real diagnoses or treatment decisions.",
+    "labels": [
+      "First model trial",
+      "Second model trial",
+      "Third model trial"
+    ],
+    "values": [
+      24,
+      36,
+      30
+    ],
+    "unit": "fictional investigation points",
+    "claim": "One impressive measurement proves every explanation in a medical science report.",
+    "investigation": "Choose three body systems studied in the academy, explain how they interact, and propose a controlled investigation with measurable outcomes and clear limitations.",
+    "audience": "A panel of fictional supervising doctors and science teachers"
   }
 ];
