@@ -1,5 +1,5 @@
 // Educational game stations. All models and patients are fictional; no real diagnosis or treatment.
-import {adventureGames,adventureInitial,adventureBoard,mountAdventure} from './universe-adventures.js?v=2';
+import {adventureGames,adventureInitial,adventureBoard,mountAdventure} from './universe-adventures.js?v=3';
 export const universeGames=[
 {id:"micro",name:"Microscope Detective",icon:"🔬",unlock:13,dept:1,skill:"Scientific observation · counting",brief:"A technician needs your cell count. First adjust focus to make the field clear, then identify every red blood cell. A microscope makes specimens appear larger; focus makes details clearer.",badge:"Eagle Eye",prompt:"Focus the simulated field and tag all seven red blood cells.",explain:"The seven red discs are red blood cells. Purple cells and small gold fragments represent other structures."},
 {id:"heart",name:"Heart Engineer",icon:"❤️",unlock:24,dept:2,skill:"Sequencing · anatomy",brief:"Blood returning from the body enters the right side of the heart, goes to the lungs, returns to the left side and then travels to the body. Build the complete pathway.",badge:"Pathway Architect",prompt:"Assemble the circulation route from body back to body.",explain:"The right heart sends blood to the lungs; the left heart sends oxygen-rich blood to the body."},
