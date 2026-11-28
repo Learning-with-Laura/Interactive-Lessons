@@ -267,10 +267,36 @@ const raw={
       1500000,
       "Hive interior.jpg"
     ]
+  ],
+  "startercar": [
+    [
+      "2018 Toyota Corolla",
+      1400000,
+      "2018 Toyota Corolla, Front Right, 01-08-2021.jpg",
+      "SsmIntrigue"
+    ],
+    [
+      "2018 Honda Civic",
+      1650000,
+      "2018 Honda Civic EX, Front Left, 05-09-2021.jpg",
+      "SsmIntrigue"
+    ],
+    [
+      "2018 Mazda3",
+      1500000,
+      "2018 Mazda3 Sport, Front Left, 10-16-2020.jpg",
+      "SsmIntrigue"
+    ],
+    [
+      "2018 Subaru Crosstrek",
+      2100000,
+      "2018 Subaru Crosstrek.jpg",
+      "Coldstreamer20"
+    ]
   ]
 };
 export const lifeCatalogue=Object.fromEntries(Object.entries(raw).map(([category,rows])=>[category,rows.map(([name,cents,file,author],i)=>({id:category+"-"+i,name,cents,file,author:author||null,category}))]));
-export const lifeMilestones=[[13,1000,"candy","First payday"],[24,2500,"dessert","Celebrate your work"],[35,4000,null,"Build a savings habit"],[46,7000,null,"Plan your next purchase"],[57,15000,"skate","Skateboard shop"],[68,90000,"bike","Bicycle shop"],[79,180000,"tech","Technology store"],[90,100000,null,"Set aside money for the future"],[101,200000,null,"Plan a family experience"],[112,250000,null,"Save for a holiday"],[123,350000,"travel","Family getaway"],[134,500000,null,"Growing savings"],[145,650000,null,"Choose what matters"],[156,800000,null,"Plan ahead"],[167,1000000,null,"Long-term goals"],[168,2000000,null,"Foundation achievement"],[229,3500000,"travel","Family travel"],[271,9000000,"rv","Family motorhome showroom"],[300,11000000,null,"Build your future"],[340,9000000,null,"Savings milestone"],[370,10000000,null,"Compare long-term costs"],[400,12000000,null,"Clinical training payday"],[430,10000000,"travel","Family adventures"],[455,13000000,null,"Financial planning"],[470,10000000,"give","Support your community"],[480,12000000,null,"Research and community goals"],[490,14000000,null,"Innovation achievement"],[499,15000000,null,"Conference preparation"],[500,28000000,"car","Graduation auto showroom"],[550,30000000,"home","Choose your first home"],[600,20000000,"pool","Personalize your home"],[650,36000000,"car","Specialist auto showroom"],[700,42000000,"home","Dream home or retreat"],[750,25000000,"rv","Family road trip vehicle"],[800,32000000,"give","Support learning or accessibility"],[850,35000000,"travel","International family adventure"],[900,40000000,"give","Medical innovation and research"],[950,45000000,"give","Community legacy"],[1000,60000000,"give","Create a meaningful legacy"]].map(([mission,cents,shop,title])=>({mission,cents,shop,title,id:"pay-"+mission}));
+export const lifeMilestones=[[13,1000,"candy","First payday"],[24,2500,"dessert","Celebrate your work"],[35,4000,null,"Build a savings habit"],[46,7000,null,"Plan your next purchase"],[57,15000,"skate","Skateboard shop"],[68,90000,"bike","Bicycle shop"],[79,180000,"tech","Technology store"],[90,100000,null,"Set aside money for the future"],[101,200000,null,"Plan a family experience"],[112,250000,null,"Save for a holiday"],[123,350000,"travel","Family getaway"],[134,500000,null,"Growing savings"],[145,650000,null,"Choose what matters"],[156,800000,null,"Plan ahead"],[167,1000000,"startercar","Your first virtual car"],[168,2000000,null,"Foundation achievement"],[229,3500000,"travel","Family travel"],[271,9000000,"rv","Family motorhome showroom"],[300,11000000,null,"Build your future"],[340,9000000,null,"Savings milestone"],[370,10000000,null,"Compare long-term costs"],[400,12000000,null,"Clinical training payday"],[430,10000000,"travel","Family adventures"],[455,13000000,null,"Financial planning"],[470,10000000,"give","Support your community"],[480,12000000,null,"Research and community goals"],[490,14000000,null,"Innovation achievement"],[499,15000000,null,"Conference preparation"],[500,28000000,"car","Graduation auto showroom"],[550,30000000,"home","Choose your first home"],[600,20000000,"pool","Personalize your home"],[650,36000000,"car","Specialist auto showroom"],[700,42000000,"home","Dream home or retreat"],[750,25000000,"rv","Family road trip vehicle"],[800,32000000,"give","Support learning or accessibility"],[850,35000000,"travel","International family adventure"],[900,40000000,"give","Medical innovation and research"],[950,45000000,"give","Community legacy"],[1000,60000000,"give","Create a meaningful legacy"]].map(([mission,cents,shop,title])=>({mission,cents,shop,title,id:"pay-"+mission}));
 
 export function lifeLedger(s){return s.lifeJourney&&s.lifeJourney.version===1?s.lifeJourney:{version:1,pay:{},decisions:{},purchases:[]}}
 export function lifeTotals(s){const l=lifeLedger(s),earned=Object.values(l.pay).reduce((n,x)=>n+x.cents,0),spent=l.purchases.reduce((n,x)=>n+x.cents,0);return {earned,spent,balance:earned-spent}}
