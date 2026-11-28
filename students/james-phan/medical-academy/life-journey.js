@@ -322,7 +322,8 @@ const raw={
     [
       "Family aquarium visit",
       4500,
-      "Ripley's Aquarium of Canada.jpg"
+      "Ripley's Aquarium of Canada interior 2025.jpg",
+      "Canmenwalker"
     ],
     [
       "Niagara Falls boat adventure",
@@ -344,22 +345,22 @@ const raw={
     [
       "Guided forest treetop adventure",
       18000,
-      "Zip line.jpg"
+      "Center Parcs Woburn Forest 2019 05.jpg"
     ],
     [
       "Guided family canoe outing",
       15000,
-      "Canoeing in Algonquin Park.jpg"
+      "Canoeing in Algonquin Park, Canada.jpg"
     ],
     [
-      "Guided beginner mountain hike",
+      "Guided wilderness photography hike",
       20000,
-      "Hiking in the mountains.jpg"
+      "Summit Trail hikers.jpg"
     ],
     [
       "Family horseback riding lesson",
       22000,
-      "Horseback riding.jpg"
+      "Horseback riding through the paths.jpg"
     ]
   ],
   "familyfun": [
@@ -371,17 +372,17 @@ const raw={
     [
       "Indoor climbing lesson",
       14000,
-      "Indoor climbing.jpg"
+      "Child climbs a blue indoor climbing wall at a sport center.jpg"
     ],
     [
       "Family go-kart session",
       16000,
-      "Go-kart.jpg"
+      "Go-karts.jpg"
     ],
     [
       "Family ice-skating outing",
       6500,
-      "Ice skating.jpg"
+      "Ice Skating Rink in Malaga.jpg"
     ]
   ],
   "hobbies": [
@@ -420,7 +421,7 @@ const raw={
     [
       "Guided mountain summit hike",
       45000,
-      "Hiking in the Alps.jpg"
+      "Hiking Summit Trail.jpg"
     ],
     [
       "Tandem supervised paragliding experience (future adult)",
@@ -437,7 +438,7 @@ const raw={
     [
       "Vancouver Island whale-watching trip",
       300000,
-      "Orca whale watching.jpg"
+      "Orca whale watching, Port McNeill, BC.jpg"
     ],
     [
       "Québec City winter festival trip",
@@ -459,17 +460,17 @@ const raw={
     [
       "Kenya guided wildlife safari",
       1250000,
-      "Giraffes in Maasai Mara.jpg"
+      "Giraffe and zebra in Maasai Mara, Kenya.jpg"
     ],
     [
       "Iceland northern lights adventure",
       850000,
-      "Aurora borealis Iceland.jpg"
+      "039 Northern lights over Mývatn (Iceland) Photo by Giles Laurent.jpg"
     ],
     [
       "Australia Great Barrier Reef guided snorkelling",
       1400000,
-      "Great Barrier Reef snorkeling.jpg"
+      "Great Barrier Reef snorkeling 1.jpg"
     ]
   ],
   "exotic": [
