@@ -301,14 +301,16 @@ const raw={
       "Golden-retriever-1827903 1920.jpg"
     ],
     [
-      "Fluffy kitten",
+      "Fluffy Persian kitten",
       20000,
-      "Kitten in a Ricoh copier box.jpg"
+      "Persian-kitten.JPG",
+      "Mark Marek"
     ],
     [
-      "Lop-eared bunny",
+      "Floppy-eared bunny",
       10000,
-      "Pet rabbit.jpg"
+      "Lop bunny.jpg",
+      "Alexander Horn"
     ],
     [
       "Baby guinea pig",
@@ -319,22 +321,22 @@ const raw={
   "local": [
     [
       "Family aquarium visit",
-      12000,
+      4500,
       "Ripley's Aquarium of Canada.jpg"
     ],
     [
       "Niagara Falls boat adventure",
-      16000,
+      6000,
       "People in boat near Niagara Falls.jpg"
     ],
     [
       "Family zoo day",
-      10000,
+      4000,
       "Toronto Zoo entrance.jpg"
     ],
     [
       "Science museum adventure",
-      8000,
+      3500,
       "Ontario Science Centre.jpg"
     ]
   ],
@@ -413,7 +415,7 @@ const raw={
     [
       "Scenic helicopter tour with licensed pilot",
       85000,
-      "Helicopter tour.jpg"
+      "Grouse Mountain Helicopter Tour (44722392711).jpg"
     ],
     [
       "Guided mountain summit hike",
@@ -423,14 +425,14 @@ const raw={
     [
       "Tandem supervised paragliding experience (future adult)",
       55000,
-      "Paragliding.jpg"
+      "Paragliding tandem.jpg"
     ]
   ],
   "canada": [
     [
       "Rocky Mountains family adventure",
       420000,
-      "Lake Louise, Canada, Banff.jpg"
+      "Moraine Lake 17092005.jpg"
     ],
     [
       "Vancouver Island whale-watching trip",
@@ -480,17 +482,17 @@ const raw={
     [
       "Rolls-Royce Phantom",
       48000000,
-      "Rolls-Royce Phantom VIII.jpg"
+      "2019 Rolls-Royce Phantom VIII.jpg"
     ],
     [
       "Aston Martin DBS Superleggera",
       38000000,
-      "Aston Martin DBS Superleggera.jpg"
+      "2022 Aston Martin DBS Superleggera.jpg"
     ],
     [
       "Bentley Continental GT Speed",
       32000000,
-      "Bentley Continental GT Speed.jpg"
+      "2021 Bentley Continental GT Speed.jpg"
     ]
   ],
   "retreat": [
@@ -507,7 +509,7 @@ const raw={
     [
       "Mountain ski chalet",
       45000000,
-      "Chalet montagne.jpg"
+      "Swiss chalet.jpg"
     ],
     [
       "Countryside farmhouse retreat",
@@ -585,7 +587,7 @@ const raw={
     [
       "Microscopy research equipment",
       3500000,
-      "Binocular compound microscope.jpg"
+      "Electron microscope.jpg"
     ],
     [
       "Rehabilitation engineering research",
@@ -695,6 +697,10 @@ const raw={
 export const lifeCatalogue=Object.fromEntries(Object.entries(raw).map(([category,rows])=>[category,rows.map(([name,cents,file,author],i)=>({id:category+"-"+i,name,cents,file,author:author||null,category}))]));
 export const lifeMilestones=[[13,1000,"candy","Choose your first candy"],[24,2500,"dessert","Choose a delicious dessert"],[35,4000,"local","Make a family memory"],[46,7000,null,"Save for something special"],[57,15000,"skate","Choose your skateboard"],[68,90000,"bike","Choose your bicycle"],[79,180000,"tech","Technology and gaming"],[90,100000,"pet","Adopt and name your adorable pet"],[101,200000,"hobbies","Discover a new hobby"],[112,250000,"familyfun","Family fun day"],[123,350000,"outdoors","Outdoor adventure day"],[134,500000,null,"Save towards independence"],[145,650000,"celebrate","Treat your family to a celebration"],[156,800000,null,"Plan your first vehicle"],[167,1000000,"startercar","Buy your first car"],[168,2000000,null,"Foundation savings bonus"],[200,300000,"sky","Adventure of a lifetime"],[229,3500000,"canada","Explore Canada with your family"],[271,9000000,"rv","Choose your family Winnebago"],[300,11000000,null,"Build your future fund"],[340,9000000,null,"Save for a long-term goal"],[370,10000000,null,"Plan ownership costs"],[400,12000000,null,"Clinical training savings"],[430,10000000,"worldtrip","Once-in-a-lifetime family trip"],[455,13000000,null,"Plan for financial independence"],[470,10000000,"community","Make your community better"],[480,12000000,null,"Build your research and giving fund"],[490,14000000,null,"Save for graduation"],[499,15000000,null,"Conference achievement bonus"],[500,28000000,"car","Buy your dream supercar"],[550,30000000,"home","Choose your first home"],[600,20000000,"pool","Design your dream swimming pool"],[650,36000000,"exotic","Exclusive exotic and luxury car collection"],[700,42000000,"retreat","Choose a family holiday retreat"],[750,25000000,"roadtrip","Extraordinary family journeys"],[800,32000000,"learning","Give someone a learning opportunity"],[850,35000000,"homefun","Customize your home entertainment space"],[900,40000000,"research","Support medical and scientific research"],[950,45000000,"legacy","Create a lasting community project"],[1000,60000000,"impact","Choose your medical legacy"]].map(([mission,cents,shop,title])=>({mission,cents,shop,title,id:"pay-"+mission}));
 
+export const lifeGoals={"46":["Save for sports equipment","Save for a family outing","Save for a pet","Keep an emergency fund"],"134":["First car fund","Future learning fund","Family vacation fund","Community giving fund"],"156":["Reliable first vehicle","Vehicle maintenance reserve","Road trip fund","Keep savings available"],"168":["Future independence","Education and training","Family time","Help my community"],"300":["Home down payment goal","Future car goal","Family travel fund","Medical learning fund"],"340":["Emergency savings","Long-term home goal","Skills and education","Support family"],"370":["Home maintenance fund","Vehicle insurance and maintenance","Pet care reserve","Future travel budget"],"400":["Future home","Graduation celebration","Further education","Community service"],"455":["Long-term savings","Future living expenses","Family emergency fund","Generosity budget"],"480":["Community health","Scientific equipment","Education access","Save for future decisions"],"490":["Graduation family meal","Future supercar","Home savings","Research giving"],"499":["Celebrate graduation later","Keep money for a home","Share a family experience","Save for future goals"]};
+export const experienceCategories=["travel","local","outdoors","familyfun","sky","canada","worldtrip","roadtrip","celebrate"];
+export const contributionCategories=["give","community","learning","research","legacy","impact"];
+export const vehicleCategories=["startercar","car","rv","exotic"];
 export function lifeLedger(s){return s.lifeJourney&&s.lifeJourney.version===1?s.lifeJourney:{version:1,pay:{},decisions:{},purchases:[]}}
 export function lifeTotals(s){const l=lifeLedger(s),earned=Object.values(l.pay).reduce((n,x)=>n+x.cents,0),spent=l.purchases.reduce((n,x)=>n+x.cents,0);return {earned,spent,balance:earned-spent}}
 export function reconcileLife(s,eligible,now=Date.now()){const was=s.lifeJourney?.version===1;if(!was)s.lifeJourney=lifeLedger(s);const l=s.lifeJourney;let changed=!was;for(const m of lifeMilestones){if(eligible.has(m.mission)&&!Object.hasOwn(l.pay,m.id)){l.pay[m.id]={cents:m.cents,at:now,ack:false};changed=true}}return changed}
